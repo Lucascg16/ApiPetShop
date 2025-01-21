@@ -6,6 +6,7 @@
         Dog,
         Cat,
         Fish,
-        Bird
+        Bird,
+        Rodent
     }
 }

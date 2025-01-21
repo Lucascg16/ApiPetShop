@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ApiPetShop.Domain.Models
+namespace ApiPetShop.Domain
 {
     public class ModelBase
     {

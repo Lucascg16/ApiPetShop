@@ -1,6 +1,6 @@
 ﻿using ApiPetShop.Domain.Enum;
 
-namespace ApiPetShop.Domain.Models
+namespace ApiPetShop.Domain
 {
     public class VetServiceModel : ModelBase
     {

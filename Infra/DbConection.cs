@@ -1,4 +1,4 @@
-﻿using ApiPetShop.Domain.Models;
+﻿using ApiPetShop.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiPetShop.Infra

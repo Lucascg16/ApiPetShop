@@ -1,4 +1,4 @@
-﻿namespace ApiPetShop.Domain.Models
+﻿namespace ApiPetShop.Domain
 {
     public class VacineModel
     {
