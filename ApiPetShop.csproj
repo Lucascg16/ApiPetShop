@@ -20,6 +20,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="Infra\Interfaces\" />
     <Folder Include="Infra\Services\" />
+    <Folder Include="Angular\" />
   </ItemGroup>
 
 </Project>
