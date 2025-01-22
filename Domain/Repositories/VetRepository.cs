@@ -9,6 +9,7 @@ namespace ApiPetShop.Domain
         public async Task CreateService(VetServiceModel service)
         {
             await _db.VetServices.AddAsync(service);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<List<VetServiceModel>> GetAllPetServices()
@@ -24,6 +25,7 @@ namespace ApiPetShop.Domain
         public void Update(VetServiceModel service)
         {
             _db.VetServices.Update(service);
+            _db.SaveChanges();
         }
     }
 }

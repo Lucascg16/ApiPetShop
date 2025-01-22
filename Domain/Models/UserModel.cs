@@ -19,17 +19,26 @@ namespace ApiPetShop.Domain
             Role = role;
         }
 
+        public UserModel(CreateUserModel user)
+        {
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Email = user.Email;
+            Password = user.Password;
+            Role = user.Role;
+        }
+
         public UserModel(){ }
 
-        public void UpdateUser(string fName, string lName, string email)
+        public void UpdateUser(UpdateUserModel user)
         {
-            FirstName = fName;
-            LastName = lName;
-            Email = email;
+            FirstName = user.FirstName;
+            LastName = user.LastName;
+            Email = user.Email;
             UpdateModel();
         }
 
-        public void UpdatePassWord(string pass)
+        public void UpdatePassword(string pass)
         {
             Password = pass;
             UpdateModel();

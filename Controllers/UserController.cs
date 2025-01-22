@@ -13,27 +13,87 @@ namespace ApiPetShop.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _userServices.GetAllUsers());
+            try
+            {
+                return Ok(await _userServices.GetAllUsers());
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _userServices.GetUserById(id));
+            try
+            {
+                var user = await _userServices.GetUserByIdDto(id);
+                if(user.Id == 0)
+                    return NotFound();
+
+                return Ok(user);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(UserModel user)
+        public async Task<IActionResult> Create(CreateUserModel user)
         {
-            await _userServices.CreateUser(user);
-            return Ok();
+            try
+            {
+                await _userServices.CreateUser(user);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPatch]
-        public IActionResult Update(UserModel user)
+        public IActionResult Update(UpdateUserModel user)
         {
-            _userServices.UpdateUser(user);
-            return Ok();
+            try
+            {
+                _userServices.UpdateUser(user);
+                return Ok();
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPatch("password")]
+        public async Task<IActionResult> UpdatePass(UpdatePasswordModel update)
+        {
+            try
+            {
+                await _userServices.UpdatePassword(update);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser(int id)
+        {
+            try
+            {
+                await _userServices.DeleteUser(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

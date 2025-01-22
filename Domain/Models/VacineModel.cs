@@ -1,6 +1,6 @@
 ﻿namespace ApiPetShop.Domain
 {
-    public class VacineModel
+    public record VacineModel
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
