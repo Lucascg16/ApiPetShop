@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiPetShop.Migrations
 {
-    [DbContext(typeof(DbConection))]
+    [DbContext(typeof(Infra.DbConnectionContext))]
     [Migration("20250120235833_initialMigration")]
     partial class initialMigration
     {

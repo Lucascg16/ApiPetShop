@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiPetShop.Migrations
 {
-    [DbContext(typeof(DbConection))]
+    [DbContext(typeof(Infra.DbConnectionContext))]
     partial class DbConectionModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

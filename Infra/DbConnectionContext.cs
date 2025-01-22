@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ApiPetShop.Infra
 {
-    public class DbConection : DbContext
+    public class DbConnectionContext : DbContext
     {
-        public DbConection(DbContextOptions<DbConection> options) : base(options) { }
+        public DbConnectionContext(DbContextOptions<DbConnectionContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DbConection).Assembly);
+            modelBuilder.ApplyConfigurationsFromAssembly(typeof(DbConnectionContext).Assembly);
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<VetServiceModel>()
