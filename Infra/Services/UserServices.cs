@@ -17,9 +17,14 @@ namespace ApiPetShop.Infra
             return await _repository.GetAllUsers();
         }
 
-        public Task<UserDto> GetUserByIdDto(int id)
+        public async Task<UserDto> GetUserByIdDto(int id)
         {
-            return _repository.GetUserByIdDto(id);
+            return await _repository.GetUserByIdDto(id);
+        }
+
+        public async Task<UserModel> GetUserByEmail(string email)
+        {
+            return await _repository.GetUserByEmail(email);
         }
 
         public async Task UpdateUser(UpdateUserModel nUser)

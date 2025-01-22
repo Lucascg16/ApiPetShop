@@ -6,6 +6,7 @@
         void UpdateUser(UserModel user);
         Task<List<UserDto>> GetAllUsers();
         Task<UserModel> GetUserById(int id);
+        Task<UserModel> GetUserByEmail(string email);
         Task<UserDto> GetUserByIdDto(int id);
     }
 }

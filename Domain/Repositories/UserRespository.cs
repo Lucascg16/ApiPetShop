@@ -30,6 +30,11 @@ namespace ApiPetShop.Domain
             return _mapper.Map<UserDto>(await _db.Users.FindAsync(id)) ?? new();
         }
 
+        public async Task<UserModel> GetUserByEmail(string email)
+        {
+            return await _db.Users.Where(x => x.Email == email).FirstOrDefaultAsync() ?? new();
+        }
+
         public void UpdateUser(UserModel user)
         {
             _db.Users.Update(user);
