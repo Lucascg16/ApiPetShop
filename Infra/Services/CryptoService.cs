@@ -3,9 +3,8 @@ using System.Text;
 
 namespace ApiPetShop.Infra
 {
-    public class CryptoService(IConfiguration config) : ICryptoService
+    public class CryptoService : ICryptoService
     {
-        private readonly IConfiguration _configuration = config;
         private readonly string Key = "VhObgvki4PEn8u5J";
         private readonly string IV = "IgEwwq7sW9bhZrza";
 

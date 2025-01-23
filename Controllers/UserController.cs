@@ -1,9 +1,11 @@
 ﻿using ApiPetShop.Domain;
 using ApiPetShop.Infra;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPetShop.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v1/users")]
     public class UserController(IUserServices services) : ControllerBase
