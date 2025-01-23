@@ -6,8 +6,8 @@ namespace ApiPetShop.Infra
     public class CryptoService(IConfiguration config) : ICryptoService
     {
         private readonly IConfiguration _configuration = config;
-        private readonly string Key = "";
-        private readonly string IV = "";
+        private readonly string Key = "VhObgvki4PEn8u5J";
+        private readonly string IV = "IgEwwq7sW9bhZrza";
 
         public string Encrypt(string input)
         {
