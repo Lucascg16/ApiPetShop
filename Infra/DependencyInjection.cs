@@ -16,7 +16,7 @@ namespace ApiPetShop.Infra
             services.AddScoped<IVetServices, VetServices>();
             services.AddScoped<IPetServices, PetServices>();
             services.AddScoped<ITokenService, TokenService>();
-
+            services.AddScoped<ICryptoService, CryptoService>();
 
             //Repositories
             services.AddScoped<IUserRepository, UserRespository>();

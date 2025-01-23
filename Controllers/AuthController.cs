@@ -29,5 +29,21 @@ namespace ApiPetShop.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("generatePassToken")]
+        public async Task<IActionResult> GeneratePassToken(string email)
+        {
+            try
+            {
+                var userDataBase = await _userServices.GetUserByEmail(email);
+                if (userDataBase.Id == 0) return Unauthorized();
+
+                return Ok(_tokenService.GenerateToken(userDataBase, 3));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
