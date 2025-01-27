@@ -85,7 +85,7 @@ else
     app.UseExceptionHandler("/error");
 }
 
-//Utilities.MigrationInicialization(app);
+Utilities.MigrationInicialization(app);
 
 app.UseHttpsRedirection();
 

@@ -2,6 +2,7 @@
 using ApiPetShop.Infra;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ApiPetShop.Controllers
 {
@@ -43,11 +44,16 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserModel user)
+        public async Task<IActionResult> Create(CreateUserModel nUser)
         {
             try
             {
-                await _userServices.CreateUser(user);
+                var userVerify = await _userServices.GetUserByEmail(nUser.Email);
+
+                if (userVerify.Id != 0) return Unauthorized("Email já cadastrado");
+                if (nUser is null) return BadRequest();
+
+                await _userServices.CreateUser(nUser);
                 return Ok();
             }
             catch (Exception ex)

@@ -47,25 +47,5 @@ namespace ApiPetShop.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [Authorize]
-        [HttpPost("createUser")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserModel nUser)
-        {
-            try
-            {
-                var userVerify = await _userServices.GetUserByEmail(nUser.Email);
-                if(userVerify.Id != 0) return Unauthorized("Email já cadastrado");
-
-                if (nUser is null) return BadRequest();
-
-                await _userServices.CreateUser(nUser);
-                return Ok();
-            }
-            catch (Exception ex) 
-            {
-                return BadRequest(ex.Message);
-            }
-        }
     }
 }

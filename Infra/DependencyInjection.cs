@@ -1,5 +1,4 @@
 ﻿using ApiPetShop.Domain;
-using ApiPetShop.Infra.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Data.Common;
 
@@ -10,9 +9,7 @@ namespace ApiPetShop.Infra
         public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("A string de conexão não foi encontrada, favor verificar o appsettings.");
-            connectionString = DecryptConnectionPassword(connectionString);
-
-            services.AddDbContext<DbConnectionContext>(opt => opt.UseSqlServer(connectionString));
+            services.AddDbContext<DbConnectionContext>(opt => opt.UseSqlServer(DecryptConnectionPassword(connectionString)));
 
             //Services
             services.AddScoped<IUserServices, UserServices>();

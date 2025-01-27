@@ -29,6 +29,7 @@ namespace ApiPetShop.Domain
         }
 
         public UserModel(){ }
+        public void DeleteUser() => DeleteFlag();
 
         public void UpdateUser(UpdateUserModel user)
         {
@@ -48,11 +49,6 @@ namespace ApiPetShop.Domain
         {
             Role = nRole;
             UpdateModel();
-        }
-
-        public void DeleteUser() 
-        {
-            DeleteFlag();
         }
     }
 }

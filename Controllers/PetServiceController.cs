@@ -15,27 +15,72 @@ namespace ApiPetShop.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _services.GetAllPetServices());
+            try
+            {
+                return Ok(await _services.GetAllPetServices());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await _services.GetServiceById(id));
+            try
+            {
+                var service = await _services.GetServiceById(id);
+                if (service.Id == 0) return NotFound();
+
+                return Ok(service);
+            }
+            catch (Exception ex) 
+            {
+                return BadRequest(ex.Message);  
+            }
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PetServiceModel service)
+        public async Task<IActionResult> Create(CreatePetServiceModel service)
         {
-            await _services.CreateService(service);
-            return Ok();
+            try
+            {
+                await _services.CreateService(service);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPatch]
-        public IActionResult Update(PetServiceModel service) 
+        public async Task<IActionResult> Update(UpdatePetService service) 
         {
-            _services.Update(service);
-            return Ok();
+            try
+            {
+                await _services.Update(service);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id) 
+        {
+            try
+            {
+                await _services.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

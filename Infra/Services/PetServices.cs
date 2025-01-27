@@ -1,28 +1,26 @@
 ﻿using ApiPetShop.Domain;
 
-namespace ApiPetShop.Infra.Services
+namespace ApiPetShop.Infra
 {
     public class PetServices(IPetRepository repository) : IPetServices
     {
         private readonly IPetRepository _repository = repository;
 
-        public async Task CreateService(PetServiceModel service)
+        public async Task<List<PetServiceDto>> GetAllPetServices() => await _repository.GetAllPetServices();
+        public async Task<PetServiceDto> GetServiceById(int id) => await _repository.GetServiceByIdDto(id);
+        public async Task CreateService(CreatePetServiceModel service) => await _repository.CreateService(new(service));
+
+        public async Task Update(UpdatePetService nService)
         {
-            await _repository.CreateService(service);
+            var service = await _repository.GetServiceById(nService.Id);
+            service.UpdateService(nService);
+            _repository.Update(service);
         }
 
-        public async Task<List<PetServiceModel>> GetAllPetServices()
+        public async Task Delete(int id)
         {
-            return await _repository.GetAllPetServices();
-        }
-
-        public async Task<PetServiceModel> GetServiceById(int id)
-        {
-            return await _repository.GetServiceById(id);
-        }
-
-        public void Update(PetServiceModel service)
-        {
+            var service = await _repository.GetServiceById(id);
+            service.DeletePetService();
             _repository.Update(service);
         }
     }

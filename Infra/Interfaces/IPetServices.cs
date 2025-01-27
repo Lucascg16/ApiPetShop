@@ -4,9 +4,10 @@ namespace ApiPetShop.Infra
 {
     public interface IPetServices
     {
-        Task CreateService(PetServiceModel service);
-        Task<List<PetServiceModel>> GetAllPetServices();
-        Task<PetServiceModel> GetServiceById(int id);
-        void Update(PetServiceModel service);
+        Task CreateService(CreatePetServiceModel service);
+        Task<List<PetServiceDto>> GetAllPetServices();
+        Task<PetServiceDto> GetServiceById(int id);
+        Task Update(UpdatePetService nService);
+        Task Delete(int id);
     }
 }

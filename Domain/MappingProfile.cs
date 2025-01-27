@@ -7,6 +7,7 @@ namespace ApiPetShop.Domain
         public MappingProfile() 
         {
             CreateMap<UserDto, UserModel>().ReverseMap();
+            CreateMap<PetServiceDto, PetServiceModel>().ReverseMap();
         }
     }
 }
