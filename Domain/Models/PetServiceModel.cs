@@ -46,8 +46,6 @@ namespace ApiPetShop.Domain
         public PetGenderEnum PetGender { get; set; }
         public PetSizeEnum PetSize { get; set; }
         public DateTime ScheduledDate {  get; set; }
-
-        public void DeletePetService() => DeleteFlag();
         
         public void UpdateService(UpdatePetService nService)
         {

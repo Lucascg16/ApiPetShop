@@ -13,6 +13,8 @@ namespace ApiPetShop.Infra
         public async Task Update(UpdatePetService nService)
         {
             var service = await _repository.GetServiceById(nService.Id);
+            if (service.Id == 0) throw new("Usuário não encontrado");
+
             service.UpdateService(nService);
             _repository.Update(service);
         }
@@ -20,7 +22,9 @@ namespace ApiPetShop.Infra
         public async Task Delete(int id)
         {
             var service = await _repository.GetServiceById(id);
-            service.DeletePetService();
+            if (service.Id == 0) throw new("Usuário não encontrado");
+
+            service.Delete();
             _repository.Update(service);
         }
     }

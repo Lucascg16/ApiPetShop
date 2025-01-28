@@ -42,7 +42,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreatePetServiceModel service)
+        public async Task<IActionResult> Create([FromBody] CreatePetServiceModel service)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Update(UpdatePetService service) 
+        public async Task<IActionResult> Update([FromBody] UpdatePetService service) 
         {
             try
             {

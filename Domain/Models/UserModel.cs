@@ -29,7 +29,6 @@ namespace ApiPetShop.Domain
         }
 
         public UserModel(){ }
-        public void DeleteUser() => DeleteFlag();
 
         public void UpdateUser(UpdateUserModel user)
         {

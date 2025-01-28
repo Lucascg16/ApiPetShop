@@ -21,6 +21,8 @@ namespace ApiPetShop.Infra
         public async Task UpdateUser(UpdateUserModel nUser)
         {
             var user = await _repository.GetUserById(nUser.Id);
+            if(user.Id == 0) throw new("Usuário não econtrado");
+
             user.UpdateUser(nUser);
             user.UpdateRole(user.Role);
 
@@ -43,7 +45,7 @@ namespace ApiPetShop.Infra
             var user = await _repository.GetUserById(id);
             if (user.Id == 0) throw new("Usuário não encontrado");
 
-            user.DeleteUser();
+            user.Delete();
             _repository.UpdateUser(user);
         }
     }

@@ -11,7 +11,7 @@ namespace ApiPetShop.Domain
         public DateTime UpdatedDate {  get; set; } = DateTime.Now;
 
 
-        public void DeleteFlag()
+        public void Delete()
         {
             IsDeleted = true;
             UpdateModel();

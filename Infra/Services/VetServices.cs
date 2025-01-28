@@ -6,23 +6,25 @@ namespace ApiPetShop.Infra
     {
         private readonly IVetRepository _repository = repository;
 
-        public async Task CreateService(VetServiceModel service)
+        public async Task<List<VetServiceDto>> GetAllPetServices() => await _repository.GetAllPetServices();
+        public async Task<VetServiceDto> GetServiceByIdDto(int id) => await _repository.GetServiceByIdDto(id);
+        public async Task CreateService(CreateVetServiceModel service) => await _repository.CreateService(new(service));
+
+        public async Task Update(UpdateVetserviceModel nService)
         {
-            await _repository.CreateService(service);
+            var service = await _repository.GetServiceById(nService.Id);
+            if (service.Id == 0) throw new("Usuário não encontrado");
+
+            service.UpdateService(nService);
+            _repository.Update(service);
         }
 
-        public async Task<List<VetServiceModel>> GetAllPetServices()
+        public async Task Delete(int id)
         {
-            return await _repository.GetAllPetServices();
-        }
+            var service = await _repository.GetServiceById(id);
+            if (service.Id == 0) throw new("Usuário não encontrado");
 
-        public async Task<VetServiceModel> GetServiceById(int id)
-        {
-            return await _repository.GetServiceById(id);
-        }
-
-        public void Update(VetServiceModel service)
-        {
+            service.Delete();
             _repository.Update(service);
         }
     }

@@ -2,7 +2,6 @@
 using ApiPetShop.Infra;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ApiPetShop.Controllers
 {
@@ -44,7 +43,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserModel nUser)
+        public async Task<IActionResult> Create([FromBody] CreateUserModel nUser)
         {
             try
             {
@@ -63,7 +62,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Update(UpdateUserModel user)
+        public IActionResult Update([FromBody] UpdateUserModel user)
         {
             try
             {
@@ -77,7 +76,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch("password")]
-        public async Task<IActionResult> UpdatePass(UpdatePasswordModel update)
+        public async Task<IActionResult> UpdatePass([FromBody] UpdatePasswordModel update)
         {
             try
             {

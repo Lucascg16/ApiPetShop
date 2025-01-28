@@ -1,6 +1,5 @@
 ﻿using ApiPetShop.Domain;
 using ApiPetShop.Infra;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPetShop.Controllers
@@ -23,8 +22,7 @@ namespace ApiPetShop.Controllers
                 if (userDatabase.Id == 0) return NotFound("Email ou senha invalidos");
                 if (login.Password != _cryptoService.Decrypt(userDatabase.Password)) return Unauthorized("Email ou senha invalidos");
 
-                var token = _tokenService.GenerateToken(userDatabase);
-                return Ok(token);
+                return Ok(_tokenService.GenerateToken(userDatabase));
             }
             catch (Exception ex) 
             {
