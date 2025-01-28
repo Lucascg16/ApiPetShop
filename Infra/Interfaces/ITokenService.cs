@@ -4,6 +4,6 @@ namespace ApiPetShop.Infra
 {
     public interface ITokenService
     {
-        string GenerateToken(UserModel user, int expires = 2);
+        string GenerateToken(UserModel user, int expires = 2, bool isInvalid = false);
     }
 }

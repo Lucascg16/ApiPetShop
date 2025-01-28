@@ -38,7 +38,7 @@ namespace ApiPetShop.Controllers
                 var userDataBase = await _userServices.GetUserByEmail(email);
                 if (userDataBase.Id == 0) return Unauthorized();
 
-                return Ok(_tokenService.GenerateToken(userDataBase, 3));
+                return Ok(_tokenService.GenerateToken(userDataBase, 3, true));
             }
             catch (Exception ex)
             {

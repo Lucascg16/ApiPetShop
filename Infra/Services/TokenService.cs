@@ -10,11 +10,16 @@ namespace ApiPetShop.Infra
     {
         private readonly IConfiguration _config = config;
 
-        public string GenerateToken(UserModel user, int expires = 2)
+        public string GenerateToken(UserModel user, int expires = 2, bool isInvalid = false)
         {
             var secret = _config.GetSection("ApiSettings")["Secret"];
             var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret) ? throw new("O secret é necessário para gerar o token") : secret);
-            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+            SigningCredentials signingCredentials = null!;
+
+            if (!isInvalid)
+            {
+                signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+            }
 
             var tokenOptions = new JwtSecurityToken(
                 issuer: _config.GetSection("ApiSettings")["Issuer"] ?? "",
