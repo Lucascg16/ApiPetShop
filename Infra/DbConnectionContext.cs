@@ -15,7 +15,7 @@ namespace ApiPetShop.Infra
             modelBuilder.Entity<VetServiceModel>()
                 .HasMany(v => v.Vacines)
                 .WithMany(c => c.VetServices)
-                .UsingEntity<Dictionary<string, object>>(
+                .UsingEntity<VetVacine>(
                 "VetVacines",
                 j => j.HasOne<VacineModel>().WithMany().HasForeignKey("VacineId"),
                 j => j.HasOne<VetServiceModel>().WithMany().HasForeignKey("VetServiceId"));
@@ -25,5 +25,6 @@ namespace ApiPetShop.Infra
         public DbSet<PetServiceModel> PetServices { get; set; } = null!;
         public DbSet<VetServiceModel> VetServices { get; set; } = null!;
         public DbSet<VacineModel> Vacines { get; set; } = null!;
+        public DbSet<VetVacine> VetVacines { get; set; } = null!;
     }
 }

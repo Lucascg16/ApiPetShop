@@ -6,7 +6,7 @@ namespace ApiPetShop.Domain
     {
         public VetServiceModel(string name, string? email, string? phoneNumber, bool isWhatsApp, string petName,
             int petAge, PetTypeEnum type, PetGenderEnum petGender, PetSizeEnum petSize, 
-            DateTime scheduledDate, double petWeight, bool isCastrated, List<VacineModel> vacines)
+            DateTime scheduledDate, double petWeight, bool isCastrated)
         {
             Name = name;
             Email = email;
@@ -20,7 +20,6 @@ namespace ApiPetShop.Domain
             ScheduledDate = scheduledDate;
             PetWeight = petWeight;
             IsCastrated = isCastrated;
-            Vacines = vacines;
         }
 
         public VetServiceModel(CreateVetServiceModel nService)
@@ -37,7 +36,6 @@ namespace ApiPetShop.Domain
             ScheduledDate = nService.ScheduledDate;
             PetWeight = nService.PetWeight;
             IsCastrated = nService.IsCastrated;
-            Vacines = nService.Vacines;
         }
 
         public VetServiceModel(){ }

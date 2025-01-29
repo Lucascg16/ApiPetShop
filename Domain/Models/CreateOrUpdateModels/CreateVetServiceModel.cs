@@ -24,7 +24,6 @@ namespace ApiPetShop.Domain
         public DateTime ScheduledDate { get; set; }
         public double PetWeight { get; set; }
         public bool IsCastrated { get; set; } = false;
-        [Required]
-        public List<VacineModel> Vacines { get; set; } = [];
+        //public List<VacineModel> Vacines { get; set; } = [];
     }
 }
