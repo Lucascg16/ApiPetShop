@@ -15,6 +15,12 @@ namespace ApiPetShop.Domain
         public async Task<VetServiceDto> GetServiceByIdDto(int id) => _mapper.Map<VetServiceDto>(await _db.VetServices.Include(x => x.Vacines).FirstOrDefaultAsync(x => x.Id == id)) ?? new();
         public async Task<VetServiceModel> GetServiceById(int id) => await _db.VetServices.FindAsync(id) ?? new();
 
+        public async Task AddRelWithVacine(List<VetVacine> relations)
+        {
+            await _db.VetVacines.AddRangeAsync(relations);
+            await _db.SaveChangesAsync();
+        }
+
         public async Task CreateService(VetServiceModel service)
         {
             await _db.VetServices.AddAsync(service);

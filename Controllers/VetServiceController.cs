@@ -13,7 +13,7 @@ namespace ApiPetShop.Controllers
         private readonly IVetServices _services = services;
 
         [HttpGet("all")]
-        public async Task<IActionResult> GetAll()// TODO: Testar isso quando entender N:N
+        public async Task<IActionResult> GetAll()
         {
             try
             {
@@ -47,6 +47,20 @@ namespace ApiPetShop.Controllers
             try
             {
                 await _services.CreateService(service);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("relation")]
+        public async Task<IActionResult> AddRelationVacine([FromBody] List<VetVacine> entities)
+        {
+            try
+            {
+                await _services.AddRelWithVacine(entities);
                 return Ok();
             }
             catch (Exception ex)

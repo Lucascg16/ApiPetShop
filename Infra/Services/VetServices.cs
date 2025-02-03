@@ -9,6 +9,7 @@ namespace ApiPetShop.Infra
         public async Task<List<VetServiceDto>> GetAllPetServices() => await _repository.GetAllPetServices();
         public async Task<VetServiceDto> GetServiceByIdDto(int id) => await _repository.GetServiceByIdDto(id);
         public async Task CreateService(CreateVetServiceModel service) => await _repository.CreateService(new(service));
+        public async Task AddRelWithVacine(List<VetVacine> rel) => await _repository.AddRelWithVacine(rel);
 
         public async Task Update(UpdateVetserviceModel nService)
         {
