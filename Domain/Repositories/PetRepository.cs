@@ -9,9 +9,9 @@ namespace ApiPetShop.Domain
         private readonly DbConnectionContext _db = db;
         private readonly IMapper _mapper = mapper;
 
-        public async Task<List<PetServiceDto>> GetAllPetServices() => _mapper.Map<List<PetServiceDto>>(await _db.PetServices.ToListAsync());
-        public async Task<List<DateTime>> GetScheduledTime(DateTime date) => await _db.PetServices.Where(x => x.ScheduledDate.Day == date.Day && x.ScheduledDate.Month == date.Month && x.ScheduledDate.Year == date.Year).Select(x => x.ScheduledDate).ToListAsync() ?? [];
-        public async Task<PetServiceDto> GetServiceByIdDto(int id) => _mapper.Map<PetServiceDto>(await _db.PetServices.FindAsync(id)) ?? new();
+        public async Task<List<PetServiceDto>> GetAllPetServices() => _mapper.Map<List<PetServiceDto>>(await _db.PetServices.AsNoTracking().ToListAsync());
+        public async Task<List<DateTime>> GetScheduledTime(DateTime date) => await _db.PetServices.AsNoTracking().Where(x => x.ScheduledDate.Day == date.Day && x.ScheduledDate.Month == date.Month && x.ScheduledDate.Year == date.Year).Select(x => x.ScheduledDate).ToListAsync() ?? [];
+        public async Task<PetServiceDto> GetServiceByIdDto(int id) => _mapper.Map<PetServiceDto>(await _db.PetServices.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id)) ?? new();
         public async Task<PetServiceModel> GetServiceById(int id) => await _db.PetServices.FindAsync(id) ?? new();
 
         public async Task CreateService(PetServiceModel service)

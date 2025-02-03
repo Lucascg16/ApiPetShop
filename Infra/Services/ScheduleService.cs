@@ -15,7 +15,7 @@ namespace ApiPetShop.Infra
 
             foreach (var ScheduledDate in ScheduledDates)
             {
-                AvailebleTimes.Remove($"{ScheduledDate.Hour.ToString("D2")}:{ScheduledDate.Minute.ToString("D2")}");
+                AvailebleTimes.Remove($"{ScheduledDate.Hour:D2}:{ScheduledDate.Minute:D2}");
             }
 
             return AvailebleTimes;
@@ -28,7 +28,7 @@ namespace ApiPetShop.Infra
 
             foreach (var ScheduledDate in ScheduledDates)
             {
-                AvailebleTimes.Remove($"{ScheduledDate.Hour.ToString("D2")}:{ScheduledDate.Minute.ToString("D2")}");
+                AvailebleTimes.Remove($"{ScheduledDate.Hour:D2}:{ScheduledDate.Minute:D2}");
             }
 
             return AvailebleTimes;
