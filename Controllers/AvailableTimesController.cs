@@ -1,8 +1,10 @@
 ﻿using ApiPetShop.Infra;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPetShop.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v1/availableTimes")]
     public class AvailableTimesController(IScheduleService service) : ControllerBase

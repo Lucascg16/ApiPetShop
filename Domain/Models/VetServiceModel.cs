@@ -1,4 +1,5 @@
 ﻿using ApiPetShop.Domain.Enum;
+using System.Text.Json.Serialization;
 
 namespace ApiPetShop.Domain
 {
@@ -52,6 +53,7 @@ namespace ApiPetShop.Domain
         public DateTime ScheduledDate { get; set; }
         public double PetWeight { get; set; }
         public bool IsCastrated { get; set; }
+        [JsonIgnore]
         public List<VacineModel> Vacines { get; set; } = [];
 
         public void UpdateService(UpdateVetserviceModel nService)
