@@ -1,0 +1,16 @@
+@if(form){
+    <div style="margin-top: 20px;;">
+        <div>
+            Detalhes do form
+            <div>
+                Formulário valido: {{ form.valid }}
+            </div>
+            <div>
+                Formulário Submetido: {{ form.submitted }}
+            </div>
+            <div>
+                Valores: <br> <pre> {{ form.value | json }} </pre>
+            </div>    
+        </div>
+    </div>
+}
