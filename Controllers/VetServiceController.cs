@@ -41,6 +41,7 @@ namespace ApiPetShop.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateVetServiceModel service)
         {

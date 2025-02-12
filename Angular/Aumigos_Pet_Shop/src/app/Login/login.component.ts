@@ -3,12 +3,11 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputFieldComponent } from '../Shared/input-field/input-field.component';
 import { BaseFormComponent } from '../Shared/base-form/base-form.component';
 import { FormValidator } from '../Shared/base-form/form-validator';
-import { FormDebugComponent } from '../form-debug/form-debug.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, InputFieldComponent, FormDebugComponent],
+  imports: [ReactiveFormsModule, InputFieldComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
