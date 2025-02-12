@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPetShop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/v1/users")]
     public class UserController(IUserServices services) : ControllerBase
@@ -75,6 +75,7 @@ namespace ApiPetShop.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin,Employee")]
         [HttpPatch("password")]
         public async Task<IActionResult> UpdatePass([FromBody] UpdatePasswordModel update)
         {

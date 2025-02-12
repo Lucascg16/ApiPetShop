@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPetShop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin,Employee")]
     [ApiController]
     [Route("api/v1/vetservices")]
     public class VetServiceController(IVetServices services) : ControllerBase
