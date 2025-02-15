@@ -2,5 +2,8 @@
     <app-input-field formControlName="email" id="email" type="email" label="Email" [control]="form.get('email')"></app-input-field>
     <app-input-field formControlName="password" id="password" label="Password" [control]="form.get('password')"></app-input-field>
 
+    @if(alertError){
+        {{ alertError }}
+    }
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
