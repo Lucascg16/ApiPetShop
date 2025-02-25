@@ -1,0 +1,31 @@
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.app-content{
+    flex: 1;
+}
+.contact-area{
+    background-color: #720C68;
+    padding: 10px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.contact-box{
+   text-align: left;
+}
+.main-text{
+    text-align: left;
+}
+.contact-text{
+    color: #B3B3B3;
+    margin: 0;
+    text-align: left;
+}
+.copy-class{
+    color: #B3B3B3;
+    float: inline-end;
+}

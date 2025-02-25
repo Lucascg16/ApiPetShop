@@ -16,7 +16,7 @@ const INPUT_FIELD_VALUE_ACCESSOR: any = {
   styleUrl: './input-field.component.css',
   providers: [INPUT_FIELD_VALUE_ACCESSOR]
 })
-export class InputFieldComponent {
+export class InputFieldComponent {;
   @Input() id: string;
   @Input() label: string;
   @Input() type: string = "text";
