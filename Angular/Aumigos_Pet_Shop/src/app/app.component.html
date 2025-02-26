@@ -1,7 +1,9 @@
 <div class="wrapper">
     <header class="header container">
       <img src="assets\icones_imagens\teste.svg" alt="">
-      @if (!sessionstorage) {}
+      @if (!isLogin) {
+        <p>não está na tela de login</p>
+      }
     </header>
     <main>
         <div class="container app-content">
