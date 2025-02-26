@@ -10,6 +10,7 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'Aumigos';
+  sessionstorage: any=sessionStorage?.getItem('currentUser')
 
   constructor() {}
 }
