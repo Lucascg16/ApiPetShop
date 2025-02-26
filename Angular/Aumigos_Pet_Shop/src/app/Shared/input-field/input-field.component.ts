@@ -19,6 +19,7 @@ const INPUT_FIELD_VALUE_ACCESSOR: any = {
 export class InputFieldComponent {;
   @Input() id: string;
   @Input() label: string;
+  @Input() placeHolder: string = '';
   @Input() type: string = "text";
   @Input() control: any;
   @Input() isReadOnly = false;

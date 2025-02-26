@@ -1,9 +1,15 @@
 <div class="wrapper">
     <header class="header container">
-      <img src="assets\icones_imagens\teste.svg" alt="">
-      @if (!isLogin) {
-        <p>não está na tela de login</p>
-      }
+        <div class="row">
+            <div class="col-md-6">
+                <img src="assets\icones_imagens\Aumigos_icon_Header.svg" alt="">
+            </div>
+            <div class="col-md-6 ">
+                @if (!isLogin) {
+                <p>não está na tela de login</p>
+                }
+            </div>
+        </div>
     </header>
     <main>
         <div class="container app-content">
@@ -11,13 +17,14 @@
         </div>
     </main>
 
+    @if(!isLogin){
     <footer class="contact-area text-center py-4 mt-5">
         <div class="container">
             <div class="row text-light">
                 <div class="col md-4 contact-box">
-                    <img src="assets\icones_imagens\aumigos_icon.svg" alt="" />
+                    <img src="assets\icones_imagens\aumigos_icon_Footer.svg" alt="" />
                 </div>
-                <div class="col md-4 contact-box">
+                <div class="col md-4 contact-box ">
                     <h3 class="main-text">Contato</h3>
                     <p class="contact-text">+55 27 99999-9999</p>
                     <p class="contact-text">contato&#64;aumigos.com</p>
@@ -25,24 +32,16 @@
                     <p class="contact-text">Rua Ali Perto, 42 - Vitória</p>
                     <p class="contact-text">Espírito Santo - Brasil</p>
                     <br />
-                    <a href="#" class=""
-                        ><i
-                            class="fa-brands fa-instagram fa-xl"
-                            style="color: #fff"
-                        ></i
-                    ></a>
+                    <a href="#" class=""><i class="fa-brands fa-instagram fa-xl" style="color: #fff"></i></a>
                 </div>
                 <div class="col md-4 contact-box">
                     <h3 class="main-text">Informações</h3>
-                    <a routerLink="/login" class="contact-text"
-                        >DashBoard (Login)</a
-                    >
+                    <a routerLink="/login" class="contact-text">DashBoard (Login)</a>
                     <p class="contact-text">Termos e condições</p>
                 </div>
             </div>
-            <span class="copy-class d-flex"
-                >Aumigos&copy; Todos os direitos reservados</span
-            >
+            <span class="copy-class d-flex">Aumigos&copy; Todos os direitos reservados</span>
         </div>
     </footer>
+    }
 </div>

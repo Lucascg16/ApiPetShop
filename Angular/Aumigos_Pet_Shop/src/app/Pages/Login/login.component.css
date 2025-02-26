@@ -1,0 +1,16 @@
+.login-form{
+    display: grid;
+    padding: 10px 50px;
+    width: 100%;
+    max-width: 450px;
+    margin: 150px auto;
+    border-radius: 5%;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.btn-primary{
+    background-color: #890A78;
+}
+.login-title{
+    color: #890A78;
+}
