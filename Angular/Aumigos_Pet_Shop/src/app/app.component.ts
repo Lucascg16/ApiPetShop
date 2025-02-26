@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { AuthenticationService } from './Services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit, OnDestroy {
   isLogin: boolean
   private routerSub: Subscription;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private auth: AuthenticationService) {}
 
   ngOnInit(): void {
     this.routerSub = this.router.events
@@ -28,6 +29,10 @@ export class AppComponent implements OnInit, OnDestroy {
     if(this.routerSub){
       this.routerSub.unsubscribe();
     }
+  }
+
+  logOut(){
+    this.auth.logout();
   }
 
   private verifyIfLoginPage(url: string){

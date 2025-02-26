@@ -18,6 +18,12 @@ export class LoginComponent extends BaseFormComponent {
   constructor(private formBuider: FormBuilder, private authService: AuthenticationService, private router: Router) {
     super();
 
+    try{
+      if(sessionStorage?.getItem('currentUser')){
+        this.router.navigate(['/inner'])
+      }
+    }catch{}
+
     this.form = this.formBuider.group({
       email: [null, [Validators.email, Validators.required]],
       password: [null, [Validators.required]]

@@ -2,7 +2,7 @@
     <header class="header container">
         <div class="row">
             <div class="col-md-6">
-                <img src="assets\icones_imagens\Aumigos_icon_Header.svg" alt="">
+                <img src="assets\icones_imagens\Aumigos_icon_Header.svg" alt="" routerLink="">
             </div>
             <div class="col-md-6 ">
                 @if (!isLogin) {
@@ -36,8 +36,9 @@
                 </div>
                 <div class="col md-4 contact-box">
                     <h3 class="main-text">Informações</h3>
-                    <a routerLink="/login" class="contact-text">DashBoard (Login)</a>
+                    <a routerLink="/login" class="contact-text">DashBoard</a>
                     <p class="contact-text">Termos e condições</p>
+                    <a class="contact-text" (click)="logOut()">Logout</a>
                 </div>
             </div>
             <span class="copy-class d-flex">Aumigos&copy; Todos os direitos reservados</span>
