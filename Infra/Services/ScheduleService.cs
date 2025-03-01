@@ -10,47 +10,45 @@ namespace ApiPetShop.Infra
 
         public async Task<List<string>> GetPetServiceAvailable(DateTime date)
         {
-            var AvailebleTimes = PopulateAvailableTimes(date);
-            var ScheduledDates = await _petRepository.GetScheduledTime(date);
+            var availableTimes = PopulateAvailableTimes(date);
+            var scheduledDates = await _petRepository.GetScheduledTime(date);
 
-            foreach (var ScheduledDate in ScheduledDates)
+            foreach (var scheduledDate in scheduledDates)
             {
-                AvailebleTimes.Remove($"{ScheduledDate.Hour:D2}:{ScheduledDate.Minute:D2}");
+                availableTimes.Remove($"{scheduledDate.Hour:D2}:{scheduledDate.Minute:D2}");
             }
 
-            return AvailebleTimes;
+            return availableTimes;
         }
 
         public async Task<List<string>> GetVetServiceAvailable(DateTime date)
         {
-            var AvailebleTimes = PopulateAvailableTimes(date);
-            var ScheduledDates = await _vetRepository.GetScheduledTime(date);
+            var availableTimes = PopulateAvailableTimes(date);
+            var scheduledDates = await _vetRepository.GetScheduledTime(date);
 
-            foreach (var ScheduledDate in ScheduledDates)
+            foreach (var scheduledDate in scheduledDates)
             {
-                AvailebleTimes.Remove($"{ScheduledDate.Hour:D2}:{ScheduledDate.Minute:D2}");
+                availableTimes.Remove($"{scheduledDate.Hour:D2}:{scheduledDate.Minute:D2}");
             }
 
-            return AvailebleTimes;
+            return availableTimes;
         }
 
         private static List<string> PopulateAvailableTimes(DateTime date)
         {
             List<string> listTimes = [];
-            int hora = 8;
+            var hora = 8;
 
             if (date.DayOfYear == DateTime.Now.DayOfYear)
                 hora = DateTime.Now.Hour + 1;
-            if (date.DayOfYear < DateTime.Now.DayOfYear)
+            if (date.DayOfYear < DateTime.Now.DayOfYear && date.Year <= DateTime.Now.Year)
                 return [];
 
             for (; hora < 17; hora++)
             {
+                if (hora == 12) continue;
                 listTimes.Add($"{hora:D2}:00");
-                if (hora < 17)
-                {
-                    listTimes.Add($"{hora:D2}:30");
-                }
+                listTimes.Add($"{hora:D2}:30");
             }
 
             return listTimes;
