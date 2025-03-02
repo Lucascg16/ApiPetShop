@@ -1,16 +1,16 @@
 .schedule-text{
-    padding-left: 7rem !important;
-    padding-right: 7rem !important;
+    padding-left: 8rem !important;
+    padding-right: 8rem !important;
 }
 .schedule-title{
     color: #720C68;
     font-family: 'Ultra';
-    font-size: 32pt;
+    font-size: 28pt;
     text-align: left !important;
 }
 .schedule-sub{
     color: #A02E95;
-    font-size: 20pt;
+    font-size: 18pt;
 }
 .btn-text{
     font-size: 15pt;
@@ -19,4 +19,70 @@
 }
 .btn-primary{
     padding: 15px;
+}
+.intructions-area{
+    background-color: #720C68;
+}
+.instuction-title{
+    font-family:  'Ultra';
+    color: white;
+    font-size: 40pt;
+}
+.instuction-card{
+    background-color: white;
+    border-radius: 10px;
+    max-width: 386px;
+    height: 324px;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding:  0 3rem;
+}
+.instuction-card img{
+    margin-top: -30px;
+}
+.instct-subtitle{
+    font-family: 'Poppins', Bold;
+    font-weight: bold;
+    font-size: 20pt;
+}
+.instruct-btn{
+    font-family: 'Ultra';
+    font-size: 20pt;
+    border-color: white !important;
+    box-shadow: -8px 8px 0 0 #DD81CE ;
+}
+.badge {
+    background: #DD81CE;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Ultra';
+    color: #720C68;
+    font-size: 28px;
+    font-weight: bold;
+}
+.outer-badge{
+    position: relative;
+    top: -20px;
+    left: -20px;
+    background: white;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+.informative-area{
+    background-color: white;
+}
+.informative-title{
+    font-family: 'Ultra';
+    font-size: 28pt;
+    color: #720C68;
 }
