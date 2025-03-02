@@ -20,7 +20,7 @@ namespace ApiPetShop.Domain
             PetSize = petSize;
             ScheduledDate = scheduledDate;
             PetWeight = petWeight;
-            IsCastrated = IsCastrated;
+            IsCastrated = isCastrated;
         }
 
         public VetServiceModel(CreateVetServiceModel nService)
