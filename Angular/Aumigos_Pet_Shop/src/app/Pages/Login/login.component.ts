@@ -34,7 +34,7 @@ export class LoginComponent extends BaseFormComponent {
     let response = await this.authService.login(this.form.get('email')?.value, this.form.get('password')?.value);
 
     if(response.isSuccess){
-      this.router.navigate(['/inner']);
+      // this.router.navigate(['/inner']);
     }
     else{
       console.log(response.response)

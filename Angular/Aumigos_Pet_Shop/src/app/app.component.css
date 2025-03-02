@@ -35,3 +35,7 @@
     color: #B3B3B3;
     float: inline-end;
 }
+.login-link{
+    text-decoration:  none;   
+    color: #720C68;
+}

@@ -1,18 +1,19 @@
 <div class="wrapper">
     <header class="header container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-11">
                 <img src="assets\icones_imagens\Aumigos_icon_Header.svg" alt="" routerLink="">
             </div>
-            <div class="col-md-6 ">
-                @if (!isLogin) {
-                <p>não está na tela de login</p>
-                }
+            <div class="col-md-1 d-flex align-items-center">
+                <a class="login-link" routerLink="/login">
+                    <img class="" src="assets/icones_imagens/person_avatar_account_user_icon_191606.svg" width="40" height="40">
+                    <span class="px-2">Entrar</span>
+                </a>                
             </div>
         </div>
     </header>
     <main>
-        <div class="container app-content">
+        <div class="container-fluid app-content">
             <router-outlet></router-outlet>
         </div>
     </main>
@@ -36,9 +37,9 @@
                 </div>
                 <div class="col md-4 contact-box">
                     <h3 class="main-text">Informações</h3>
-                    <a routerLink="/login" class="contact-text">DashBoard</a>
+                    <a routerLink="/login" class="contact-text text-decoration-none">DashBoard</a>
                     <p class="contact-text">Termos e condições</p>
-                    <a class="contact-text" (click)="logOut()">Logout</a>
+                    <a class="contact-text text-decoration-none" (click)="logOut()">Logout</a>
                 </div>
             </div>
             <span class="copy-class d-flex">Aumigos&copy; Todos os direitos reservados</span>
