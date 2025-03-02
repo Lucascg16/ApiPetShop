@@ -1,5 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+@import url("https://fonts.googleapis.com/css?family=Ultra");
+
 html, body {
     height: 100%;
     margin: 0;
+    background-color: #FBF9F7;
+    font-family: "Roboto", sans-serif;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.btn-primary{
+  background-color: #890A78;
+  border-color: #890A78;
+}
+.btn-primary:hover{
+  background-color: #720C68;
+  border-color: #720C68;
+}
+.btn-primary:active{
+  background-color: #720C68 !important; 
+  border-color: #720C68 !important  ;
 }

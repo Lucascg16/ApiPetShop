@@ -1,0 +1,22 @@
+.schedule-text{
+    padding-left: 7rem !important;
+    padding-right: 7rem !important;
+}
+.schedule-title{
+    color: #720C68;
+    font-family: 'Ultra';
+    font-size: 32pt;
+    text-align: left !important;
+}
+.schedule-sub{
+    color: #A02E95;
+    font-size: 20pt;
+}
+.btn-text{
+    font-size: 15pt;
+    padding: 8px 8px;
+    max-width: 15px;
+}
+.btn-primary{
+    padding: 15px;
+}

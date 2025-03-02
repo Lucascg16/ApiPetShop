@@ -31,7 +31,7 @@ builder.Services.AddSwaggerGen(c =>
         Name = "Authorization",
         In = ParameterLocation.Header,
         Type = SecuritySchemeType.ApiKey,
-        Scheme = "Bearer"
+        Scheme = "Bearer"   
     });
 
     c.AddSecurityRequirement(new OpenApiSecurityRequirement()
@@ -54,7 +54,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 var secret = builder.Configuration.GetSection("ApiSettings")["Secret"];
-var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret) ? throw new("O secret é necessário para gerar o token") : secret);
+var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret) ? throw new("O secret ï¿½ necessï¿½rio para gerar o token") : secret);
 
 builder.Services.AddAuthentication(x =>
 {
