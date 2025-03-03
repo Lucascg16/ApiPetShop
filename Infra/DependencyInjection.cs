@@ -18,6 +18,8 @@ namespace ApiPetShop.Infra
             services.AddScoped<ITokenService, TokenService>();
             services.AddScoped<ICryptoService, CryptoService>();
             services.AddScoped<IScheduleService, ScheduleService>();
+            services.AddScoped<IEmailService, EmailService>();
+            services.Configure<EmailModel>(configuration.GetSection("EmailSettings"));
 
             //Repositories
             services.AddScoped<IUserRepository, UserRespository>();

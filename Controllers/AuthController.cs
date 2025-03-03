@@ -29,18 +29,19 @@ namespace ApiPetShop.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost("generatePassToken")]
-        public async Task<IActionResult> GeneratePassToken(string email)
+        
+        [HttpPost("createUser")]
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserModel nUser)
         {
             try
             {
-                var userDataBase = await _userServices.GetUserByEmail(email);
-                if (userDataBase.Id == 0) return Unauthorized();
+                var userVerify = await _userServices.GetUserByEmail(nUser.Email);
+                if(userVerify.Id != 0) return Unauthorized("Email já cadastrado");
 
-                return Ok(_tokenService.GenerateToken(userDataBase, 3, true));
+                await _userServices.CreateUser(nUser);
+                return Ok();
             }
-            catch (Exception ex)
+            catch (Exception ex) 
             {
                 return BadRequest(ex.Message);
             }
