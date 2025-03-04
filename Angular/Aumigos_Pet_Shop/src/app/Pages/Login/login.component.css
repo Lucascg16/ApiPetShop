@@ -1,8 +1,9 @@
 .login-form{
+    zoom: 130%;
     display: grid;
     padding: 10px 50px;
     width: 100%;
-    max-width: 450px;
+    max-width: 35rem;
     margin: 150px auto;
     border-radius: 5%;
     background-color: white;

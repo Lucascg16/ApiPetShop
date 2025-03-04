@@ -14,12 +14,12 @@
 }
 .btn-text{
     font-size: 15pt;
-    padding: 8px 8px;
-    max-width: 15px;
+    padding: 0.5rem 0.5rem;
+    max-width: 0.9375rem;
     font-weight: bold;
 }
 .btn-primary{
-    padding: 15px;
+    padding: 0.9375rem;
 }
 .intructions-area{
     background-color: #720C68;
@@ -31,9 +31,9 @@
 }
 .instuction-card{
     background-color: white;
-    border-radius: 10px;
-    max-width: 386px;
-    height: 324px;
+    border-radius: 0.625rem;
+    max-width: 23.875rem;
+    height: 20.25rem;
     margin-left: 2rem;
     margin-right: 2rem;
     padding:  0 3rem;
@@ -54,8 +54,8 @@
 }
 .badge {
     background: #DD81CE;
-    width: 50px;
-    height: 50px;
+    width: 3.125rem;
+    height: 3.125rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -67,11 +67,11 @@
 }
 .outer-badge{
     position: relative;
-    top: -20px;
-    left: -20px;
+    top: -1.25rem;
+    left: -1.25rem;
     background: white;
-    width: 70px;
-    height: 70px;
+    width: 4.375rem;
+    height: 4.375rem;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -92,27 +92,27 @@
 .background-image {
     background-color: #720C68;
     border-radius: 20px;
-    width: 508px;
-    height: 345px;
+    width: 31.75rem;
+    height: 21.56rem;
     transform: rotate(3deg);
 }
 .informative-image {
     position: relative;
-    top: 10px;    
-    left: 1.5px;
+    top: 0.625rem;    
+    left: 0.093rem;
     transform: rotate(-3deg);
 }
 .informative-card{
-    width: 420px;
-    height: 120px;
+    width: 26.25rem;
+    height: 7.5rem;
     background-color: #F3EEE8;
     align-content: center;
     margin: 2rem 2rem;
     border-radius: 10px;
-    padding-top: 10px;
+    padding-top: 0.625rem;
 }
 .informative-card p {
     color: #890A78;
-    margin-top: 12px;
+    margin-top: 0.75rem;
     font-weight: medium;
 }
