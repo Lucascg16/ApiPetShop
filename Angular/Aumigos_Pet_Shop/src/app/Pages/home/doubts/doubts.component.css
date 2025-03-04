@@ -1,0 +1,32 @@
+.doubt-class {
+    background-color: white;
+    padding: 5rem 1rem;
+}
+.doubt-title {
+    font-family: "Ultra";
+    font-size: 48pt;
+    color: #4f0448;
+    padding: 0rem 3rem;
+}
+.accordion {
+    border-bottom: #D1D1D1 solid ;
+}
+.accordion-item {
+    border: none;
+}
+.accordion-button {
+    background-color: white;
+    border: none;
+}
+.accordion-header button {
+    color: #4f0448;
+    font-size: 30px;
+}
+.accordion-header {
+    border: none;
+}
+.accordion-body {
+    font-size: 20px;
+    padding: 1rem 3rem;
+    color: #4f0448;
+}

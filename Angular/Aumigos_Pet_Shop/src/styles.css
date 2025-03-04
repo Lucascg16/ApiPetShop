@@ -11,6 +11,7 @@ html, body {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  zoom: 90%;/* Get's all pages smaller, it's look like a tecnical resource, but it's is.*/
 }
 
 .btn-primary{
