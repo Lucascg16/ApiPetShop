@@ -16,6 +16,7 @@
     font-size: 15pt;
     padding: 8px 8px;
     max-width: 15px;
+    font-weight: bold;
 }
 .btn-primary{
     padding: 15px;
@@ -80,9 +81,37 @@
 }
 .informative-area{
     background-color: white;
+    padding-top: 5rem;
 }
 .informative-title{
     font-family: 'Ultra';
     font-size: 28pt;
     color: #720C68;
+}
+.background-image {
+    background-color: #720C68;
+    border-radius: 20px;
+    width: 508px;
+    height: 345px;
+    transform: rotate(3deg);
+}
+.informative-image {
+    position: relative;
+    top: 10px;    
+    left: 1.5px;
+    transform: rotate(-3deg);
+}
+.informative-card{
+    width: 420px;
+    height: 120px;
+    background-color: #F3EEE8;
+    align-content: center;
+    margin: 2rem 2rem;
+    border-radius: 10px;
+    padding-top: 10px;
+}
+.informative-card p {
+    color: #890A78;
+    margin-top: 12px;
+    font-weight: medium;
 }
