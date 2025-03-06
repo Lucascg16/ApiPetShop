@@ -10,7 +10,7 @@ namespace ApiPetShop.Infra
     {
         private readonly IConfiguration _config = config;
 
-        public string GenerateToken(UserModel user, int expires = 2, bool isInvalid = false)
+        public string GenerateToken(UserModel user, int expires = 4, bool isInvalid = false)
         {
             var secret = _config.GetSection("ApiSettings")["Secret"];
             var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret) ? throw new("O secret é necessário para gerar o token") : secret);
