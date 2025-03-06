@@ -1,21 +1,23 @@
+.schedule-area{
+    max-width: 100%;
+}
 .schedule-text{
-    padding-left: 8rem !important;
-    padding-right: 8rem !important;
+    padding: 0 1rem;
 }
 .schedule-title{
     color: #720C68;
     font-family: 'Ultra';
-    font-size: 28pt;
-    text-align: left !important;
+    font-size: 22pt;
+    padding-right: 5rem;
 }
 .schedule-sub{
     color: #A02E95;
-    font-size: 18pt;
+    font-size: 16pt;
 }
 .btn-text{
     font-size: 15pt;
     padding: 0.5rem 0.5rem;
-    max-width: 0.9375rem;
+    max-width: 0.937rem;
     font-weight: bold;
 }
 .btn-primary{
@@ -23,28 +25,32 @@
 }
 .intructions-area{
     background-color: #720C68;
+    max-width: 100%;
+    padding-top: 4rem;
 }
 .instuction-title{
     font-family:  'Ultra';
     color: white;
-    font-size: 40pt;
+    font-size: 36pt;
 }
 .instuction-card{
     background-color: white;
     border-radius: 0.625rem;
-    max-width: 23.875rem;
-    height: 20.25rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-    padding:  0 3rem;
+    width: 300px;
+    height: 257px;
+    margin: 15px 15px;
+    padding:  0 1rem;
 }
 .instuction-card img{
     margin-top: -30px;
 }
-.instct-subtitle{
+.instruct-subtitle{
     font-family: 'Poppins', Bold;
     font-weight: bold;
     font-size: 20pt;
+}
+.instruct-text{
+    font-size: 16pt;
 }
 .instruct-btn{
     font-family: 'Ultra';
@@ -54,29 +60,29 @@
 }
 .badge {
     background: #DD81CE;
-    width: 3.125rem;
-    height: 3.125rem;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-family: 'Ultra';
     color: #720C68;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: bold;
 }
 .outer-badge{
     position: relative;
-    top: -1.25rem;
-    left: -1.25rem;
+    top: -25px;
+    left: 0px;
     background: white;
-    width: 4.375rem;
-    height: 4.375rem;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
 }
 .informative-area{
@@ -92,8 +98,8 @@
 .background-image {
     background-color: #720C68;
     border-radius: 20px;
-    width: 31.75rem;
-    height: 21.56rem;
+    width: 380px;
+    height: 260px;
     transform: rotate(3deg);
 }
 .informative-image {
@@ -103,11 +109,11 @@
     transform: rotate(-3deg);
 }
 .informative-card{
-    width: 26.25rem;
-    height: 7.5rem;
+    width: 260px;
+    height: 90px;
     background-color: #F3EEE8;
     align-content: center;
-    margin: 2rem 2rem;
+    margin: 0.5rem 0.5rem;
     border-radius: 10px;
     padding-top: 0.625rem;
 }

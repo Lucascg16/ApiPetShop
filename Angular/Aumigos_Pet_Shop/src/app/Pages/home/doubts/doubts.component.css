@@ -7,6 +7,10 @@
     font-size: 48pt;
     color: #4f0448;
     padding: 0rem 3rem;
+
+    @media (max-width: 414px) {
+        font-size: 32pt;
+    }
 }
 .accordion {
     border-bottom: #D1D1D1 solid ;

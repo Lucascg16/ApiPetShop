@@ -3,26 +3,35 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins");
 @import url("https://fonts.googleapis.com/css?family=Ultra");
 
-html, body {
-    height: 100%;
+* {
     margin: 0;
-    background-color: #FBF9F7;
-    font-family: "Roboto", sans-serif;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  zoom: 90%;/* Get's all pages smaller, it's look like a tecnical resource, but it's is.*/
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.btn-primary{
-  background-color: #890A78;
-  border-color: #890A78;
+html,
+body {
+    background-color: #fbf9f7;
+    font-family: "Roboto", sans-serif;
+    max-width: 100%;
 }
-.btn-primary:hover{
-  background-color: #720C68;
-  border-color: #720C68;
+
+.container-fluid{
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
 }
-.btn-primary:active{
-  background-color: #720C68 !important; 
-  border-color: #720C68 !important  ;
+
+.btn-primary {
+    background-color: #890a78;
+    border-color: #890a78;
 }
+.btn-primary:hover {
+    background-color: #720c68;
+    border-color: #720c68;
+}
+.btn-primary:active {
+    background-color: #720c68 !important;
+    border-color: #720c68 !important  ;
+}
+
