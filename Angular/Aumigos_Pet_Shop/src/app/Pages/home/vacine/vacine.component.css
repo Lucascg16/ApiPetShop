@@ -22,6 +22,7 @@
 }
 .btn-primary{
     padding: 0.9375rem;
+    margin: 1rem auto;
 }
 .intructions-area{
     background-color: #720C68;
@@ -50,7 +51,7 @@
     font-size: 20pt;
 }
 .instruct-text{
-    font-size: 16pt;
+    font-size: 14pt;
 }
 .instruct-btn{
     font-family: 'Ultra';

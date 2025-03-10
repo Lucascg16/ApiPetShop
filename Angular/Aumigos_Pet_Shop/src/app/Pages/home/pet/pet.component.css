@@ -1,0 +1,127 @@
+.schedule-area{
+    max-width: 100%;
+}
+.schedule-text{
+    padding: 0 1rem;
+}
+.schedule-title{
+    color: #720C68;
+    font-family: 'Ultra';
+    font-size: 22pt;
+    padding-right: 5rem;
+}
+.schedule-sub{
+    color: #A02E95;
+    font-size: 14pt;
+}
+.btn-text{
+    font-size: 15pt;
+    padding: 0.5rem 0.5rem;
+    max-width: 0.937rem;
+    font-weight: bold;
+}
+.btn-primary{
+    padding: 0.9375rem;
+    margin: 1rem 0rem ;
+}
+.background-image {
+    background-color: #720C68;
+    border-radius: 20px;
+    width: 539px;
+    height: 281px;
+    transform: rotate(3deg);
+}
+.informative-image {
+    position: relative;
+    top: 0.625rem;    
+    left: 0.093rem;
+    transform: rotate(-3deg);
+}
+
+.informative-area{
+    background-color: white;
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+}
+.informative-title{
+    font-family: 'Ultra';
+    font-size: 28pt;
+    color: #720C68;
+}
+.informative-card{
+    width: 260px;
+    height: 90px;
+    background-color: #F3EEE8;
+    align-content: center;
+    margin: 0.5rem 0.5rem;
+    border-radius: 10px;
+    padding-top: 0.625rem;
+}
+.informative-card p {
+    color: #890A78;
+    margin-top: 0.75rem;
+    font-weight: medium;
+}
+
+.intructions-area{
+    background-color: #720C68;
+    max-width: 100%;
+    padding-top: 4rem;
+}
+.instuction-title{
+    font-family:  'Ultra';
+    color: white;
+    font-size: 36pt;
+}
+.instuction-card{
+    background-color: white;
+    border-radius: 0.625rem;
+    width: 300px;
+    height: 257px;
+    margin: auto 15px;
+    padding:  0 1rem;
+}
+.instuction-card img{
+    margin-top: -30px;
+}
+.instruct-subtitle{
+    font-family: 'Poppins', Bold;
+    font-weight: bold;
+    font-size: 20pt;
+}
+.instruct-text{
+    font-size: 14pt;
+}
+.instruct-btn{
+    font-family: 'Ultra';
+    font-size: 20pt;
+    border-color: white !important;
+    box-shadow: -8px 8px 0 0 #DD81CE ;
+}
+.badge {
+    background: #DD81CE;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Ultra';
+    color: #720C68;
+    font-size: 24px;
+    font-weight: bold;
+}
+.outer-badge{
+    position: relative;
+    top: -25px;
+    left: 0px;
+    background: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+}
