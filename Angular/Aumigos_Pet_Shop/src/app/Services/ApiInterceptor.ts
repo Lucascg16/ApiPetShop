@@ -6,9 +6,10 @@ import { ITokenService } from "./interface/ITokenService";
 import { TokenService } from "./token-service.service";
 
 const Base_Url = environment.api_url;
-const tokenService: ITokenService = inject(TokenService);
 
 export const ApiInterceptor: HttpInterceptorFn = (req, next) => {    
+    const tokenService: ITokenService = inject(TokenService);
+
     req = req.clone({ url: `${Base_Url}/${req.url}` })
     
     tokenService.refreshToken();
