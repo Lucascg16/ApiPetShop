@@ -20,7 +20,7 @@ export class LoginComponent extends BaseFormComponent {
 
     try{
       if(sessionStorage?.getItem('currentUser')){
-        this.router.navigate(['/inner'])
+        // this.router.navigate(['/dashboard'])
       }
     }catch{}
 
@@ -34,11 +34,15 @@ export class LoginComponent extends BaseFormComponent {
     let response = await this.authService.login(this.form.get('email')?.value, this.form.get('password')?.value);
 
     if(response.isSuccess){
-      // this.router.navigate(['/inner']);
+      this.router.navigate(['/dashboard']);
     }
     else{
       console.log(response.response)
       this.alertError = response.response;
     }
+  }
+
+  rediredForgotPass(){
+    this.router.navigate(['/forgot']);
   }
 }

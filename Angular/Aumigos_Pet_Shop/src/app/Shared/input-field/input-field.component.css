@@ -1,6 +1,7 @@
 .form-control{
     box-shadow: inset  0px 2px 3px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
+    height: 3rem;
 }
 
 input:focus {

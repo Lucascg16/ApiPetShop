@@ -36,7 +36,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   private verifyIfLoginPage(url: string){
-    if(url.includes('/login')){
+    if(url.includes('/login') || url.includes('/forgot')){
       return true;
     }
     return false;
