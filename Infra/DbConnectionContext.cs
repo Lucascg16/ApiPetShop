@@ -12,6 +12,7 @@ namespace ApiPetShop.Infra
         public DbSet<VetServiceModel> VetServices { get; set; } = null!;
         public DbSet<VacineModel> Vacines { get; set; } = null!;
         public DbSet<VetVacine> VetVacines { get; set; } = null!;
+        public DbSet<TokenModel> Tokens { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

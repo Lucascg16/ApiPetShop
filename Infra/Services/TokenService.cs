@@ -2,15 +2,18 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace ApiPetShop.Infra
 {
-    public class TokenService(IConfiguration config) : ITokenService
+    public class TokenService(IConfiguration config, ITokenRepository tokenRepository) : ITokenService
     {
         private readonly IConfiguration _config = config;
 
-        public string GenerateToken(UserModel user, int expires = 4, bool isInvalid = false)
+        public async Task<TokenModel> GetRefreshToken(int userId) => await tokenRepository.GetRefreshToken(userId);
+        
+        public string GenerateToken(UserModel user, int expires = 2, bool isInvalid = false)
         {
             var secret = _config.GetSection("ApiSettings")["Secret"];
             var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret) ? throw new("O secret é necessário para gerar o token") : secret);
@@ -33,6 +36,25 @@ namespace ApiPetShop.Infra
             );
 
             return new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+        }
+
+        public async Task SaveRefreshToken(int userId, string refreshToken, string refreshKey)
+        {
+            var tokenModel = new TokenModel(userId, refreshToken, refreshKey, DateTime.UtcNow.AddDays(2));
+            await tokenRepository.CreateRefreshToken(tokenModel);
+        }
+
+        public void RevokeToken(TokenModel userToken)
+        {
+            tokenRepository.RovokeToken(userToken);
+        }
+
+        public (string refreshToken, string refreshKey) GenerateRefreshToken()
+        {
+            var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            var refreshKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
+            
+            return (refreshToken, refreshKey);
         }
     }
 }

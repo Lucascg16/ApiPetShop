@@ -8,6 +8,7 @@ namespace ApiPetShop.Infra
         Task UpdateUser(UpdateUserModel user);
         Task<List<UserDto>> GetAllUsers();
         Task<UserDto> GetUserByIdDto(int id);
+        Task<UserModel> GetUserById(int id);
         Task<UserModel> GetUserByEmail(string email);
         Task UpdatePassword(UpdatePasswordModel update);
         Task DeleteUser(int id);
