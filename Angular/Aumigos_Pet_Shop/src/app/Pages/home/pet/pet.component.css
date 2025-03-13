@@ -99,6 +99,26 @@
     margin: 0.5rem 0.5rem;
     border-radius: 10px;
     padding-top: 0.625rem;
+
+    @media (max-width: 765px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.row {
+    @media (max-width: 765px) {
+        display: flex;
+        align-items: center; /* Alinha verticalmente a imagem e os cards */
+        justify-content: center;
+    }
+}
+.hello-dog {
+    @media (max-width: 765px) {
+        width: 350px;
+        height: 390px;
+    }
 }
 .informative-card p {
     color: #890a78;
