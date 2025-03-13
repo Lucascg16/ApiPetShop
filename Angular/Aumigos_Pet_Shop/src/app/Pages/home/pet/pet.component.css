@@ -1,117 +1,163 @@
-.schedule-area{
+.schedule-area {
     max-width: 100%;
+    padding-bottom: 4rem;
 }
-.schedule-text{
+.schedule-text {
     padding: 0 1rem;
 }
-.schedule-title{
-    color: #720C68;
-    font-family: 'Ultra';
-    font-size: 22pt;
+.schedule-title {
+    color: #720c68;
+    font-family: "Ultra";
+    font-size: 1.8392rem;
     padding-right: 5rem;
 }
-.schedule-sub{
-    color: #A02E95;
+.schedule-sub {
+    color: #a02e95;
     font-size: 14pt;
 }
-.btn-text{
+.btn-text {
     font-size: 15pt;
     padding: 0.5rem 0.5rem;
     max-width: 0.937rem;
-    font-weight: bold;
+    font-weight: 500;
 }
-.btn-primary{
+.btn-primary {
     padding: 0.9375rem;
-    margin: 1rem 0rem ;
+    margin: 1rem 0rem;
 }
 .background-image {
-    background-color: #720C68;
+    background-color: #720c68;
     border-radius: 20px;
     width: 539px;
     height: 281px;
     transform: rotate(3deg);
+
+    @media (min-width: 200px) {
+        width: 332px;
+        height: 173px;
+    }
+    @media (min-width: 768px) {
+        width: 387px;
+        height: 203px;
+    }
+    @media (min-width: 992px) {
+        width: 442px;
+        height: 230px;
+    }
+    @media (min-width: 1120px) {
+        width: 485px;
+        height: 255px;
+    }
+    @media (min-width: 1200px) {
+        width: 539px;
+        height: 281px;
+    }
 }
 .informative-image {
     position: relative;
-    top: 0.625rem;    
+    top: 0.625rem;
     left: 0.093rem;
     transform: rotate(-3deg);
+
+    @media (min-width: 200px) {
+        width: 315px;
+        height: 160px;
+    }
+    @media (min-width: 768px) {
+        width: 370px;
+        height: 188px;
+    }
+    @media (min-width: 992px) {
+        width: 425px;
+        height: 214px;
+    }
+    @media (min-width: 1120px) {
+        width: 466px;
+        height: 241px;
+    }
+    @media (min-width: 1200px) {
+        width: 518px;
+        height: 267px;
+    }
 }
 
-.informative-area{
+.informative-area {
     background-color: white;
     padding-top: 5rem;
     padding-bottom: 6rem;
 }
-.informative-title{
-    font-family: 'Ultra';
-    font-size: 28pt;
-    color: #720C68;
+.informative-title {
+    font-family: "Ultra";
+    font-size: 2rem;
+    color: #720c68;
 }
-.informative-card{
+.informative-card {
     width: 260px;
     height: 90px;
-    background-color: #F3EEE8;
+    background-color: #f3eee8;
     align-content: center;
     margin: 0.5rem 0.5rem;
     border-radius: 10px;
     padding-top: 0.625rem;
 }
 .informative-card p {
-    color: #890A78;
-    margin-top: 0.75rem;
-    font-weight: medium;
+    color: #890a78;
+    margin-top: 0.25rem;
 }
 
-.intructions-area{
-    background-color: #720C68;
+.intructions-area {
+    background-color: #720c68;
     max-width: 100%;
     padding-top: 4rem;
 }
-.instuction-title{
-    font-family:  'Ultra';
+.instuction-title {
+    font-family: "Ultra";
     color: white;
-    font-size: 36pt;
+    font-size: 3.0096rem;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
 }
-.instuction-card{
+.instuction-card {
     background-color: white;
     border-radius: 0.625rem;
     width: 300px;
     height: 257px;
-    margin: auto 15px;
-    padding:  0 1rem;
+    margin: 15px 15px;
+    padding: 0 1rem;
 }
-.instuction-card img{
+.instuction-card img {
     margin-top: -30px;
 }
-.instruct-subtitle{
-    font-family: 'Poppins', Bold;
+.instruct-subtitle {
+    font-family: "Poppins", Bold;
     font-weight: bold;
     font-size: 20pt;
 }
-.instruct-text{
+.instruct-text {
     font-size: 14pt;
 }
-.instruct-btn{
-    font-family: 'Ultra';
+.instruct-btn {
+    font-family: "Ultra";
     font-size: 20pt;
     border-color: white !important;
-    box-shadow: -8px 8px 0 0 #DD81CE ;
+    box-shadow: -8px 8px 0 0 #dd81ce;
 }
 .badge {
-    background: #DD81CE;
-    width: 40px;
-    height: 40px;
+    background: #dd81ce;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Ultra';
-    color: #720C68;
+    font-family: "Ultra";
+    color: #720c68;
     font-size: 24px;
     font-weight: bold;
 }
-.outer-badge{
+.outer-badge {
     position: relative;
     top: -25px;
     left: 0px;
