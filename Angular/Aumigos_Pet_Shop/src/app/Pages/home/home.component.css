@@ -1,6 +1,9 @@
 .header-decoration{
     height: 6.25rem;
     background-color: #720C68;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
 }
 .header-link{
     color: white;
