@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
 import { sessionModel } from '../Model/sessionModel';
+import { tokenReponseModel } from '../Model/tokenResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,12 @@ export class AuthenticationService {
 
   async login(email: string, password: string){
     try{
-      let token = await firstValueFrom(this.http.post('api/v1/Auth', { Email: email, Password: password}, {responseType: 'text'}));    
+      let response = await firstValueFrom(this.http.post<tokenReponseModel>('api/v1/auth', { Email: email, Password: password}));    
 
-      let decodedToken = jwtDecode(token) as {id: string, role: string};
-      sessionStorage.setItem('currentUser', JSON.stringify(new sessionModel(Number.parseInt(decodedToken.id), decodedToken.role, token)))
+      let decodedToken = jwtDecode(response.token) as {id: string, role: string};
+      
+      let jsonsession = JSON.stringify(new sessionModel(Number.parseInt(decodedToken.id), decodedToken.role, response.token, response.refreshToken, response.refreshKey));
+      sessionStorage.setItem('currentUser', jsonsession)
 
       return {response: "Sucesso", isSuccess: true};
     }catch (error: any){
@@ -24,6 +27,9 @@ export class AuthenticationService {
   }
 
   logout(): void{
-    sessionStorage.removeItem('currentUser');
+    let currentUser = JSON.parse(sessionStorage.getItem('currentUser') ?? "");
+    this.http.post(`api/v1/auth/revoke?userId=${currentUser.id}`, {});//revoka o token ativo
+
+    sessionStorage.removeItem('currentUser');//limpa o storage impedindo acessar o interno do site
   }
 }

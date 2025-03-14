@@ -8,6 +8,6 @@ namespace ApiPetShop.Infra
         Task<TokenModel> GetRefreshToken(int userId);
         Task SaveRefreshToken(int userId, string refreshToken, string refreshKey);
         (string refreshToken, string refreshKey) GenerateRefreshToken();
-        void RevokeToken(TokenModel userToken);
+        void RevokeToken(int userId);
     }
 }

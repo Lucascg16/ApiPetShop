@@ -40,7 +40,7 @@ public class EmailService : IEmailService
             UseDefaultCredentials = false,
             Credentials = new NetworkCredential(
                 _emailModel.EmailSender,
-                _emailModel.PAssword
+                _emailModel.Password
             )
         };    
     }

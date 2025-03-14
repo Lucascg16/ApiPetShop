@@ -11,11 +11,11 @@ export const ApiInterceptor: HttpInterceptorFn = (req, next) => {
     const tokenService: ITokenService = inject(TokenService);
 
     req = req.clone({ url: `${Base_Url}/${req.url}` })
-    
-    tokenService.refreshToken();
 
     let userdata = sessionStorage.getItem('currentUser');
     if(userdata){
+        tokenService.refreshToken();
+
         try {
             const currentUser: sessionModel = JSON.parse(userdata)
             if (currentUser.token) {

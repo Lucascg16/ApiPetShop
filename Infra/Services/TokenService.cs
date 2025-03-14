@@ -12,22 +12,26 @@ namespace ApiPetShop.Infra
         private readonly IConfiguration _config = config;
 
         public async Task<TokenModel> GetRefreshToken(int userId) => await tokenRepository.GetRefreshToken(userId);
-        
+
         public string GenerateToken(UserModel user, int expires = 2, bool isInvalid = false)
         {
             var secret = _config.GetSection("ApiSettings")["Secret"];
-            var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret) ? throw new("O secret é necessário para gerar o token") : secret);
+            var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret)
+                ? throw new("O secret é necessário para gerar o token")
+                : secret);
             SigningCredentials signingCredentials = null!;
 
             if (!isInvalid)
             {
-                signingCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
+                signingCredentials =
+                    new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
             }
 
             var tokenOptions = new JwtSecurityToken(
                 issuer: _config.GetSection("ApiSettings")["Issuer"] ?? "",
                 audience: _config.GetSection("ApiSettings")["Audience"] ?? "",
-                claims: [
+                claims:
+                [
                     new Claim("id", user.Id.ToString()),
                     new Claim("role", user.Role.ToString())
                 ],
@@ -44,16 +48,19 @@ namespace ApiPetShop.Infra
             await tokenRepository.CreateRefreshToken(tokenModel);
         }
 
-        public void RevokeToken(TokenModel userToken)
+        public void RevokeToken(int userId)
         {
-            tokenRepository.RovokeToken(userToken);
+            var userToken = tokenRepository.GetRefreshToken(userId).GetAwaiter().GetResult();
+            
+            if(userToken.Id != 0)
+                tokenRepository.RovokeToken(userToken);
         }
 
         public (string refreshToken, string refreshKey) GenerateRefreshToken()
         {
             var refreshToken = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
             var refreshKey = Convert.ToBase64String(RandomNumberGenerator.GetBytes(32));
-            
+
             return (refreshToken, refreshKey);
         }
     }

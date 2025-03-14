@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ApiPetShop.Controllers
 {
     [ApiController]
-    [Route("api/v1/Auth")]
+    [Route("api/v1/auth")]
     public class AuthController(ITokenService tokenService, IUserServices userService, ICryptoService cryptoService)
         : ControllerBase
     {
@@ -23,6 +23,8 @@ namespace ApiPetShop.Controllers
                 if (userDatabase.Id == 0) return NotFound("Email ou senha inválidos");
                 if (login.Password != _cryptoService.Decrypt(userDatabase.Password))
                     return Unauthorized("Email ou senha inválidos");
+                
+                _tokenService.RevokeToken(userDatabase.Id);
 
                 var (refreshToken, refreshKey) = _tokenService.GenerateRefreshToken();//gera as duas variaveis para o token
                 await _tokenService.SaveRefreshToken(userDatabase.Id, refreshToken, refreshKey);// salva no banco de dados ligando ao usuário que foi logado
@@ -51,7 +53,7 @@ namespace ApiPetShop.Controllers
                 if (userToken.Id == 0 || userToken.Key != request.RefreshKey) return Unauthorized();
                 if (userToken.Expiration < DateTime.UtcNow) return Unauthorized();
 
-                _tokenService.RevokeToken(userToken);
+                _tokenService.RevokeToken(user.Id);
                 
                 var newJwt = _tokenService.GenerateToken(user);
                 var (refreshToken, refreshKey) = _tokenService.GenerateRefreshToken(); 
@@ -75,8 +77,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                var userToken = _tokenService.GetRefreshToken(userId).GetAwaiter().GetResult();
-                _tokenService.RevokeToken(userToken);
+                _tokenService.RevokeToken(userId);
                 return Ok();
             }
             catch (Exception e)
