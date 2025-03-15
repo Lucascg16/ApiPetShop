@@ -4,9 +4,22 @@
     display: flex;
     justify-content: center; 
     align-items: center; 
+    
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+            gap: 10px; 
+        }
+    }
 }
 .header-link{
     color: white;
     text-decoration: none;
-    font-family: 'Poppins'
-}
+    font-family: 'Poppins';
+
+    @media (max-width: 768px) {
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+    }
+} 
