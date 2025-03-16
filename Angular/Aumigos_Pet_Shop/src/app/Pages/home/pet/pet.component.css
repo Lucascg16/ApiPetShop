@@ -116,8 +116,8 @@
 }
 .hello-dog {
     @media (max-width: 765px) {
-        width: 350px;
-        height: 390px;
+        width: 280px;
+        height: 416px;
     }
 }
 .informative-card p {
