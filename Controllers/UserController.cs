@@ -49,8 +49,7 @@ namespace ApiPetShop.Controllers
             {
                 var userVerify = await _userServices.GetUserByEmail(nUser.Email);
 
-                if (userVerify.Id != 0) return Unauthorized("Email já cadastrado");
-                if (nUser is null) return BadRequest();
+                if (userVerify.Id != 0) return Unauthorized(new { error = "Email já cadastrado"});
 
                 await _userServices.CreateUser(nUser);
                 return Ok();
@@ -87,6 +86,21 @@ namespace ApiPetShop.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
+            }
+        }
+        
+        [AllowAnonymous]
+        [HttpPatch("reset")]
+        public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
+        {
+            try
+            {
+                await _userServices.ResetPassword(model);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
             }
         }
 

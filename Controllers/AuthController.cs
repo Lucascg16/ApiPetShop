@@ -92,7 +92,7 @@ namespace ApiPetShop.Controllers
             try
             {
                 var userVerify = await _userServices.GetUserByEmail(nUser.Email);
-                if (userVerify.Id != 0) return Unauthorized("Email já cadastrado");
+                if (userVerify.Id != 0) return Unauthorized(new { error = "Email já cadastrado" });
 
                 await _userServices.CreateUser(nUser);
                 return Ok();

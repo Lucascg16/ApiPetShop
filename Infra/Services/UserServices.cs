@@ -41,6 +41,15 @@ namespace ApiPetShop.Infra
             _repository.UpdateUser(user);
         }
 
+        public async Task ResetPassword(ResetPasswordModel model)
+        {
+            var user = await _repository.GetUserById(model.Id);
+            if (user.Id == 0) throw new("Usuário não encontrado");
+            
+            user.UpdatePassword(_cryptoService.Encrypt(model.Password ?? ""));
+            _repository.UpdateUser(user);
+        }
+
         public async Task DeleteUser(int id)
         {
             var user = await _repository.GetUserById(id);
