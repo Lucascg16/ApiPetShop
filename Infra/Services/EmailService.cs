@@ -18,7 +18,7 @@ public class EmailService : IEmailService
     {
         if (string.IsNullOrEmpty(userEmail)) throw new("O email do usuário não pode ser vazio");
         
-        var callBackUrl = $"{_emailModel.WebAddress}/senha/redefinirSenha?Token={token}";//Todo: Verificar no site como que vai ficar a url de callback
+        var callBackUrl = $"{_emailModel.WebAddress}/reset?Token={token}";//Todo: Verificar no site como que vai ficar a url de callback
 
         var email = new MailMessage();
         email.From = new MailAddress(_emailModel.EmailSender, _emailModel.Sender);

@@ -12,12 +12,12 @@ public class EmailController(IEmailService emailService, ITokenService tokenServ
     private readonly IUserServices _userServices = userServices;
     
     [HttpPost]
-    public async Task<IActionResult> SendPasswordEmail([FromBody] string userEmail)
+    public async Task<IActionResult> SendPasswordEmail(string userEmail)
     {
         try
         {
             var userDataBase = await _userServices.GetUserByEmail(userEmail);
-            if (userDataBase.Id == 0) return Unauthorized("O email digitado não foi encontrado");
+            if (userDataBase.Id == 0) return Unauthorized(new { error = "O email digitado não foi encontrado" });
             
             var redefinitionToken = _tokenService.GenerateToken(userDataBase, 3, true);
 

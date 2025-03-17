@@ -11,6 +11,7 @@ namespace ApiPetShop.Infra
         Task<UserModel> GetUserById(int id);
         Task<UserModel> GetUserByEmail(string email);
         Task UpdatePassword(UpdatePasswordModel update);
+        Task ResetPassword(ResetPasswordModel model);
         Task DeleteUser(int id);
     }
 }
