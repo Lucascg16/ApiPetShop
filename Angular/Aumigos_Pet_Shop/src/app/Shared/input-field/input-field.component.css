@@ -8,3 +8,10 @@ input:focus {
     border: 2px solid;
     border-color: #890A78;
 }
+
+.form-text {
+    font-weight: 580;
+    font-size: 12pt;
+    color: #333333;
+    padding: 0.4rem 0.4rem;
+}
