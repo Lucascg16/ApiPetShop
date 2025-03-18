@@ -13,12 +13,12 @@ public class EmailService : IEmailService
     {
         _emailModel = emailModel.Value;
     }
-    
-    public async Task SendPasswordEmailAsync(string userEmail, string subject, string msg, string token)
+
+    public async Task SendPasswordEmailAsync(string userEmail, string subject, string token)
     {
         if (string.IsNullOrEmpty(userEmail)) throw new("O email do usuário não pode ser vazio");
-        
-        var callBackUrl = $"{_emailModel.WebAddress}/reset?Token={token}";//Todo: Verificar no site como que vai ficar a url de callback
+
+        var callBackUrl = $"{_emailModel.WebAddress}/reset?Token={token}";
 
         var email = new MailMessage();
         email.From = new MailAddress(_emailModel.EmailSender, _emailModel.Sender);
@@ -26,10 +26,10 @@ public class EmailService : IEmailService
         email.Subject = subject;
         email.Body = EmailTemplates.RedefinirSenha.Replace("{callBackUrl}", callBackUrl);
         email.IsBodyHtml = true;
-        
+
         await EmailConfig().SendMailAsync(email);
     }
-    
+
     private SmtpClient EmailConfig()
     {
         return new SmtpClient()
@@ -42,9 +42,11 @@ public class EmailService : IEmailService
                 _emailModel.EmailSender,
                 _emailModel.Password
             )
-        };    
+        };
     }
-    public class EmailTemplates{
-        public static string RedefinirSenha = "Conforme solicitado segue o link para redefinição de senha: <a href='{callBackUrl}'>Clique aqui</a>. <br> Caso não tenha solicitado a troca de senha por favor desconsidere o e-mail";
-    }
+}
+public class EmailTemplates
+{
+    public static string RedefinirSenha = "Conforme solicitado segue o link para redefinição de senha: <a href='{callBackUrl}'>Clique aqui</a>. <br> Caso não tenha solicitado a troca de senha por favor desconsidere o e-mail";
+    public static string Remember = "";
 }

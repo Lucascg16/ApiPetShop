@@ -21,7 +21,7 @@ public class EmailController(IEmailService emailService, ITokenService tokenServ
             
             var redefinitionToken = _tokenService.GenerateToken(userDataBase, 3, true);
 
-            await _emailService.SendPasswordEmailAsync(userEmail, "Redefinição de senha", "", redefinitionToken);
+            await _emailService.SendPasswordEmailAsync(userEmail, "Redefinição de senha", redefinitionToken);
             return Ok();
         }
         catch(Exception ex)
