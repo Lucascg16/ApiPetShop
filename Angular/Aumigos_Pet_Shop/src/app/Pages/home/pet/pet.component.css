@@ -110,7 +110,7 @@
 .row {
     @media (max-width: 765px) {
         display: flex;
-        align-items: center; /* Alinha verticalmente a imagem e os cards */
+        align-items: center; 
         justify-content: center;
     }
 }

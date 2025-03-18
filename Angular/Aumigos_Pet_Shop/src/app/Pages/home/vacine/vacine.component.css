@@ -32,7 +32,11 @@
 .instuction-title{
     font-family:  'Ultra';
     color: white;
-    font-size: 36pt;
+    font-size: 3.0096rem;
+
+    @media (max-width: 768px) {
+        font-size: 2rem;
+    }
 }
 .instuction-card{
     background-color: white;
@@ -61,8 +65,8 @@
 }
 .badge {
     background: #DD81CE;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -89,11 +93,19 @@
 .informative-area{
     background-color: white;
     padding-top: 5rem;
-    padding-bottom: 6rem;
+    padding-bottom: 2rem;
+
+    @media (max-width: 768px) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 }
 .informative-title{
     font-family: 'Ultra';
-    font-size: 28pt;
+    font-size: 2rem;
     color: #720C68;
 }
 .background-image {
@@ -102,12 +114,31 @@
     width: 380px;
     height: 260px;
     transform: rotate(3deg);
+    margin: 0 auto;
+
+    @media (max-width: 990px) {
+        width: 310px;
+        height: 210px;
+    }
 }
 .informative-image {
     position: relative;
     top: 0.625rem;    
     left: 0.093rem;
     transform: rotate(-3deg);
+
+    @media (max-width: 990px) {
+        width: 288px;
+        height: 192px;
+    }
+}
+.row {
+    @media (max-width: 768px) {
+        display: flex;
+        align-items: center; 
+        justify-content: center;
+        padding-top: 2rem;
+    }
 }
 .informative-card{
     width: 260px;
