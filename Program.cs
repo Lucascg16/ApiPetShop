@@ -23,6 +23,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddInfra(builder.Configuration);
+builder.Services.AddHostedService<NotificationJob>();
 
 builder.Services.AddSwaggerGen(c =>
 {

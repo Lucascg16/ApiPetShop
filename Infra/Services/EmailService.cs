@@ -42,7 +42,7 @@ public class EmailService(IOptions<EmailModel> emailModel) : IEmailService
     }
     public MailMessage PrepareEmailToSend(string destinationEmail, string subject, string bodyMessage)
     {
-        var email = new MailMessage{};
+        var email = new MailMessage { };
         email.From = new MailAddress(_emailModel.EmailSender, _emailModel.Sender);
         email.To.Add(destinationEmail);
         email.Subject = subject;
@@ -57,15 +57,11 @@ public class EmailTemplates
     public static string RedefinirSenha = "Conforme solicitado segue o link para redefinição de senha: <a href='{callBackUrl}'>Clique aqui</a>. <br> Caso não tenha solicitado a troca de senha por favor desconsidere o e-mail";
     public static string Remember = @"
     <h1>Olá {custumer}!</h1>
-
     <h3>Só passando para lembrar que a vacinação do seu pet está agendada para:</h3>
-
     <p>📅 Data: {date}</p>
     <p>📍 Local: {locale}</p>
-
     <h2>Não esqueça de levar a carteirinha de vacinação! Se precisar reagendar, é só avisar.</h2>
     <p>📞 Contato: {contact}</p>
-
     <span>Até lá! 🐶🐱✨</span>
     ";
     public static string RememberTitle = "✨️Lembrete de agendamento✨";
