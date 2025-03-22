@@ -8,16 +8,14 @@ namespace ApiPetShop.Controllers
     [Authorize(Roles = "Admin,Employee")]
     [ApiController]
     [Route("api/v1/petservice")]
-    public class PetServiceController(IPetServices services) : ControllerBase
+    public class PetServiceController(IPetServices petService) : ControllerBase
     {
-        private readonly IPetServices _services = services;
-
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await _services.GetAllPetServices());
+                return Ok(await petService.GetAllPetServices());
             }
             catch (Exception ex)
             {
@@ -30,7 +28,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                var service = await _services.GetServiceById(id);
+                var service = await petService.GetServiceById(id);
                 if (service.Id == 0) return NotFound();
 
                 return Ok(service);
@@ -47,7 +45,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                await _services.CreateService(service);
+                await petService.CreateService(service);
                 return Ok();
             }
             catch (Exception ex)
@@ -61,7 +59,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                await _services.Update(service);
+                await petService.Update(service);
                 return Ok();
             }
             catch (Exception ex)
@@ -75,7 +73,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                await _services.Delete(id);
+                await petService.Delete(id);
                 return Ok();
             }
             catch (Exception ex)

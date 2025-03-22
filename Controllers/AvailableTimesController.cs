@@ -6,16 +6,14 @@ namespace ApiPetShop.Controllers
 {
     [ApiController]
     [Route("api/v1/availableTimes")]
-    public class AvailableTimesController(IScheduleService service) : ControllerBase
+    public class AvailableTimesController(IScheduleService scheduleService) : ControllerBase
     {
-        private readonly IScheduleService _scheduleService = service;
-
         [HttpGet("pet")]
         public async Task<IActionResult> GetPetAvailable(DateTime date)
         {
             try
             {
-                return Ok(await _scheduleService.GetPetServiceAvailable(date));
+                return Ok(await scheduleService.GetPetServiceAvailable(date));
             }
             catch (Exception ex)
             {
@@ -28,7 +26,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                return Ok(await _scheduleService.GetVetServiceAvailable(date));
+                return Ok(await scheduleService.GetVetServiceAvailable(date));
             }
             catch (Exception ex)
             {

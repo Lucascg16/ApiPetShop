@@ -9,13 +9,11 @@ namespace ApiPetShop.Infra
 {
     public class TokenService(IConfiguration config, ITokenRepository tokenRepository) : ITokenService
     {
-        private readonly IConfiguration _config = config;
-
         public async Task<TokenModel> GetRefreshToken(int userId) => await tokenRepository.GetRefreshToken(userId);
 
         public string GenerateToken(UserModel user, int expires = 2, bool isInvalid = false)
         {
-            var secret = _config.GetSection("ApiSettings")["Secret"];
+            var secret = config.GetSection("ApiSettings")["Secret"];
             var key = Encoding.ASCII.GetBytes(string.IsNullOrEmpty(secret)
                 ? throw new("O secret é necessário para gerar o token")
                 : secret);
@@ -28,8 +26,8 @@ namespace ApiPetShop.Infra
             }
 
             var tokenOptions = new JwtSecurityToken(
-                issuer: _config.GetSection("ApiSettings")["Issuer"] ?? "",
-                audience: _config.GetSection("ApiSettings")["Audience"] ?? "",
+                issuer: config.GetSection("ApiSettings")["Issuer"] ?? "",
+                audience: config.GetSection("ApiSettings")["Audience"] ?? "",
                 claims:
                 [
                     new Claim("id", user.Id.ToString()),

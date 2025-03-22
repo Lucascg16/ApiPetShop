@@ -5,31 +5,41 @@ using Microsoft.EntityFrameworkCore;
 namespace ApiPetShop.Domain
 {
     public class VetRepository(DbConnectionContext db, IMapper mapper) : IVetRepository
-    {
-        private readonly DbConnectionContext _db = db;
-        private readonly IMapper _mapper = mapper;
+    {        
+        public async Task<List<VetServiceDto>> GetAllPetServices() => mapper.Map<List<VetServiceDto>>(await db.VetServices.AsNoTracking().ToListAsync());
+        public async Task<List<DateTime>> GetScheduledTime(DateTime date) => await db.VetServices.AsNoTracking().Where(x => x.ScheduledDate.Day == date.Day && x.ScheduledDate.Month == date.Month && x.ScheduledDate.Year == date.Year).Select(x => x.ScheduledDate).ToListAsync();
+        public async Task<VetServiceDto> GetServiceByIdDto(int id) => mapper.Map<VetServiceDto>(await db.VetServices.AsNoTracking().Include(x => x.Vacines).FirstOrDefaultAsync(x => x.Id == id)) ?? new();
+        public async Task<VetServiceModel> GetServiceById(int id) => await db.VetServices.FindAsync(id) ?? new();
         
-        public async Task<List<VetServiceDto>> GetAllPetServices() => _mapper.Map<List<VetServiceDto>>(await _db.VetServices.AsNoTracking().ToListAsync());
-        public async Task<List<DateTime>> GetScheduledTime(DateTime date) => await _db.VetServices.AsNoTracking().Where(x => x.ScheduledDate.Day == date.Day && x.ScheduledDate.Month == date.Month && x.ScheduledDate.Year == date.Year).Select(x => x.ScheduledDate).ToListAsync();
-        public async Task<VetServiceDto> GetServiceByIdDto(int id) => _mapper.Map<VetServiceDto>(await _db.VetServices.AsNoTracking().Include(x => x.Vacines).FirstOrDefaultAsync(x => x.Id == id)) ?? new();
-        public async Task<VetServiceModel> GetServiceById(int id) => await _db.VetServices.FindAsync(id) ?? new();
-
-        public async Task AddRelWithVacine(List<VetVacine> relations)
+        public async Task ManageRelWithVacine(List<VetVacine> newRelations)
         {
-            await _db.VetVacines.AddRangeAsync(relations);
-            await _db.SaveChangesAsync();
+            var oldRelations = await db.VetVacines.Where(x => x.VetServiceId == newRelations[0].VetServiceId).ToListAsync();
+            if (oldRelations.Count == 0)
+            {
+                await db.VetVacines.AddRangeAsync(newRelations);
+                await db.SaveChangesAsync();   
+                return;
+            }
+            
+            var toRemove = oldRelations.Where(x => newRelations.All(n => n.VacineId != x.VacineId)).ToList();
+            db.VetVacines.RemoveRange(toRemove);
+                
+            var toAdd = newRelations.Where(n => oldRelations.All(x => x.VacineId != n.VacineId)).ToList();
+            db.VetVacines.AddRange(toAdd);
+                
+            await db.SaveChangesAsync();
         }
 
         public async Task CreateService(VetServiceModel service)
         {
-            await _db.VetServices.AddAsync(service);
-            await _db.SaveChangesAsync();
+            await db.VetServices.AddAsync(service);
+            await db.SaveChangesAsync();
         }
 
         public void Update(VetServiceModel service)
         {
-            _db.VetServices.Update(service);
-            _db.SaveChanges();
+            db.VetServices.Update(service);
+            db.SaveChanges();
         }
     }
 }

@@ -7,7 +7,7 @@ namespace ApiPetShop.Infra;
 
 public class EmailService(IOptions<EmailModel> emailModel) : IEmailService
 {
-    private readonly EmailModel _emailModel = emailModel.Value;
+    private readonly EmailModel emailModel = emailModel.Value;
 
     public async Task SendRememberEmail(string email, string name, DateTime scheduleTime, string phone)
     {
@@ -20,7 +20,7 @@ public class EmailService(IOptions<EmailModel> emailModel) : IEmailService
     {
         if (string.IsNullOrEmpty(userEmail)) throw new("O email do usuário não pode ser vazio");
 
-        var callBackUrl = $"{_emailModel.WebAddress}/reset?Token={token}";
+        var callBackUrl = $"{emailModel.WebAddress}/reset?Token={token}";
         string body = EmailTemplates.RedefinirSenha.Replace("{callBackUrl}", callBackUrl);
 
         await EmailConfig().SendMailAsync(PrepareEmailToSend(userEmail, subject, body));
@@ -30,20 +30,20 @@ public class EmailService(IOptions<EmailModel> emailModel) : IEmailService
     {
         return new SmtpClient()
         {
-            Host = _emailModel.ServerAddress,
-            Port = _emailModel.ServerPort,
-            EnableSsl = _emailModel.UseSsl,
+            Host = emailModel.ServerAddress,
+            Port = emailModel.ServerPort,
+            EnableSsl = emailModel.UseSsl,
             UseDefaultCredentials = false,
             Credentials = new NetworkCredential(
-                _emailModel.EmailSender,
-                _emailModel.Password
+                emailModel.EmailSender,
+                emailModel.Password
             )
         };
     }
     public MailMessage PrepareEmailToSend(string destinationEmail, string subject, string bodyMessage)
     {
         var email = new MailMessage { };
-        email.From = new MailAddress(_emailModel.EmailSender, _emailModel.Sender);
+        email.From = new MailAddress(emailModel.EmailSender, emailModel.Sender);
         email.To.Add(destinationEmail);
         email.Subject = subject;
         email.Body = bodyMessage;

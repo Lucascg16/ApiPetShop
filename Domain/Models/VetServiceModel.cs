@@ -68,7 +68,6 @@ namespace ApiPetShop.Domain
             ScheduledDate = nService.ScheduledDate;
             PetWeight = nService.PetWeight;
             IsCastrated = nService.IsCastrated;
-            Vacines = nService.Vacines;
         }
     }
 }

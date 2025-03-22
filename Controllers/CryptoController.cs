@@ -7,16 +7,14 @@ namespace ApiPetShop.Controllers
     [Authorize]
     [ApiController]
     [Route("api/v1/crypt")]
-    public class CryptoController(ICryptoService service) : ControllerBase
+    public class CryptoController(ICryptoService cryptoService) : ControllerBase
     {
-        private readonly ICryptoService _cryptoService = service;
-
         [HttpGet("crypt")]
         public IActionResult Crypt(string input)
         {
             try
             {
-                return Ok(_cryptoService.Encrypt(input));
+                return Ok(cryptoService.Encrypt(input));
             }
             catch (Exception ex) 
             {
@@ -29,7 +27,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                return Ok(_cryptoService.Decrypt(input));
+                return Ok(cryptoService.Decrypt(input));
             }
             catch (Exception ex)
             {
