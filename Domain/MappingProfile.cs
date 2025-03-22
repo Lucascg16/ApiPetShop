@@ -9,6 +9,7 @@ namespace ApiPetShop.Domain
             CreateMap<UserDto, UserModel>().ReverseMap();
             CreateMap<PetServiceDto, PetServiceModel>().ReverseMap();
             CreateMap<VetServiceDto, VetServiceModel>().ReverseMap();
+            CreateMap<CompanyDto, CompanyModel>().ReverseMap();
         }
     }
 }

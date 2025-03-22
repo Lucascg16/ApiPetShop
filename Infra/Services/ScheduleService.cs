@@ -5,13 +5,10 @@ namespace ApiPetShop.Infra
 {
     public class ScheduleService(IPetRepository petRepository, IVetRepository vetRepository) : IScheduleService
     {
-        private readonly IPetRepository _petRepository = petRepository;
-        private readonly IVetRepository _vetRepository = vetRepository;
-
         public async Task<List<string>> GetPetServiceAvailable(DateTime date)
         {
             var availableTimes = PopulateAvailableTimes(date);
-            var scheduledDates = await _petRepository.GetScheduledTime(date);
+            var scheduledDates = await petRepository.GetScheduledTime(date);
 
             foreach (var scheduledDate in scheduledDates)
             {
@@ -24,7 +21,7 @@ namespace ApiPetShop.Infra
         public async Task<List<string>> GetVetServiceAvailable(DateTime date)
         {
             var availableTimes = PopulateAvailableTimes(date);
-            var scheduledDates = await _vetRepository.GetScheduledTime(date);
+            var scheduledDates = await vetRepository.GetScheduledTime(date);
 
             foreach (var scheduledDate in scheduledDates)
             {

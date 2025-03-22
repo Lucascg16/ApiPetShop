@@ -8,16 +8,14 @@ namespace ApiPetShop.Controllers
     [Authorize(Roles = "Admin")]
     [ApiController]
     [Route("api/v1/users")]
-    public class UserController(IUserServices services) : ControllerBase
+    public class UserController(IUserServices userServices) : ControllerBase
     {
-        private readonly IUserServices _userServices = services;
-
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
             try
             {
-                return Ok(await _userServices.GetAllUsers());
+                return Ok(await userServices.GetAllUsers());
             }
             catch (Exception ex) 
             {
@@ -30,7 +28,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                var user = await _userServices.GetUserByIdDto(id);
+                var user = await userServices.GetUserByIdDto(id);
                 if(user.Id == 0)
                     return NotFound();
 
@@ -47,11 +45,11 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                var userVerify = await _userServices.GetUserByEmail(nUser.Email);
+                var userVerify = await userServices.GetUserByEmail(nUser.Email);
 
                 if (userVerify.Id != 0) return Unauthorized(new { error = "Email já cadastrado"});
 
-                await _userServices.CreateUser(nUser);
+                await userServices.CreateUser(nUser);
                 return Ok();
             }
             catch (Exception ex)
@@ -65,7 +63,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                _userServices.UpdateUser(user);
+                userServices.UpdateUser(user);
                 return Ok();
             }
             catch (Exception ex) 
@@ -80,7 +78,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                await _userServices.UpdatePassword(update);
+                await userServices.UpdatePassword(update);
                 return Ok();
             }
             catch (Exception ex)
@@ -95,7 +93,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                await _userServices.ResetPassword(model);
+                await userServices.ResetPassword(model);
                 return Ok();
             }
             catch (Exception e)
@@ -109,7 +107,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                await _userServices.DeleteUser(id);
+                await userServices.DeleteUser(id);
                 return Ok();
             }
             catch (Exception ex)

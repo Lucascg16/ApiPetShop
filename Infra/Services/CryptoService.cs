@@ -5,7 +5,7 @@ namespace ApiPetShop.Infra
 {
     public class CryptoService : ICryptoService
     {
-        private readonly string Key = "VhObgvki4PEn8u5J";
+        private readonly string Key = "VhObgvki4PEn8u5J";//Todo: Adicionar essas variaveis em variaveis de ambiente
         private readonly string IV = "IgEwwq7sW9bhZrza";
 
         public string Encrypt(string input)
