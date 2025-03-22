@@ -4,6 +4,7 @@ using ApiPetShop.Infra;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiPetShop.Migrations
 {
     [DbContext(typeof(DbConnectionContext))]
-    partial class DbConectionModelSnapshot : ModelSnapshot
+    [Migration("20250321170805_AddAddressTable")]
+    partial class AddAddressTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,49 +56,6 @@ namespace ApiPetShop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Addresses");
-                });
-
-            modelBuilder.Entity("ApiPetShop.Domain.CompanyModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnOrder(1);
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("InstagramAddress")
-                        .IsRequired()
-                        .HasMaxLength(512)
-                        .HasColumnType("nvarchar(512)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("Companie");
                 });
 
             modelBuilder.Entity("ApiPetShop.Domain.PetServiceModel", b =>
@@ -324,17 +284,6 @@ namespace ApiPetShop.Migrations
                     b.HasIndex("VetServiceId");
 
                     b.ToTable("VetVacines");
-                });
-
-            modelBuilder.Entity("ApiPetShop.Domain.CompanyModel", b =>
-                {
-                    b.HasOne("ApiPetShop.Domain.AddressModel", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("ApiPetShop.Domain.VetVacine", b =>
