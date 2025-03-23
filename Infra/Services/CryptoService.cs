@@ -3,16 +3,16 @@ using System.Text;
 
 namespace ApiPetShop.Infra
 {
-    public class CryptoService : ICryptoService
+    public class CryptoService(IConfiguration config) : ICryptoService
     {
-        private readonly string Key = "VhObgvki4PEn8u5J";//Todo: Adicionar essas variaveis em variaveis de ambiente
-        private readonly string IV = "IgEwwq7sW9bhZrza";
+        private readonly string _key = config.GetSection("Encryption")["Key"] ?? "";
+        private readonly string _iV = config.GetSection("Encryption")["iv"] ?? "";
 
         public string Encrypt(string input)
         {
             using Aes aes = Aes.Create();
-            aes.Key = Encoding.UTF8.GetBytes(Key);
-            aes.IV = Encoding.UTF8.GetBytes(IV);
+            aes.Key = Encoding.UTF8.GetBytes(_key);
+            aes.IV = Encoding.UTF8.GetBytes(_iV);
 
             using MemoryStream ms = new();
             using CryptoStream cs = new(ms, aes.CreateEncryptor(), CryptoStreamMode.Write);
@@ -29,8 +29,8 @@ namespace ApiPetShop.Infra
             try
             {
                 using Aes aes = Aes.Create();
-                aes.Key = Encoding.UTF8.GetBytes(Key);
-                aes.IV = Encoding.UTF8.GetBytes(IV);
+                aes.Key = Encoding.UTF8.GetBytes(_key);
+                aes.IV = Encoding.UTF8.GetBytes(_iV);
 
                 using MemoryStream ms = new();
                 using CryptoStream cs = new(ms, aes.CreateDecryptor(), CryptoStreamMode.Write);

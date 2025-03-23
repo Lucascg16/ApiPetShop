@@ -9,7 +9,7 @@ namespace ApiPetShop.Infra
         public static IServiceCollection AddInfra(this IServiceCollection services, IConfiguration configuration)
         {
             var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new Exception("A string de conexão não foi encontrada, favor verificar o appsettings.");
-            services.AddDbContext<DbConnectionContext>(opt => opt.UseSqlServer(DecryptConnectionPassword(connectionString)));
+            services.AddDbContext<DbConnectionContext>(opt => opt.UseSqlServer(DecryptConnectionPassword(connectionString, configuration)));
 
             //Services
             services.AddScoped<IUserServices, UserServices>();
@@ -34,9 +34,9 @@ namespace ApiPetShop.Infra
             return services;
         }
 
-        private static string DecryptConnectionPassword(string connectionstring)
+        private static string DecryptConnectionPassword(string connectionstring, IConfiguration config)
         {
-            ICryptoService _crypt = new CryptoService();
+            ICryptoService _crypt = new CryptoService(config);
             var builder = new DbConnectionStringBuilder
             {
                 ConnectionString = connectionstring

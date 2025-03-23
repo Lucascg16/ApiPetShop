@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ApiPetShop.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/v1/crypt")]
     public class CryptoController(ICryptoService cryptoService) : ControllerBase
