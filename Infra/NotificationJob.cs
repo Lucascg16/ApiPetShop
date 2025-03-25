@@ -31,7 +31,7 @@ public class NotificationJob(IServiceProvider serviceProvider) : BackgroundServi
     private static async Task SendToVetCustumers(DbConnectionContext db, IEmailService emailService)
     {
         var now = DateTime.UtcNow;
-        var clients = await db.VetServices.Where(x => x.ScheduledDate.DayOfYear == now.AddDays(1).DayOfYear && x.ScheduledDate.Year == now.Year).ToListAsync();
+        var clients = await db.VetServices.AsNoTracking().Where(x => x.ScheduledDate.DayOfYear == now.AddDays(1).DayOfYear && x.ScheduledDate.Year == now.Year).ToListAsync();
         //Essa consulta ignora o primeiro dia do ano
         foreach (var customer in clients)
         {
@@ -53,7 +53,7 @@ public class NotificationJob(IServiceProvider serviceProvider) : BackgroundServi
     private static async Task SendToPetCustumers(DbConnectionContext db, IEmailService emailService)
     {
         var now = DateTime.UtcNow;
-        var clients = await db.PetServices.Where(x => x.ScheduledDate.DayOfYear == now.AddDays(1).DayOfYear && x.ScheduledDate.Year == now.Year).ToListAsync();
+        var clients = await db.PetServices.AsNoTracking().Where(x => x.ScheduledDate.DayOfYear == now.AddDays(1).DayOfYear && x.ScheduledDate.Year == now.Year).ToListAsync();
 
         foreach (var customer in clients)
         {
