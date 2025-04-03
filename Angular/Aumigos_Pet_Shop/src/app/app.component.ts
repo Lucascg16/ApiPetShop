@@ -29,8 +29,6 @@ export class AppComponent implements OnInit, OnDestroy {
     });
 
     this.http.get<CompanyModel>("api/v1/company").subscribe(res =>  this.companie = res)
-
-    console.log(this.companie)
   }
   ngOnDestroy(): void {
     if(this.routerSub){

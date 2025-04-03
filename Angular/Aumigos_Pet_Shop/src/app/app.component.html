@@ -29,11 +29,15 @@
                 </div>
                 <div class="col md-4 contact-box ">
                     <h3 class="main-text">Contato</h3>
-                    <p class="contact-text">{{ companie.phoneNumber }}</p>
-                    <p class="contact-text">{{ companie.contactEmail }}</p>
-                    <br />
-                    <p class="contact-text">{{companie.address.street}} - {{companie.address.neighborhood}} - {{companie.address.city}}</p>
-                    <p class="contact-text">{{companie.address.state}} - {{companie.address.zipCode}}</p>
+                    @if(companie){
+                        <p class="contact-text">{{ companie.phoneNumber }}</p>
+                        <p class="contact-text">{{ companie.contactEmail }}</p>
+                        <br />
+                        <p class="contact-text">{{companie.address.street}} - {{companie.address.neighborhood}} - {{companie.address.city}}</p>
+                        <p class="contact-text">{{companie.address.state}} - {{companie.address.zipCode}}</p>    
+                    }@else {
+                        <p class="contact-text">Informações da empresa não informadas</p>
+                    }
                     <br />
                     <a href="#" class=""><i class="fa-brands fa-instagram fa-xl" style="color: #fff"></i></a>
                 </div>
