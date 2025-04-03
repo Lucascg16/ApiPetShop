@@ -11,6 +11,7 @@ namespace ApiPetShop.Controllers;
 public class CompanyController(ICompanyService service) : ControllerBase
 {
     [HttpGet]
+    [AllowAnonymous]
     public async Task<IActionResult> GetCompany()
     {
         try

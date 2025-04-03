@@ -3,6 +3,8 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthenticationService } from './Services/authentication.service';
+import { CompanyModel } from './Model/CompanyModel';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,9 +16,10 @@ import { AuthenticationService } from './Services/authentication.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Aumigos';
   isLogin: boolean
+  companie: CompanyModel;
   private routerSub: Subscription;
 
-  constructor(private router: Router, private auth: AuthenticationService) {}
+  constructor(private router: Router, private auth: AuthenticationService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.routerSub = this.router.events
@@ -24,6 +27,10 @@ export class AppComponent implements OnInit, OnDestroy {
     .subscribe((event: any) => {
       this.isLogin = this.verifyIfLoginPage(event.url);
     });
+
+    this.http.get<CompanyModel>("api/v1/company").subscribe(res =>  this.companie = res)
+
+    console.log(this.companie)
   }
   ngOnDestroy(): void {
     if(this.routerSub){
