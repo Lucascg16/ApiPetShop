@@ -6,18 +6,21 @@ namespace ApiPetShop.Domain;
 public class CompanyModel : ModelBase
 {
     [MaxLength(255)]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
+    [EmailAddress]
+    public string ContactEmail { get; set; } = string.Empty;
     public int AddressId { get; set; }
     [JsonIgnore]
-    public AddressModel Address { get; set; } 
+    public AddressModel Address { get; set; } = new(); 
     [MaxLength(20)]
-    public string PhoneNumber { get; set; }
+    public string PhoneNumber { get; set; } = string.Empty;
     [MaxLength(512)]
-    public string InstagramAddress { get; set; }
+    public string InstagramAddress { get; set; } = string.Empty;
 
-    public CompanyModel(string name, int addressId, string phoneNumber, string instagramAddress)
+    public CompanyModel(string name, string contactEmail, int addressId, string phoneNumber, string instagramAddress)
     {
         Name = name;
+        ContactEmail = contactEmail;
         AddressId = addressId;
         PhoneNumber = phoneNumber;
         InstagramAddress = instagramAddress;

@@ -8,9 +8,9 @@ public class CompanyService(ICompanyRepository repository, IAddressRepository ad
     {
         if (nCompany.Id != 0) throw new("A empresa já contem dados");
         
-        var adId = await addressRepository.Create(nCompany.Address);
+        var addrId = await addressRepository.Create(nCompany.Address);
         
-        var company = new CompanyModel(nCompany.Name, adId, nCompany.PhoneNumber, nCompany.InstagramAddress);
+        var company = new CompanyModel(nCompany.Name, nCompany.ContactEmail, addrId, nCompany.PhoneNumber, nCompany.InstagramAddress);
         await repository.CreateCompany(company);   
     }
 
