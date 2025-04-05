@@ -39,6 +39,19 @@ namespace ApiPetShop.Controllers
             }
         }
 
+        [HttpGet("date")]
+        public async Task<IActionResult> GetByDate(DateTime date)
+        {
+            try
+            {
+                return Ok(await services.GetByDate(date));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] CreateVetServiceModel service)
