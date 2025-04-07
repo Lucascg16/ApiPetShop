@@ -39,10 +39,10 @@
                         @else{
                             @let service = getServiceAtHour(item, petDayList);
                             @if(service){
-                                <td>{{getServiceAtHour(item, petDayList).name}}</td>
-                                <td>{{getServiceAtHour(item, petDayList).petName}}</td>
+                                <td>{{service.name}}</td>
+                                <td>{{service.petName}}</td>
                                 <td>tipo</td>
-                                <td>{{getServiceAtHour(item, petDayList).phoneNumber != "" ? getServiceAtHour(item, petDayList).phoneNumber : getServiceAtHour(item, petDayList).email}}</td>    
+                                <td>{{service.phoneNumber != "" ? service.phoneNumber : service.email}}</td>    
                             }
                             @else{
                                 <td>--</td>
