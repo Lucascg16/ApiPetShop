@@ -21,16 +21,38 @@
                 @for (item of hourList; track $index) {
                     <tr>
                         <td>{{item}}</td>
-                        @if(typeService == 0){
-                            @for (service of petDayList; track $index) {
-                              @if(service.scheduledDate.getHours().toString() + ":" + service.scheduledDate.getMinutes().toString().padStart(2, '0') === item ){
-                                <td>{{service.name}}</td><td>{{service.petName}}</td><td>tipo</td><td>{{service.phoneNumber != "" ? service.phoneNumber : service.email}}</td>
-                              }
-                          }   
+                        @if(typeService === 0 ){
+                            @let service = getServiceAtHour(item, petDayList);
+                            @if(service){
+                                <td>{{service.name}}</td>
+                                <td>{{service.petName}}</td>
+                                <td>tipo</td>
+                                <td>{{service.phoneNumber != "" ? service.phoneNumber : service.email}}</td>
+                            }
+                            @else{
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            }
+                        }
+                        @else{
+                            @let service = getServiceAtHour(item, petDayList);
+                            @if(service){
+                                <td>{{getServiceAtHour(item, petDayList).name}}</td>
+                                <td>{{getServiceAtHour(item, petDayList).petName}}</td>
+                                <td>tipo</td>
+                                <td>{{getServiceAtHour(item, petDayList).phoneNumber != "" ? getServiceAtHour(item, petDayList).phoneNumber : getServiceAtHour(item, petDayList).email}}</td>    
+                            }
+                            @else{
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            }
                         }
                     </tr>
                 }
-
             </tbody>
         </table>
     </div>

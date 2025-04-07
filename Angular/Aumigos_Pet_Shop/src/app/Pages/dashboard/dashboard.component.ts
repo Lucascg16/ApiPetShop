@@ -16,8 +16,8 @@ export class DashboardComponent  implements OnInit, OnDestroy{
   typeService: serviceTypeEnum = serviceTypeEnum.pet;
   petDayList: ServiceModel[];
   vetDayList: ServiceModel[];
-  hourList = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"]
-  
+  hourList = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
+
   constructor(private http:HttpClient){}
 
   ngOnInit(): void {
@@ -29,10 +29,21 @@ export class DashboardComponent  implements OnInit, OnDestroy{
       this.vetDayList = res;
       this.vetDayList.map(item => item.scheduledDate = new Date(item.scheduledDate));
     }));
-    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=${date}`).subscribe(res => {
+    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=2025/04/06`).subscribe(res => {
       this.petDayList = res;
-      this.petDayList.map(item => item.scheduledDate = new Date(item.scheduledDate))
+      this.petDayList.map(item => item.scheduledDate = new Date(item.scheduledDate));
     }));
+  }
+
+  getServiceAtHour(hour: string, service: ServiceModel[]): any | null{
+    if(service){
+      return service.find(service => {
+        const h = service.scheduledDate.getHours().toString();
+        const m = service.scheduledDate.getMinutes().toString().padStart(2, "0");
+        return `${h}:${m}` === hour;
+      }) || null;  
+    }
+    return null;
   }
   
   ngOnDestroy(): void {
