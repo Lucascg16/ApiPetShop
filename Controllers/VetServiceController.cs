@@ -40,6 +40,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpGet("date")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetByDate(DateTime date)
         {
             try

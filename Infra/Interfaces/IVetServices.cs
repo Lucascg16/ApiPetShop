@@ -6,7 +6,7 @@ namespace ApiPetShop.Infra
     {
         Task CreateService(CreateVetServiceModel service);
         Task ManageRelWithVacine(List<VetVacine> newRelations);
-        Task<List<VetServiceDto>> GetByDate(DateTime date);
+        Task<List<VetServiceListDto>> GetByDate(DateTime date);
         Task<List<VetServiceDto>> GetAllPetServices();
         Task<VetServiceDto> GetServiceByIdDto(int id);
         Task Update(UpdateVetserviceModel service);

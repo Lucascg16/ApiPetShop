@@ -8,7 +8,7 @@ namespace ApiPetShop.Domain
     {        
         public async Task<List<VetServiceDto>> GetAllPetServices() => mapper.Map<List<VetServiceDto>>(await db.VetServices.AsNoTracking().ToListAsync());
         public async Task<List<DateTime>> GetScheduledTime(DateTime date) => await db.VetServices.AsNoTracking().Where(x => x.ScheduledDate.DayOfYear == date.DayOfYear &&  x.ScheduledDate.Year == date.Year).Select(x => x.ScheduledDate).ToListAsync();
-        public async Task<List<VetServiceDto>> GetByDate(DateTime date) => mapper.Map<List<VetServiceDto>>(await db.VetServices.AsNoTracking().Where(x => x.ScheduledDate.DayOfYear == date.DayOfYear && x.ScheduledDate.Year == date.Year).ToListAsync());
+        public async Task<List<VetServiceListDto>> GetByDate(DateTime date) => mapper.Map<List<VetServiceListDto>>(await db.VetServices.AsNoTracking().Where(x => x.ScheduledDate.DayOfYear == date.DayOfYear && x.ScheduledDate.Year == date.Year).OrderBy(x => x.ScheduledDate).ToListAsync());
         public async Task<VetServiceDto> GetServiceByIdDto(int id) => mapper.Map<VetServiceDto>(await db.VetServices.AsNoTracking().Include(x => x.Vacines).FirstOrDefaultAsync(x => x.Id == id)) ?? new();
         public async Task<VetServiceModel> GetServiceById(int id) => await db.VetServices.FindAsync(id) ?? new();
         

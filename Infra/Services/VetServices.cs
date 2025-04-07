@@ -8,7 +8,7 @@ namespace ApiPetShop.Infra
         public async Task<VetServiceDto> GetServiceByIdDto(int id) => await repository.GetServiceByIdDto(id);
         public async Task CreateService(CreateVetServiceModel service) => await repository.CreateService(new(service));
         public async Task ManageRelWithVacine(List<VetVacine> newRelations) => await repository.ManageRelWithVacine(newRelations);
-        public async Task<List<VetServiceDto>> GetByDate(DateTime date) => await repository.GetByDate(date);
+        public async Task<List<VetServiceListDto>> GetByDate(DateTime date) => await repository.GetByDate(date);
 
         public async Task Update(UpdateVetserviceModel nService)
         {
