@@ -7,7 +7,7 @@ namespace ApiPetShop.Infra
         Task CreateService(CreatePetServiceModel service);
         Task<List<PetServiceDto>> GetAllPetServices();
         Task<PetServiceDto> GetServiceById(int id);
-        Task<List<PetServiceListDto>> GetByDate(DateTime date);
+        Task<List<ServiceListDto>> GetByDate(DateTime date);
         Task Update(UpdatePetService nService);
         Task Delete(int id);
     }

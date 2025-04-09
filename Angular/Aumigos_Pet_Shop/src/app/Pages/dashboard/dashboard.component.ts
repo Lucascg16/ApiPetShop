@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { serviceTypeEnum } from '../../Model/enum/serviceTypeEnum';
+import { PetTypeEnum, serviceTypeEnum } from '../../Model/enum/typeEnum.enum';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { ServiceModel } from '../../Model/ServiceModel';
+import { ServiceModel } from '../../Model/ServiceModel.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -46,6 +46,21 @@ export class DashboardComponent  implements OnInit, OnDestroy{
     return null;
   }
   
+  getTypeString(type: PetTypeEnum){
+    switch(type){
+      case 1:
+        return "Cachorro";
+      case 2:
+        return "Gato";
+      default:
+        return "Não informado";
+    }
+  }
+
+  fotmatPhone(phone:string){
+    return phone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+  }
+
   ngOnDestroy(): void {
     this.subLIst.forEach(sub => sub.unsubscribe());
   }

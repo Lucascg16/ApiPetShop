@@ -26,8 +26,8 @@
                             @if(service){
                                 <td>{{service.name}}</td>
                                 <td>{{service.petName}}</td>
-                                <td>tipo</td>
-                                <td>{{service.phoneNumber != "" ? service.phoneNumber : service.email}}</td>
+                                <td>{{getTypeString(service.type)}}</td>
+                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>
                             }
                             @else{
                                 <td>--</td>
@@ -41,8 +41,8 @@
                             @if(service){
                                 <td>{{service.name}}</td>
                                 <td>{{service.petName}}</td>
-                                <td>tipo</td>
-                                <td>{{service.phoneNumber != "" ? service.phoneNumber : service.email}}</td>    
+                                <td>{{getTypeString(service.type)}}</td>
+                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>    
                             }
                             @else{
                                 <td>--</td>

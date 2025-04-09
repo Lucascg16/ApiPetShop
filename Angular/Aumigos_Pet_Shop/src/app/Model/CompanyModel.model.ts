@@ -1,4 +1,4 @@
-import { AddressModel } from "./AddressModel";
+import { AddressModel } from "./AddressModel.model";
 
 export interface CompanyModel {
     Name: string;

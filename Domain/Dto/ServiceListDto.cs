@@ -1,6 +1,8 @@
-﻿namespace ApiPetShop.Domain
+﻿using ApiPetShop.Domain.Enum;
+
+namespace ApiPetShop.Domain
 {
-    public record VetServiceListDto
+    public record ServiceListDto
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -8,5 +10,6 @@
         public string? PhoneNumber { get; set; }
         public string PetName { get; set; } = string.Empty;
         public DateTime ScheduledDate { get; set; }
+        public PetTypeEnum Type { get; set; } = PetTypeEnum.none;
     }
 }

@@ -1,6 +1,6 @@
 import { HttpInterceptorFn } from "@angular/common/http";
 import { inject } from "@angular/core";
-import { sessionModel } from "../Model/sessionModel";
+import { sessionModel } from "../Model/sessionModel.model";
 import { environment } from "../../environments/environment.development";
 import { ITokenService } from "./interface/ITokenService";
 import { TokenService } from "./token-service.service";

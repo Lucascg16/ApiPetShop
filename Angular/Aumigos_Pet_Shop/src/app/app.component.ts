@@ -3,7 +3,7 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthenticationService } from './Services/authentication.service';
-import { CompanyModel } from './Model/CompanyModel';
+import { CompanyModel } from './Model/CompanyModel.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
