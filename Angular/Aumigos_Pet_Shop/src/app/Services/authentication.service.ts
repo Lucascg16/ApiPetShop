@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { jwtDecode } from 'jwt-decode';
-import { sessionModel } from '../Model/sessionModel';
-import { tokenReponseModel } from '../Model/tokenResponseModel';
+import { sessionModel } from '../Model/sessionModel.model';
+import { tokenReponseModel } from '../Model/tokenResponseModel.model';
 
 @Injectable({
   providedIn: 'root'

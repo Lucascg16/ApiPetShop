@@ -3,6 +3,8 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AuthenticationService } from './Services/authentication.service';
+import { CompanyModel } from './Model/CompanyModel.model';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -14,21 +16,27 @@ import { AuthenticationService } from './Services/authentication.service';
 export class AppComponent implements OnInit, OnDestroy {
   title = 'Aumigos';
   isLogin: boolean
-  private routerSub: Subscription;
+  companie: CompanyModel;
+  private subs: Subscription[] = [];
 
-  constructor(private router: Router, private auth: AuthenticationService) {}
+  constructor(private router: Router, private auth: AuthenticationService, private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.routerSub = this.router.events
-    .pipe(filter(event => event instanceof NavigationEnd))
-    .subscribe((event: any) => {
-      this.isLogin = this.verifyIfLoginPage(event.url);
-    });
+    this.subs.push(
+      this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.isLogin = this.verifyIfLoginPage(event.url);
+      })
+    );
+
+    this.subs.push(
+      this.http.get<CompanyModel>("api/v1/company").subscribe(res =>  this.companie = res)
+    );
   }
+
   ngOnDestroy(): void {
-    if(this.routerSub){
-      this.routerSub.unsubscribe();
-    }
+    this.subs.forEach(sub => sub.unsubscribe());
   }
 
   logOut(){

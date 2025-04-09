@@ -4,9 +4,6 @@
     {
         none,
         Dog,
-        Cat,
-        Fish,
-        Bird,
-        Rodent
+        Cat
     }
 }

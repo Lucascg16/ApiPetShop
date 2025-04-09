@@ -17,7 +17,7 @@ namespace ApiPetShop.Controllers
             {
                 return Ok(await services.GetAllPetServices());
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -29,9 +29,23 @@ namespace ApiPetShop.Controllers
             try
             {
                 var service = await services.GetServiceByIdDto(id);
-                if (service.Id == 0) return NotFound(); 
+                if (service.Id == 0) return NotFound();
 
                 return Ok(service);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("date")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetByDate(DateTime date)
+        {
+            try
+            {
+                return Ok(await services.GetByDate(date));
             }
             catch (Exception ex)
             {
@@ -69,7 +83,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Update(UpdateVetserviceModel service) 
+        public async Task<IActionResult> Update(UpdateVetserviceModel service)
         {
             try
             {
@@ -83,7 +97,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id) 
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {

@@ -2,9 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tap } from 'rxjs';
-import { sessionModel } from '../Model/sessionModel';
+import { sessionModel } from '../Model/sessionModel.model';
 import { ITokenService } from './interface/ITokenService';
-import { tokenReponseModel } from '../Model/tokenResponseModel';
+import { tokenReponseModel } from '../Model/tokenResponseModel.model';
 
 @Injectable({
   providedIn: 'root'

@@ -23,6 +23,20 @@ namespace ApiPetShop.Controllers
             }
         }
 
+        [HttpGet("date")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetByDate(DateTime date)
+        {
+            try
+            {
+                return Ok(await petService.GetByDate(date));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetById(int id)
         {
@@ -33,9 +47,9 @@ namespace ApiPetShop.Controllers
 
                 return Ok(service);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                return BadRequest(ex.Message);  
+                return BadRequest(ex.Message);
             }
         }
 
@@ -55,7 +69,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Update([FromBody] UpdatePetService service) 
+        public async Task<IActionResult> Update([FromBody] UpdatePetService service)
         {
             try
             {
@@ -69,7 +83,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id) 
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {

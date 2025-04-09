@@ -1,1 +1,59 @@
-<p>dashboard works!</p>
+<div class="head-bar">
+    <div class="container py-3">
+        <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+        <span class="px-3 text-white">Aumigos Gerenciamento</span>    
+    </div>
+</div>
+<div class="pb-5">
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th hidden></th>
+                    <th>NOME DO TUTOR</th>
+                    <th>NOME DO PET</th>
+                    <th>TIPO</th>
+                    <th>CONTATO</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of hourList; track $index) {
+                    <tr>
+                        <td>{{item}}</td>
+                        @if(typeService === 0 ){
+                            @let service = getServiceAtHour(item, petDayList);
+                            @if(service){
+                                <td>{{service.name}}</td>
+                                <td>{{service.petName}}</td>
+                                <td>{{getTypeString(service.type)}}</td>
+                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>
+                            }
+                            @else{
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            }
+                        }
+                        @else{
+                            @let service = getServiceAtHour(item, petDayList);
+                            @if(service){
+                                <td>{{service.name}}</td>
+                                <td>{{service.petName}}</td>
+                                <td>{{getTypeString(service.type)}}</td>
+                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>    
+                            }
+                            @else{
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

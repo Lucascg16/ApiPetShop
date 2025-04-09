@@ -29,18 +29,22 @@
                 </div>
                 <div class="col md-4 contact-box ">
                     <h3 class="main-text">Contato</h3>
-                    <p class="contact-text">+55 27 99999-9999</p>
-                    <p class="contact-text">contato&#64;aumigos.com</p>
-                    <br />
-                    <p class="contact-text">Rua Ali Perto, 42 - Vitória</p>
-                    <p class="contact-text">Espírito Santo - Brasil</p>
+                    @if(companie){
+                        <p class="contact-text">{{ companie.phoneNumber }}</p>
+                        <p class="contact-text">{{ companie.contactEmail }}</p>
+                        <br />
+                        <p class="contact-text">{{companie.address.street}} - {{companie.address.neighborhood}} - {{companie.address.city}}</p>
+                        <p class="contact-text">{{companie.address.state}} - {{companie.address.zipCode}}</p>    
+                    }@else {
+                        <p class="contact-text">Informações da empresa não informadas</p>
+                    }
                     <br />
                     <a href="#" class=""><i class="fa-brands fa-instagram fa-xl" style="color: #fff"></i></a>
                 </div>
                 <div class="col md-4 contact-box">
                     <h3 class="main-text">Informações</h3>
-                    <a routerLink="/login" class="contact-text text-decoration-none">DashBoard</a>
-                    <p class="contact-text">Termos e condições</p>
+                    <a routerLink="/dashboard" class="contact-text text-decoration-none">DashBoard</a><br>
+                    <a routerLink="/" class="contact-text text-decoration-none">Termos e condições</a>
                     <!-- <a class="contact-text text-decoration-none" (click)="logOut()">Logout</a> -->
                 </div>
             </div>
