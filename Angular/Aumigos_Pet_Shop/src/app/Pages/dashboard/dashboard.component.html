@@ -1,9 +1,26 @@
 <div class="head-bar">
-    <div class="container py-3">
-        <i class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+    <div class="px-5 py-3">
+        <i (click)="expandSideBar()" class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
         <span class="px-3 text-white">Aumigos Gerenciamento</span>    
     </div>
 </div>
+<nav class="side-menu">
+    <ul>
+        <li class="item-menu">
+            <div class="btn-selector">
+                <img src="assets/icones_imagens/bath-icon.svg" alt="" width="25" height="25">
+                <span class="p-0">Banho/Tosa</span>    
+            </div>
+        </li>
+        <li class="item-menu">
+            <div class="btn-selector">
+                <img src="assets/icones_imagens/vacine-icon.svg" alt="" width="25" height="25">
+                <span class="p-0">Vacinação</span>    
+            </div>
+        </li>
+    </ul>
+</nav>
+
 <div class="pb-5">
     <div class="container">
         <table>

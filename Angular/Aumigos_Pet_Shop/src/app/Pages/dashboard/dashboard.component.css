@@ -1,6 +1,7 @@
 .head-bar{
     background-color: #720C68;
 }
+
 table {
     width: 100%;
     border-collapse: separate;
@@ -33,3 +34,40 @@ td:last-child{
     border-bottom-right-radius: 20px;
 }
 
+.side-menu{
+    width: 0px;
+    height: 100%;
+    background-color: #881C76;
+    padding: 40px 0 40px;
+    position: absolute;
+    overflow: hidden;
+    transition: .5s;
+}
+
+.side-menu.expanded{
+    width: 300px;
+}
+
+.btn-selector{
+    display: flex;
+    padding: 20px;
+}
+
+.item-menu:hover{
+    transition: .1s;
+    background: #720C68;
+}
+
+.item-menu span{
+    color: white;
+    font-size: 20px;
+    padding: 20px 4%;
+    justify-content: space-between;
+    margin-left: 15px;
+}
+
+ul{
+    height: 100%;
+    list-style-type: none;
+    margin: 0;
+}

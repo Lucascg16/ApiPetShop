@@ -61,6 +61,16 @@ export class DashboardComponent  implements OnInit, OnDestroy{
     return phone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
   }
 
+  expandSideBar(){
+    const sideBar = document.querySelector('.side-menu');
+    if(!sideBar?.classList.contains("expanded")){
+      sideBar?.classList.add("expanded");
+    }
+    else{
+      sideBar.classList.remove("expanded");
+    }
+  }
+
   ngOnDestroy(): void {
     this.subLIst.forEach(sub => sub.unsubscribe());
   }
