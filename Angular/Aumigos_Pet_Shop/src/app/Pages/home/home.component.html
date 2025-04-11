@@ -2,13 +2,13 @@
     <div class="text-center header-decoration align-content-center">
         <div class="row container">
             <div class="col-md-6">
-                <a routerLink="vacine" class="header-link">
+                <a routerLink="vacine" class="vet header-link active" (click)="toggleActive('vet')">
                     <img src="assets/icones_imagens/vacine-icon.svg" alt="">
-                    <span>Agendamento de Vacina</span>
+                    <span class="px-2">Agendamento de Vacina</span>
                 </a>
             </div>
             <div class="col-md-6">
-                <a routerLink="pet" class="header-link">
+                <a routerLink="pet" class="pet header-link" (click)="toggleActive('pet')">
                     <img src="assets/icones_imagens/bath-icon.svg" alt="">
                     <span class="px-2">Agendamento de Banho e Tosa</span>
                 </a>
