@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { Handlers } from '../../Shared/Handlers';
 
 @Component({
   selector: 'app-home',
@@ -9,18 +10,9 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  constructor(){}
+  constructor() { }
 
-  toggleActive(classpage: string){
-    const vet = document.querySelector(".vet");
-    const pet = document.querySelector(".pet");
-    if(classpage === "vet"){
-      pet?.classList.remove("active");
-      vet?.classList.add("active");
-    }
-    if(classpage === "pet"){
-      vet?.classList.remove("active");
-      pet?.classList.add("active");
-    }
+  toggleActive(event: MouseEvent) {
+    Handlers.selectActiveHandler(event);
   }
 }

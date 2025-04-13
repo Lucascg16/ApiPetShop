@@ -34,18 +34,41 @@ td:last-child{
     border-bottom-right-radius: 20px;
 }
 
+.sidebar-btn{
+    cursor: pointer;
+}
+
 .side-menu{
     width: 0px;
     height: 100%;
     background-color: #881C76;
-    padding: 40px 0 40px;
+    padding: 20px 0 40px;
     position: absolute;
     overflow: hidden;
     transition: .5s;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .side-menu.expanded{
     width: 300px;
+}
+
+.close-tag{
+    display: flex;
+    padding-bottom: 20px;
+    padding-right: 40px;
+    justify-content: end;
+    cursor: pointer;
+}
+
+.close-tag:hover i{
+    background: #720C68;
+    border-radius: 5px;
+}
+
+.close-tag i{
+    padding: 5px 5px;
 }
 
 .btn-selector{
@@ -56,18 +79,24 @@ td:last-child{
 .item-menu:hover{
     transition: .1s;
     background: #720C68;
+    border-radius: 15px;
+}
+
+.active{
+    background: #720C68;
+    border-radius: 15px;
 }
 
 .item-menu span{
     color: white;
     font-size: 20px;
     padding: 20px 4%;
-    justify-content: space-between;
     margin-left: 15px;
 }
 
 ul{
     height: 100%;
     list-style-type: none;
+    padding: 0px 30px;
     margin: 0;
 }

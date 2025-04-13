@@ -24,8 +24,8 @@
     }
 } 
 
-.active{
+.active span{
     font-weight: bolder;
-    background-color: rgba(255, 255, 255, 0.185);
-    border-radius: 20px;
-}
+    background: #A02E95;
+    border-radius: 10px;
+} 

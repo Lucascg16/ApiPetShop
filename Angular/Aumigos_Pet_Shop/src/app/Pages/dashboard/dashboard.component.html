@@ -1,19 +1,22 @@
 <div class="head-bar">
     <div class="px-5 py-3">
-        <i (click)="expandSideBar()" class="fa-solid fa-bars fa-xl" style="color: #ffffff;"></i>
+        <span class="sidebar-btn"><i (click)="expandSideBar()" class=" fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></span>
         <span class="px-3 text-white">Aumigos Gerenciamento</span>    
     </div>
 </div>
 <nav class="side-menu">
+    <div class="close-tag" (click)="expandSideBar()">
+        <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+    </div>
     <ul>
-        <li class="item-menu">
-            <div class="btn-selector">
+        <li class="item-menu activatable active" (click)="selectActive($event)">
+            <div class="btn-selector" (click)="selectActiveTable(pet)">
                 <img src="assets/icones_imagens/bath-icon.svg" alt="" width="25" height="25">
                 <span class="p-0">Banho/Tosa</span>    
             </div>
         </li>
-        <li class="item-menu">
-            <div class="btn-selector">
+        <li class="item-menu activatable" (click)="selectActive($event)">
+            <div class="btn-selector" (click)="selectActiveTable(vet)">
                 <img src="assets/icones_imagens/vacine-icon.svg" alt="" width="25" height="25">
                 <span class="p-0">Vacinação</span>    
             </div>
@@ -38,7 +41,7 @@
                 @for (item of hourList; track $index) {
                     <tr>
                         <td>{{item}}</td>
-                        @if(typeService === 0 ){
+                        @if(typeService === pet ){
                             @let service = getServiceAtHour(item, petDayList);
                             @if(service){
                                 <td>{{service.name}}</td>
@@ -53,8 +56,8 @@
                                 <td>--</td>
                             }
                         }
-                        @else{
-                            @let service = getServiceAtHour(item, petDayList);
+                        @if(typeService === vet){
+                            @let service = getServiceAtHour(item, vetDayList);
                             @if(service){
                                 <td>{{service.name}}</td>
                                 <td>{{service.petName}}</td>

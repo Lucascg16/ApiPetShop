@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { tap } from 'rxjs';
 import { sessionModel } from '../Model/sessionModel.model';
@@ -13,7 +13,7 @@ export class TokenService implements ITokenService {
   private JwpHelper = new JwtHelperService();
   private currentUser: sessionModel;
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
   private VerifyToken(): boolean {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser') ?? "");
@@ -21,13 +21,15 @@ export class TokenService implements ITokenService {
   }
 
   refreshToken(): void {
+    let jsonValid = this.VerifyToken();
+    
     let body = {
       userId: this.currentUser.id,
       refreshToken: this.currentUser.refreshToken,
       refreshKey: this.currentUser.refreshKey
     }
 
-    if (this.VerifyToken()) {
+    if (jsonValid) {
       this.httpClient.post<tokenReponseModel>("api/v1/refresh", body).pipe(
         tap(
           response => sessionStorage.setItem('currentUser', JSON.stringify(new sessionModel(this.currentUser.id, this.currentUser.role, response.token, response.refreshToken, response.refreshKey)))
