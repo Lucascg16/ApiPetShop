@@ -1,3 +1,7 @@
+.dashboard{
+    height: 100%;
+    position: relative;
+}
 .head-bar{
     background-color: #720C68;
 }
@@ -39,8 +43,9 @@ td:last-child{
 }
 
 .side-menu{
-    width: 0px;
-    height: 100%;
+    width: 0;
+    height: auto;
+    min-height: 100%;
     background-color: #881C76;
     padding: 20px 0 40px;
     position: absolute;

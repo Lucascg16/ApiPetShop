@@ -1,79 +1,90 @@
-<div class="head-bar">
-    <div class="px-5 py-3">
-        <span class="sidebar-btn"><i (click)="expandSideBar()" class=" fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></span>
-        <span class="px-3 text-white">Aumigos Gerenciamento</span>    
+<div class="dashboard">
+    <div class="head-bar">
+        <div class="px-5 py-3">
+            <span class="sidebar-btn"><i (click)="expandSideBar()" class=" fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></span>
+            <span class="px-3 text-white">Aumigos Gerenciamento</span>    
+        </div>
     </div>
-</div>
-<nav class="side-menu">
-    <div class="close-tag" (click)="expandSideBar()">
-        <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
-    </div>
-    <ul>
-        <li class="item-menu activatable active" (click)="selectActive($event)">
-            <div class="btn-selector" (click)="selectActiveTable(pet)">
-                <img src="assets/icones_imagens/bath-icon.svg" alt="" width="25" height="25">
-                <span class="p-0">Banho/Tosa</span>    
+    <nav class="side-menu">
+        <div class="close-tag" (click)="expandSideBar()">
+            <i class="fa-solid fa-xmark" style="color: #ffffff;"></i>
+        </div>
+        <ul>
+            <li class="item-menu activatable active" (click)="selectActive($event)">
+                <div class="btn-selector" (click)="selectActiveTable(pet)">
+                    <img src="assets/icones_imagens/bath-icon.svg" alt="" width="25" height="25">
+                    <span class="p-0">Banho/Tosa</span>    
+                </div>
+            </li>
+            <li class="item-menu activatable" (click)="selectActive($event)">
+                <div class="btn-selector" (click)="selectActiveTable(vet)">
+                    <img src="assets/icones_imagens/vacine-icon.svg" alt="" width="25" height="25">
+                    <span class="p-0">Vacinação</span>    
+                </div>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="pb-5">
+        <div class="container">
+            <div  class="justify-content-end d-flex py-4 pe-2">
+                <div class="px-4">
+                    <i class="fa-solid fa-calendar-days fa-2x" style="color: #720C68;"></i>
+                </div>
+                <div class="px-3">
+                    <i class="fa-solid fa-circle-plus fa-2x" style="color: #720C68;"></i>
+                </div>
             </div>
-        </li>
-        <li class="item-menu activatable" (click)="selectActive($event)">
-            <div class="btn-selector" (click)="selectActiveTable(vet)">
-                <img src="assets/icones_imagens/vacine-icon.svg" alt="" width="25" height="25">
-                <span class="p-0">Vacinação</span>    
-            </div>
-        </li>
-    </ul>
-</nav>
-
-<div class="pb-5">
-    <div class="container">
-        <table>
-            <thead>
-                <tr>
-                    <th></th>
-                    <th hidden></th>
-                    <th>NOME DO TUTOR</th>
-                    <th>NOME DO PET</th>
-                    <th>TIPO</th>
-                    <th>CONTATO</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (item of hourList; track $index) {
+            
+            <table>
+                <thead>
                     <tr>
-                        <td>{{item}}</td>
-                        @if(typeService === pet ){
-                            @let service = getServiceAtHour(item, petDayList);
-                            @if(service){
-                                <td>{{service.name}}</td>
-                                <td>{{service.petName}}</td>
-                                <td>{{getTypeString(service.type)}}</td>
-                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>
-                            }
-                            @else{
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                            }
-                        }
-                        @if(typeService === vet){
-                            @let service = getServiceAtHour(item, vetDayList);
-                            @if(service){
-                                <td>{{service.name}}</td>
-                                <td>{{service.petName}}</td>
-                                <td>{{getTypeString(service.type)}}</td>
-                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>    
-                            }
-                            @else{
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                            }
-                        }
+                        <th></th>
+                        <th hidden></th>
+                        <th>NOME DO TUTOR</th>
+                        <th>NOME DO PET</th>
+                        <th>TIPO</th>
+                        <th>CONTATO</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @for (item of hourList; track $index) {
+                        <tr>
+                            <td>{{item}}</td>
+                            @if(typeService === pet ){
+                                @let service = getServiceAtHour(item, petDayList);
+                                @if(service){
+                                    <td>{{service.name}}</td>
+                                    <td>{{service.petName}}</td>
+                                    <td>{{getTypeString(service.type)}}</td>
+                                    <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>
+                                }
+                                @else{
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                }
+                            }
+                            @if(typeService === vet){
+                                @let service = getServiceAtHour(item, vetDayList);
+                                @if(service){
+                                    <td>{{service.name}}</td>
+                                    <td>{{service.petName}}</td>
+                                    <td>{{getTypeString(service.type)}}</td>
+                                    <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>    
+                                }
+                                @else{
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                    <td>--</td>
+                                }
+                            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
