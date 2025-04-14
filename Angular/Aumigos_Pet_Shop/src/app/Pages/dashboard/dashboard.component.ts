@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { PetTypeEnum, serviceTypeEnum } from '../../Model/enum/typeEnum.enum';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of, Subscription, tap } from 'rxjs';
 import { ServiceModel } from '../../Model/ServiceModel.model';
 import { Handlers } from '../../Shared/Handlers';
+import { PetformComponent } from './petform/petform.component';
+import { PetTypeEnum, serviceTypeEnum } from '../../Model/enum/shopEnum.enum';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [PetformComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })

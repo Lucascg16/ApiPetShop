@@ -1,0 +1,35 @@
+<div class="login-form">
+    <form [formGroup]="form" (ngSubmit)="onSub()">
+        <h3 class="py-sm-4 text-center login-title">Serviço de Banho/Tosa</h3>
+        <div class="row">
+            <div class=" col-md-12">
+                <app-input-field formControlName="name" id="name" type="text" label="Nome do Tutor" [control]="form.get('name')"></app-input-field>
+            </div>
+            <div class="col-md-6">
+                <app-input-field formControlName="phone" type="text" id="phone" label="Telefone" [control]="form.get('phone')"></app-input-field>
+                <app-input-field formControlName="email" type="email" id="email" label="Email" [control]="form.get('email')"></app-input-field>
+            </div>
+           
+
+            <h3 class="text-center login-title">Informações do Pet</h3>
+            <div class=" col-md-12">
+                <app-input-field formControlName="petName" id="petName" type="text" label="Nome do Pet" [control]="form.get('petName')"></app-input-field>
+            </div>
+            <div class="col-md-6">
+                <app-input-field formControlName="petAge" id="petAge" type="text" label="Idade do Pet" [control]="form.get('petAge')"></app-input-field>
+                <div class="form-group">
+                    <label for="type"></label>
+                    <select formControlName="type" id="type">
+                        <option [value]="type.none">Selecione um tipo</option>
+                        <option [value]="type.Dog">cachorro</option>
+                        <option [value]="type.Cat">Gato</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="d-grid py-sm-4 col-md-12">
+                <button type="submit" class="btn btn-primary">Cadastrar</button>
+            </div>    
+        </div>
+    </form>
+</div>
