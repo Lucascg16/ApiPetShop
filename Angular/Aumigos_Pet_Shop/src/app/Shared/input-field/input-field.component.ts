@@ -23,6 +23,7 @@ export class InputFieldComponent {;
   @Input() type: string = "text";
   @Input() control: any;
   @Input() isReadOnly = false;
+  @Input() disabled = false;
 
   private InnerValue: any;
 

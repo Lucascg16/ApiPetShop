@@ -47,7 +47,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
         tap(res => {
           this.petDayList = res;
           this.petDayList.map(item => item.scheduledDate = new Date(item.scheduledDate));
-          console.log("a")
         }),
         catchError(err => {
           console.error(err);

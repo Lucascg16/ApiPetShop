@@ -1,8 +1,9 @@
 <div class="dashboard">
     <div class="head-bar">
         <div class="px-5 py-3">
-            <span class="sidebar-btn"><i (click)="expandSideBar()" class=" fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></span>
-            <span class="px-3 text-white">Aumigos Gerenciamento</span>    
+            <span class="sidebar-btn"><i (click)="expandSideBar()" class=" fa-solid fa-bars fa-xl"
+                    style="color: #ffffff;"></i></span>
+            <span class="px-3 text-white">Aumigos Gerenciamento</span>
         </div>
     </div>
     <nav class="side-menu">
@@ -13,13 +14,13 @@
             <li class="item-menu activatable active" (click)="selectActive($event)">
                 <div class="btn-selector" (click)="selectActiveTable(pet)">
                     <img src="assets/icones_imagens/bath-icon.svg" alt="" width="25" height="25">
-                    <span class="p-0">Banho/Tosa</span>    
+                    <span class="p-0">Banho/Tosa</span>
                 </div>
             </li>
             <li class="item-menu activatable" (click)="selectActive($event)">
                 <div class="btn-selector" (click)="selectActiveTable(vet)">
                     <img src="assets/icones_imagens/vacine-icon.svg" alt="" width="25" height="25">
-                    <span class="p-0">Vacinação</span>    
+                    <span class="p-0">Vacinação</span>
                 </div>
             </li>
         </ul>
@@ -27,64 +28,71 @@
     <app-petform></app-petform>
     <div class="pb-5">
         <div class="container">
-            <div  class="justify-content-end d-flex py-4 pe-2">
-                <div class="px-4">
-                    <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
-                </div>
-                <div class="px-3">
-                    <img src="assets/icones_imagens/plus.svg">
-                </div>
-            </div>
-            
-            <table>
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th hidden></th>
-                        <th>NOME DO TUTOR</th>
-                        <th>NOME DO PET</th>
-                        <th>TIPO</th>
-                        <th>CONTATO</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (item of hourList; track $index) {
-                        <tr>
-                            <td>{{item}}</td>
-                            @if(typeService === pet ){
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="justify-content-end d-flex py-4 pe-2">
+                        <div class="px-4">
+                            <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
+                        </div>
+                        <div class="px-3">
+                            <img src="assets/icones_imagens/plus.svg">
+                        </div>
+                    </div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th hidden></th>
+                                <th>NOME DO TUTOR</th>
+                                <th>NOME DO PET</th>
+                                <th>TIPO</th>
+                                <th>CONTATO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (item of hourList; track $index) {
+                            <tr>
+                                <td>{{item}}</td>
+                                @if(typeService === pet ){
                                 @let service = getServiceAtHour(item, petDayList);
                                 @if(service){
-                                    <td>{{service.name}}</td>
-                                    <td>{{service.petName}}</td>
-                                    <td>{{getTypeString(service.type)}}</td>
-                                    <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>
+                                <td>{{service.name}}</td>
+                                <td>{{service.petName}}</td>
+                                <td>{{getTypeString(service.type)}}</td>
+                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}
+                                </td>
                                 }
                                 @else{
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
                                 }
-                            }
-                            @if(typeService === vet){
+                                }
+                                @if(typeService === vet){
                                 @let service = getServiceAtHour(item, vetDayList);
                                 @if(service){
-                                    <td>{{service.name}}</td>
-                                    <td>{{service.petName}}</td>
-                                    <td>{{getTypeString(service.type)}}</td>
-                                    <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>    
+                                <td>{{service.name}}</td>
+                                <td>{{service.petName}}</td>
+                                <td>{{getTypeString(service.type)}}</td>
+                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}
+                                </td>
                                 }
                                 @else{
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
+                                <td>--</td>
                                 }
+                                }
+                            </tr>
                             }
-                        </tr>
-                    }
-                </tbody>
-            </table>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4" >
+                </div>
+            </div>
         </div>
     </div>
 </div>

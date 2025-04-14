@@ -1,4 +1,4 @@
-import { PetTypeEnum } from "./enum/enums.enum";
+import { PetTypeEnum } from "./enum/shopEnum.enum";
 
 export interface ServiceModel{
     id:Number;

@@ -1,35 +1,103 @@
-<div class="login-form">
+<div class="pet-form">
     <form [formGroup]="form" (ngSubmit)="onSub()">
-        <h3 class="py-sm-4 text-center login-title">Serviço de Banho/Tosa</h3>
+        <h3 class="py-sm-4 text-center pet-title">Serviço de Banho/Tosa</h3>
         <div class="row">
             <div class=" col-md-12">
-                <app-input-field formControlName="name" id="name" type="text" label="Nome do Tutor" [control]="form.get('name')"></app-input-field>
+                <app-input-field formControlName="name" id="name" type="text" label="Nome do Tutor"
+                    [control]="form.get('name')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <div class="radio-group" (change)="verifyContact()">
+                    <label class="form-text">Meios de contato</label>
+                    <div class="form-label">
+                        <label class="pe-2 custom-radio" for="phone">
+                            <input type="radio" name="contactMethod" id="phone" formControlName="contactMethod" [value]="1">
+                            <span class="checkmark"></span>
+                            Telefone
+                        </label>
+                        <label class="pe-2 custom-radio" for="email">
+                            <input type="radio" name="contactMethod" id="email" formControlName="contactMethod" [value]="2">
+                            <span class="checkmark"></span>
+                            Email
+                        </label>
+                        <label class="pe-2 custom-radio" for="all">
+                            <input type="radio" name="contactMethod" id="all" formControlName="contactMethod" [value]="3">
+                            <span class="checkmark"></span>
+                            Ambos
+                        </label>
+                    </div>
+                </div>
             </div>
             <div class="col-md-6">
-                <app-input-field formControlName="phone" type="text" id="phone" label="Telefone" [control]="form.get('phone')"></app-input-field>
-                <app-input-field formControlName="email" type="email" id="email" label="Email" [control]="form.get('email')"></app-input-field>
+                <app-input-field formControlName="phone" [disabled]="disablePhone" type="text" id="phone"
+                    label="Telefone" [control]="form.get('phone')"></app-input-field>
             </div>
-           
-
-            <h3 class="text-center login-title">Informações do Pet</h3>
+            <div class="col-md-6">
+                <app-input-field formControlName="email" [disabled]="disableEmail" type="email" id="email" label="Email"
+                    [control]="form.get('email')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <div class="py-2">
+                    <input formControlName="isWpp" id="isWpp" type="checkbox"><label class="px-2" for="isWpp">Receber
+                        por Whatsapp</label>
+                </div>
+            </div>
+            <hr>
+            <h3 class="text-center pet-title text-black">Informações do Pet</h3>
             <div class=" col-md-12">
-                <app-input-field formControlName="petName" id="petName" type="text" label="Nome do Pet" [control]="form.get('petName')"></app-input-field>
+                <app-input-field formControlName="petName" id="petName" type="text" label="Nome do Pet"
+                    [control]="form.get('petName')"></app-input-field>
             </div>
             <div class="col-md-6">
-                <app-input-field formControlName="petAge" id="petAge" type="text" label="Idade do Pet" [control]="form.get('petAge')"></app-input-field>
+                <app-input-field formControlName="petAge" id="petAge" type="text" label="Idade do Pet"
+                    [control]="form.get('petAge')"></app-input-field>
+            </div>
+            <div class="col-md-6">
                 <div class="form-group">
-                    <label for="type"></label>
-                    <select formControlName="type" id="type">
+                    <label for="type" class="form-text">Tipo</label>
+                    <select class="form-select" formControlName="type" id="type">
                         <option [value]="type.none">Selecione um tipo</option>
                         <option [value]="type.Dog">cachorro</option>
                         <option [value]="type.Cat">Gato</option>
                     </select>
+                    <app-erro-msg [control]="form.get('type')" label="Tipo"></app-erro-msg>
                 </div>
             </div>
-
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="petGender" class="form-text">Sexo</label>
+                    <select class="form-select" formControlName="petGender" id="petGender">
+                        <option [value]="petGender.Male">Macho</option>
+                        <option [value]="petGender.Female">Fêmea</option>
+                    </select>
+                    <app-erro-msg [control]="form.get('petGender')" label="Sexo"></app-erro-msg>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="petSize" class="form-text">Tamanho</label>
+                    <select class="form-select" formControlName="petSize" id="petSize">
+                        <option [value]="petsize.Small">Pequeno porte</option>
+                        <option [value]="petsize.Medium">Medio porte</option>
+                        <option [value]="petsize.Large">Grande porte</option>
+                    </select>
+                    <app-erro-msg [control]="form.get('petSize')" label="Tamanho"></app-erro-msg>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="scheduler" class="form-text">Horário</label>
+                    <select class="form-select" formControlName="scheduler" id="scheduler">
+                        <option [value]="petsize.Small">Pequeno porte</option>
+                        <option [value]="petsize.Medium">Medio porte</option>
+                        <option [value]="petsize.Large">Grande porte</option>
+                    </select>
+                    <app-erro-msg [control]="form.get('scheduler')" label="Horário"></app-erro-msg>
+                </div>
+            </div>
             <div class="d-grid py-sm-4 col-md-12">
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
-            </div>    
+            </div>
         </div>
     </form>
 </div>
