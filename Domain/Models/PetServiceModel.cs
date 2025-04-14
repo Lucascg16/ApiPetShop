@@ -39,7 +39,7 @@ namespace ApiPetShop.Domain
         public string Name { get; set; } = string.Empty;
         public string? Email { get; set; }
         public string? PhoneNumber { get; set; }
-        public bool IsWhatsApp { get; set; }
+        public bool IsWhatsApp { get; set; } = false;
         public string PetName { get; set; } = string.Empty;
         public int PetAge { get; set; }
         public PetTypeEnum Type {  get; set; }
