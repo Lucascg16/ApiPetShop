@@ -14,13 +14,13 @@ namespace ApiPetShop.Domain
             IsWhatsApp = isWhatsApp;
             PetName = petName;
             PetAge = petAge;
-            Type = type;
+            PetType = type;
             PetGender = petGender;
             PetSize = petSize;
             ScheduledDate = scheduledDate;
         }
 
-        public PetServiceModel(CreatePetServiceModel nPetservice)
+        public PetServiceModel(CreateOrUpdatePetService nPetservice)
         {
             Name = nPetservice.Name;
             Email = nPetservice.Email ?? "";
@@ -28,7 +28,7 @@ namespace ApiPetShop.Domain
             IsWhatsApp = nPetservice.IsWhatsApp;
             PetName = nPetservice.PetName;
             PetAge = nPetservice.PetAge;
-            Type = nPetservice.Type;
+            PetType = nPetservice.PetType;
             PetGender = nPetservice.PetGender;
             PetSize = nPetservice.PetSize;
             ScheduledDate = nPetservice.ScheduledDate;
@@ -42,18 +42,20 @@ namespace ApiPetShop.Domain
         public bool IsWhatsApp { get; set; } = false;
         public string PetName { get; set; } = string.Empty;
         public int PetAge { get; set; }
-        public PetTypeEnum Type {  get; set; }
+        public PetTypeEnum PetType {  get; set; }
         public PetGenderEnum PetGender { get; set; }
         public PetSizeEnum PetSize { get; set; }
         public DateTime ScheduledDate {  get; set; }
         
-        public void UpdateService(UpdatePetService nService)
+        public void UpdateService(CreateOrUpdatePetService nService)
         {
             Name = nService.Name;
             Email = nService.Email;
             PhoneNumber = nService.PhoneNumber;
             IsWhatsApp = nService.IsWhatsApp;
             PetName = nService.PetName;
+            PetAge = nService.PetAge;
+            PetType = nService.PetType;
             PetGender = nService.PetGender;
             PetSize = nService.PetSize;
             ScheduledDate = nService.ScheduledDate;

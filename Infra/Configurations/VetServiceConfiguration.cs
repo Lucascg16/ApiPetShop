@@ -34,7 +34,7 @@ namespace ApiPetShop.Infra.Configurations
                 .IsRequired()
                 .HasDefaultValue(0);
 
-            builder.Property(x => x.Type)
+            builder.Property(x => x.PetType)
                 .IsRequired()
                 .HasConversion<int>();
 

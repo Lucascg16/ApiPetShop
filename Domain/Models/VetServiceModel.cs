@@ -15,7 +15,7 @@ namespace ApiPetShop.Domain
             IsWhatsApp = isWhatsApp;
             PetName = petName;
             PetAge = petAge;
-            Type = type;
+            PetType = type;
             PetGender = petGender;
             PetSize = petSize;
             ScheduledDate = scheduledDate;
@@ -23,7 +23,7 @@ namespace ApiPetShop.Domain
             IsCastrated = isCastrated;
         }
 
-        public VetServiceModel(CreateVetServiceModel nService)
+        public VetServiceModel(CreateOrUpdateVetserviceModel nService)
         {
             Name = nService.Name;
             Email = nService.Email;
@@ -31,7 +31,7 @@ namespace ApiPetShop.Domain
             IsWhatsApp = nService.IsWhatsApp;
             PetName = nService.PetName;
             PetAge = nService.PetAge;
-            Type = nService.Type;
+            PetType = nService.Type;
             PetGender = nService.PetGender;
             PetSize = nService.PetSize;
             ScheduledDate = nService.ScheduledDate;
@@ -47,7 +47,7 @@ namespace ApiPetShop.Domain
         public bool IsWhatsApp { get; set; } = false;
         public string PetName { get; set; } = string.Empty;
         public int PetAge { get; set; }
-        public PetTypeEnum Type { get; set; }
+        public PetTypeEnum PetType { get; set; }
         public PetGenderEnum PetGender { get; set; }
         public PetSizeEnum PetSize { get; set; }
         public DateTime ScheduledDate { get; set; }
@@ -56,13 +56,15 @@ namespace ApiPetShop.Domain
         [JsonIgnore]
         public List<VacineModel> Vacines { get; set; } = [];
 
-        public void UpdateService(UpdateVetserviceModel nService)
+        public void UpdateService(CreateOrUpdateVetserviceModel nService)
         {
             Name = nService.Name;
             Email = nService.Email;
             PhoneNumber = nService.PhoneNumber;
             IsWhatsApp = nService.IsWhatsApp;
             PetName = nService.PetName;
+            PetAge = nService.PetAge;
+            PetType = nService.Type;
             PetGender = nService.PetGender;
             PetSize = nService.PetSize;
             ScheduledDate = nService.ScheduledDate;
