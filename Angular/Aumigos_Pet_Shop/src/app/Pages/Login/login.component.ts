@@ -20,7 +20,7 @@ export class LoginComponent extends BaseFormComponent {
 
     try{
       if(sessionStorage?.getItem('currentUser')){
-        // this.router.navigate(['/dashboard'])
+        this.router.navigate(['/dashboard'])
       }
     }catch{}
 

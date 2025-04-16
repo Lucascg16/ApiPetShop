@@ -1,13 +1,7 @@
-.pet-form {
-    display: grid;
-    padding: 10px 50px;
-    width: 100%;
-    max-width: 28rem;
-    margin: 30px 100px;
-    border-radius: 5%;
-    background-color: white;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+.modal-body{
+    padding: 20px 30px;
 }
+
 .pet-title {
     color: #890a78;
 }
@@ -36,40 +30,4 @@ select:focus {
     font-size: 12pt;
     color: #333333;
     padding: 0.4rem 0.4rem;
-}
-
-.radio-group {
-    display: flex;
-    flex-wrap: wrap; /* se quiser que quebre linha em telas pequenas */
-}
-
-.custom-radio {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    position: relative;
-}
-
-.custom-radio input {
-    display: none; /* esconder o input padrão */
-}
-
-.custom-radio .checkmark {
-    height: 20px;
-    width: 20px;
-    border-radius: 50%;
-    border: 1px solid black;
-    margin-right: 10px;
-    position: relative;
-}
-
-.custom-radio input:checked + .checkmark::after {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    height: 10px;
-    width: 10px;
-    background-color: black;
-    border-radius: 50%;
 }

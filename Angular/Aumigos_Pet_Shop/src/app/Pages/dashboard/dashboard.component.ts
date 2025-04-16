@@ -5,6 +5,7 @@ import { ServiceModel } from '../../Model/ServiceModel.model';
 import { Handlers } from '../../Shared/Handlers';
 import { PetformComponent } from './petform/petform.component';
 import { PetTypeEnum, serviceTypeEnum } from '../../Model/enum/shopEnum.enum';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,15 +19,17 @@ export class DashboardComponent implements OnInit, OnDestroy {
   petDayList: ServiceModel[];
   vetDayList: ServiceModel[];
   hourList = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
+  tableDate: string = new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).toString();
+  bsModalRef?: BsModalRef;
 
   typeService: serviceTypeEnum = serviceTypeEnum.pet;
   pet = serviceTypeEnum.pet;
   vet = serviceTypeEnum.vet
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private bsModalService: BsModalService) { }
 
   ngOnInit(): void {
-    this.getServices(new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).toString());
+    this.getServices(this.tableDate);
   }
 
   getServices(date: string) {
@@ -40,9 +43,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.error(err);
           return of();
         })).subscribe()
-      );
+    );
 
-    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=2025/04/06`)
+    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=2025/04/06`)//${date}
       .pipe(
         tap(res => {
           this.petDayList = res;
@@ -52,7 +55,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           console.error(err);
           return of();
         })).subscribe()
-      );
+    );
   }
 
   getServiceAtHour(hour: string, service: ServiceModel[]): any | null {
@@ -97,6 +100,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   selectActive(element: MouseEvent) {
     Handlers.selectActiveHandler(element);
+  }
+
+  openPetModal(serviceId:number) {
+    console.log(serviceId);
+    const initialState = {
+      id: serviceId
+    };
+    
+    this.bsModalRef = this.bsModalService.show(PetformComponent, { initialState: initialState }); 
+  }
+
+  openVetModal(id:number){
+    //vai fazer o mesmo do de cima, precisa desenvolver o outro formulário.
   }
 
   ngOnDestroy(): void {

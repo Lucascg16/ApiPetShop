@@ -25,74 +25,96 @@
             </li>
         </ul>
     </nav>
-    <app-petform></app-petform>
     <div class="pb-5">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="justify-content-end d-flex py-4 pe-2">
-                        <div class="px-4">
-                            <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
-                        </div>
-                        <div class="px-3">
-                            <img src="assets/icones_imagens/plus.svg">
-                        </div>
-                    </div>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th></th>
-                                <th hidden></th>
-                                <th>NOME DO TUTOR</th>
-                                <th>NOME DO PET</th>
-                                <th>TIPO</th>
-                                <th>CONTATO</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @for (item of hourList; track $index) {
-                            <tr>
-                                <td>{{item}}</td>
-                                @if(typeService === pet ){
-                                @let service = getServiceAtHour(item, petDayList);
-                                @if(service){
-                                <td>{{service.name}}</td>
-                                <td>{{service.petName}}</td>
-                                <td>{{getTypeString(service.type)}}</td>
-                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}
-                                </td>
-                                }
-                                @else{
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                }
-                                }
-                                @if(typeService === vet){
-                                @let service = getServiceAtHour(item, vetDayList);
-                                @if(service){
-                                <td>{{service.name}}</td>
-                                <td>{{service.petName}}</td>
-                                <td>{{getTypeString(service.type)}}</td>
-                                <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}
-                                </td>
-                                }
-                                @else{
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                <td>--</td>
-                                }
-                                }
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
+            @if(typeService === pet){
+            <div class="justify-content-end d-flex py-4">
+                <div class="px-4">
+                    <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
                 </div>
-                <div class="col-md-4" >
+                <div class="px-3" (click)="openPetModal(0)">
+                    <img src="assets/icones_imagens/plus.svg">
                 </div>
             </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>NOME DO TUTOR</th>
+                        <th>NOME DO PET</th>
+                        <th>TIPO</th>
+                        <th>CONTATO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of hourList; track $index) {
+                    @let service = getServiceAtHour(item, petDayList);
+                    <tr>
+                        <td>{{item}}</td>
+
+                        @if(service){
+                        <td (click)="openPetModal(service.id)">{{service.name}}</td>
+                        <td (click)="openPetModal(service.id)">{{service.petName}}</td>
+                        <td (click)="openPetModal(service.id)">{{getTypeString(service.type)}}</td>
+                        <td (click)="openPetModal(service.id)">
+                            {{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}
+                        </td>
+                        }
+                        @else{
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+
+            }
+            @if(typeService === vet){
+            <div class="justify-content-end d-flex py-4">
+                <div class="px-4">
+                    <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
+                </div>
+                <div class="px-3" (click)="openVetModal(0)">
+                    <img src="assets/icones_imagens/plus.svg">
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>NOME DO TUTOR</th>
+                        <th>NOME DO PET</th>
+                        <th>TIPO</th>
+                        <th>CONTATO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of hourList; track $index) {
+                    <tr>
+                        <td>{{item}}</td>
+                        @let service = getServiceAtHour(item, vetDayList);
+                        @if(service){
+                        <td (click)="openVetModal(service.id)">{{service.name}}</td>
+                        <td (click)="openVetModal(service.id)">{{service.petName}}</td>
+                        <td (click)="openVetModal(service.id)">{{getTypeString(service.type)}}</td>
+                        <td (click)="openVetModal(service.id)">{{service.phoneNumber != "" ?
+                            fotmatPhone(service.phoneNumber) : service.email}}
+                        </td>
+                        }
+                        @else{
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
         </div>
     </div>
 </div>

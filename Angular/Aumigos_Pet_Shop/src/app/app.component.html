@@ -19,37 +19,4 @@
             <router-outlet></router-outlet>
         </div>
     </main>
-
-    @if(!isLogin){
-    <footer class="contact-area text-center py-5" style="z-index: 10;">
-        <div class="container">
-            <div class="row text-light">
-                <div class="col md-4 contact-box">
-                    <img class="icon-footer" src="assets\icones_imagens\aumigos_icon_Footer.svg" alt="" />
-                </div>
-                <div class="col md-4 contact-box ">
-                    <h3 class="main-text">Contato</h3>
-                    @if(companie){
-                        <p class="contact-text">{{ companie.phoneNumber }}</p>
-                        <p class="contact-text">{{ companie.contactEmail }}</p>
-                        <br />
-                        <p class="contact-text">{{companie.address.street}} - {{companie.address.neighborhood}} - {{companie.address.city}}</p>
-                        <p class="contact-text">{{companie.address.state}} - {{companie.address.zipCode}}</p>    
-                    }@else {
-                        <p class="contact-text">Informações da empresa não informadas</p>
-                    }
-                    <br />
-                    <a href="#" class=""><i class="fa-brands fa-instagram fa-xl" style="color: #fff"></i></a>
-                </div>
-                <div class="col md-4 contact-box">
-                    <h3 class="main-text">Informações</h3>
-                    <a routerLink="/dashboard" class="contact-text text-decoration-none">DashBoard</a><br>
-                    <a routerLink="/" class="contact-text text-decoration-none">Termos e condições</a>
-                    <!-- <a class="contact-text text-decoration-none" (click)="logOut()">Logout</a> -->
-                </div>
-            </div>
-            <span class="copy-class d-flex">Aumigos&copy; Todos os direitos reservados</span>
-        </div>
-    </footer>
-    }
 </div>
