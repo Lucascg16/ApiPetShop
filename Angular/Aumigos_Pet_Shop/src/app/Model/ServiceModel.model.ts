@@ -7,5 +7,5 @@ export interface ServiceModel{
     petName:string;
     phoneNumber:string;
     scheduledDate: Date;
-    type: PetTypeEnum;
+    petType: PetTypeEnum;
 }

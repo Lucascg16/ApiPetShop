@@ -8,6 +8,7 @@ import { ErroMsgComponent } from '../../../Shared/erro-msg/erro-msg.component';
 import { catchError, of, Subscription, tap } from 'rxjs';
 import { PetserviceModel } from '../../../Model/Petservice.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Helper } from '../../../Shared/helper';
 
 @Component({
   selector: 'app-petform',
@@ -103,11 +104,11 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       id: service.id,
       name: service.name,
       email: service.email,
-      phone: service.phoneNumber,
+      phone: Helper.formatPhoneHelper(service.phoneNumber as string),
       isWpp: service.isWhatApp,
       petName: service.petName,
       petAge: service.petAge,
-      type: service.type,
+      type: service.petType,
       petGender: service.petGender,
       petSize: service.petSize,
       scheduler: `${serviceDate.getHours()}:${serviceDate.getMinutes()}`

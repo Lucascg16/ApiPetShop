@@ -37,8 +37,8 @@ export class LoginComponent extends BaseFormComponent {
       this.router.navigate(['/dashboard']);
     }
     else{
-      console.log(response.response)
-      this.alertError = response.response;
+      console.log(response.response.message);
+      this.alertError = response.response.message;
     }
   }
 

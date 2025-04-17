@@ -8,7 +8,7 @@ export interface PetserviceModel {
     isWhatApp: boolean;
     petName: string;
     petAge: number;
-    type: PetTypeEnum;
+    petType: PetTypeEnum;
     petGender: PetGenderEnum;
     petSize: PetSizeEnum;
     scheduledDate: string;

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
-import { Handlers } from '../../Shared/Handlers';
+import { Helper } from '../../Shared/helper';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of, Subscription, tap } from 'rxjs';
 import { CompanyModel } from '../../Model/CompanyModel.model';;
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy{
   constructor(private http: HttpClient, private router: Router) { }
 
   toggleActive(event: MouseEvent) {
-    Handlers.selectActiveHandler(event);
+    Helper.selectActiveHandler(event);
   }
 
   ngOnInit(): void {
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit, OnDestroy{
           tap(res =>  this.companie = res),
           catchError(err => {
             console.error(err);
-            return of();
+            return of(null);
           })
         ).subscribe()
       );

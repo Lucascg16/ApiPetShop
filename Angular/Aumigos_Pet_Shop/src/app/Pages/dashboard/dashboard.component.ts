@@ -2,15 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of, Subscription, tap } from 'rxjs';
 import { ServiceModel } from '../../Model/ServiceModel.model';
-import { Handlers } from '../../Shared/Handlers';
+import { Helper } from '../../Shared/helper';
 import { PetformComponent } from './petform/petform.component';
 import { PetTypeEnum, serviceTypeEnum } from '../../Model/enum/shopEnum.enum';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
+
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [PetformComponent],
+  imports: [],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -21,6 +22,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   hourList = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
   tableDate: string = new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).toString();
   bsModalRef?: BsModalRef;
+  date: string;
 
   typeService: serviceTypeEnum = serviceTypeEnum.pet;
   pet = serviceTypeEnum.pet;
@@ -80,8 +82,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  fotmatPhone(phone: string) {
-    return phone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+  formatPhone(phone: string) {
+    return Helper.formatPhoneHelper(phone);
   }
 
   expandSideBar() {
@@ -99,7 +101,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   selectActive(element: MouseEvent) {
-    Handlers.selectActiveHandler(element);
+    Helper.selectActiveHandler(element);
   }
 
   openPetModal(serviceId:number) {

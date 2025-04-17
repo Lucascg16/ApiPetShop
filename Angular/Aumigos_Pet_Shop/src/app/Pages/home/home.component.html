@@ -25,7 +25,7 @@
             </div>
             <div class="col md-4 contact-box ">
                 <h3 class="main-text">Contato</h3>
-                @if(companie){
+                @if(companie.Name === null){
                     <p class="contact-text">{{ companie.phoneNumber }}</p>
                     <p class="contact-text">{{ companie.contactEmail }}</p>
                     <br />
