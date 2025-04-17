@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputFieldComponent } from '../../Shared/input-field/input-field.component';
-import { BaseFormComponent } from '../../Shared/base-form/base-form.component';
+import { BaseFormComponent } from '../../Shared/base-form/base-form';
 import { AuthenticationService } from '../../Services/authentication.service';
 import { Router } from '@angular/router';
 

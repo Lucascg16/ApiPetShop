@@ -30,15 +30,13 @@
             @if(typeService === pet){
             <div class="justify-content-end d-flex py-4">
                 <div class="px-4" style="cursor: pointer;">
-                    <div class="d-flex justify-content-center">
-                        <div
-                          class="border rounded"
-                          data-coreui-locale="en-US"
-                          data-coreui-start-date="2024/02/13"
-                          data-coreui-toggle="calendar"
-                        >sadjaksd</div>
-                      </div>
-                    <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
+                    
+                    <button class="bi bi-calendar3 border-0" (click)="d.toggle()" type="changebutton">
+                        <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
+                    </button>
+                    <input (ngModelChange)="loadDayDataTable($event)" class="date-input" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="date" ngbDatepicker
+                        #d="ngbDatepicker" />
+
                 </div>
                 <div class="px-3" style="cursor: pointer;" (click)="openPetModal(0)">
                     <img src="assets/icones_imagens/plus.svg">

@@ -1,12 +1,5 @@
-import { Component } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';;
 
-@Component({
-  selector: 'app-base-form',
-  standalone: true,
-  imports: [],
-  template: '<div></div>'
-})
 export abstract class BaseFormComponent {
   form: FormGroup;
   abstract submit(): any;

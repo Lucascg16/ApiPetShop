@@ -6,12 +6,13 @@ import { Helper } from '../../Shared/helper';
 import { PetformComponent } from './petform/petform.component';
 import { PetTypeEnum, serviceTypeEnum } from '../../Model/enum/shopEnum.enum';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-
+import { NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [NgbDatepickerModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -22,7 +23,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   hourList = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
   tableDate: string = new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).toString();
   bsModalRef?: BsModalRef;
-  date: string;
+  date: NgbDateStruct = {year: new Date().getUTCFullYear(), month: new Date().getUTCMonth() + 1, day: new Date().getUTCDate()};
 
   typeService: serviceTypeEnum = serviceTypeEnum.pet;
   pet = serviceTypeEnum.pet;
@@ -31,6 +32,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private bsModalService: BsModalService) { }
 
   ngOnInit(): void {
+    this.getServices(this.tableDate);
+  }
+
+  loadDayDataTable(date: NgbDateStruct){
+    this.tableDate = `${date.year}/${date.month}/${date.day}`;
+    console.log(this.tableDate)
     this.getServices(this.tableDate);
   }
 
@@ -47,7 +54,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })).subscribe()
     );
 
-    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=2025/04/06`)//${date}
+    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=${date}`)//${date}
       .pipe(
         tap(res => {
           this.petDayList = res;
@@ -105,9 +112,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   openPetModal(serviceId:number) {
-    console.log(serviceId);
     const initialState = {
-      id: serviceId
+      id: serviceId,
+      date: this.tableDate
     };
     
     this.bsModalRef = this.bsModalService.show(PetformComponent, { initialState: initialState }); 

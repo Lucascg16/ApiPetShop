@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { BaseFormComponent } from '../../../Shared/base-form/base-form.component';
+import { BaseFormComponent } from '../../../Shared/base-form/base-form';
 import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
@@ -9,6 +9,7 @@ import { catchError, of, Subscription, tap } from 'rxjs';
 import { PetserviceModel } from '../../../Model/Petservice.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Helper } from '../../../Shared/helper';
+import { FormValidator } from '../../../Shared/base-form/form-validator';
 
 @Component({
   selector: 'app-petform',
@@ -23,7 +24,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   date: string;
   
   subList: Subscription[] = []
-  disableEmail: boolean = true;//a tela abre  com o telefone selecionado.
+  disableEmail: boolean = true;//a tela abre com o telefone selecionado.
   disablePhone: boolean = false;
 
   type = PetTypeEnum;
@@ -38,8 +39,8 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       id: null,
       name: [null, [Validators.required]],
       contactMethod: [1],
-      email: [null, [Validators.email]],
-      phone: [null], //desenvolver o validador de telefone
+      email: [null, Validators.email],
+      phone: [null, FormValidator.validatePhoneNumber],
       isWpp: [false],
       petName: [null, Validators.required],
       petAge: [null, Validators.required],
@@ -51,6 +52,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   }
 
   ngOnInit(): void {
+    this.getAvailableTimes();
     if(this.id !== 0){
       this.getServiceData();
     }

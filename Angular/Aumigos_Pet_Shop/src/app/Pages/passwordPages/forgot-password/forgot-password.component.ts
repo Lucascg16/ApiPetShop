@@ -3,7 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Subscription, catchError, of, tap  } from 'rxjs';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
-import { BaseFormComponent } from '../../../Shared/base-form/base-form.component';
+import { BaseFormComponent } from '../../../Shared/base-form/base-form';
 
 @Component({
   selector: 'app-forgot-password',

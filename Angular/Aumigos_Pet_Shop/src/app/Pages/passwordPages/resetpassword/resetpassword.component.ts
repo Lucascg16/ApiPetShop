@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 import { FormValidator } from '../../../Shared/base-form/form-validator';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
-import { BaseFormComponent } from '../../../Shared/base-form/base-form.component';
+import { BaseFormComponent } from '../../../Shared/base-form/base-form';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 
