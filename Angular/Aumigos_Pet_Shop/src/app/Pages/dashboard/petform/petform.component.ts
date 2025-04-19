@@ -9,7 +9,6 @@ import { catchError, of, Subscription, tap } from 'rxjs';
 import { PetserviceModel } from '../../../Model/Petservice.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Helper } from '../../../Shared/helper';
-import { FormValidator } from '../../../Shared/base-form/form-validator';
 
 @Component({
   selector: 'app-petform',
@@ -19,10 +18,11 @@ import { FormValidator } from '../../../Shared/base-form/form-validator';
   styleUrl: './petform.component.css'
 })
 
-export class PetformComponent extends BaseFormComponent implements OnDestroy, OnInit{
+export class PetformComponent extends BaseFormComponent implements OnDestroy, OnInit {
   id: number;
   date: string;
-  
+  alertMsg: string;
+
   subList: Subscription[] = []
   disableEmail: boolean = true;//a tela abre com o telefone selecionado.
   disablePhone: boolean = false;
@@ -36,29 +36,58 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     super();
 
     this.form = formbuilder.group({
-      id: null,
+      id: 0,
       name: [null, [Validators.required]],
       contactMethod: [1],
       email: [null, Validators.email],
-      phone: [null, FormValidator.validatePhoneNumber],
-      isWpp: [false],
+      phoneNumber: [null],
+      isWhatApp: [false],
       petName: [null, Validators.required],
       petAge: [null, Validators.required],
-      type: [null, Validators.required],
+      petType: [null, Validators.required],
       petGender: [null, Validators.required],
       petSize: [null, Validators.required],
-      scheduler: [null, Validators.required]
+      scheduledDate: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
     this.getAvailableTimes();
-    if(this.id !== 0){
+    if (this.id !== 0) {
       this.getServiceData();
     }
   }
 
-  override submit() { }
+  override submit() {
+    if(this.form.get('isWhatApp')?.value == undefined){
+      this.form.patchValue({isWhatApp: false});
+    }
+
+    let modelbody: PetserviceModel = this.form.value;
+    modelbody.scheduledDate = `${this.date.replaceAll("/","-")}T${this.form.get("scheduledDate")?.value}`;
+    modelbody.phoneNumber = modelbody.phoneNumber?.replace("(", "").replace(")", "").replaceAll(" ", "").replace("-", "");
+
+    if(this.form.get('id')?.value as number === 0){
+      this.subList.push(this.http.post("api/v1/petservice", modelbody, { responseType: 'text'})
+      .pipe(
+        tap(res => this.alertMsg = "Agendamento criado com sucesso"),
+        catchError(err => {
+          this.alertMsg = err.error;
+          return of();
+        })
+      ).subscribe())
+    }else{
+      this.subList.push(this.http.patch("api/v1/petservice", modelbody)
+      .pipe(
+        tap(res => this.alertMsg = "Agendamento allterado com sucesso"),
+        catchError(err => {
+          this.alertMsg = err.error;
+          return of();
+        })
+      ).subscribe()
+    )
+    }
+  }
 
   verifyContact() {
     console.log(this.form.get('contactMethod')?.value);
@@ -89,7 +118,11 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   getServiceData() {
     this.subList.push(this.http.get<PetserviceModel>(`api/v1/petservice?id=${this.id}`)
       .pipe(
-        tap(res => this.populateFormFields(res)),
+        tap(res => {
+          let sched = new Date(res.scheduledDate)
+          this.schedulerTimes.push(`${sched.getHours()}:${sched.getMinutes()}`);
+          this.populateFormFields(res)
+        }),
         catchError(err => {
           console.error(err);
           return of();
@@ -106,14 +139,14 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       id: service.id,
       name: service.name,
       email: service.email,
-      phone: Helper.formatPhoneHelper(service.phoneNumber as string),
-      isWpp: service.isWhatApp,
+      phoneNumber: Helper.formatPhoneHelper(service.phoneNumber as string),
+      isWhatApp: service.isWhatApp,
       petName: service.petName,
       petAge: service.petAge,
-      type: service.petType,
+      petType: service.petType,
       petGender: service.petGender,
       petSize: service.petSize,
-      scheduler: `${serviceDate.getHours()}:${serviceDate.getMinutes()}`
+      scheduledDate: `${serviceDate.getHours()}:${serviceDate.getMinutes()}`
     })
   }
 
@@ -122,18 +155,18 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       id: null,
       name: null,
       email: null,
-      phone: null,
+      phoneNumber: null,
       isWpp: false,
       petName: null,
       petAge: null,
       type: null,
       petGender: null,
       petSize: null,
-      scheduler: null
+      scheduledDate: null
     })
   }
 
-  closeModal(){
+  closeModal() {
     this.bsModalRef.hide()
   }
 
