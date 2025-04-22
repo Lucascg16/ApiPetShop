@@ -28,6 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   typeService: serviceTypeEnum = serviceTypeEnum.pet;
   pet = serviceTypeEnum.pet;
   vet = serviceTypeEnum.vet
+  loading: boolean = true;
 
   constructor(private http: HttpClient, private bsModalService: BsModalService) { }
 
@@ -37,11 +38,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   loadDayDataTable(date: NgbDateStruct){
     this.tableDate = `${date.year}/${date.month}/${date.day}`;
-    console.log(this.tableDate)
     this.getServices(this.tableDate);
   }
 
   getServices(date: string) {
+    this.loading = true;
     this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/vetservices/date?date=${date}`)
       .pipe(
         tap(res => {
@@ -59,6 +60,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         tap(res => {
           this.petDayList = res;
           this.petDayList.map(item => item.scheduledDate = new Date(item.scheduledDate));
+          this.loading = false;
         }),
         catchError(err => {
           console.error(err);

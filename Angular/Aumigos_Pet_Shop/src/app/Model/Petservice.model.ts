@@ -5,7 +5,7 @@ export interface PetserviceModel {
     name: string;
     email?: string;
     phoneNumber?: string;
-    isWhatApp: boolean;
+    isWhatsApp: boolean;
     petName: string;
     petAge: number;
     petType: PetTypeEnum;

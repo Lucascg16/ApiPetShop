@@ -2,10 +2,17 @@
     <div class="d-flex justify-content-end">
         <button type="button" class="btn btn-close" aria-label="close" (click)="closeModal()"></button>
     </div>
+    @if(loading){
+    <div class="d-flex justify-content-center m-5">
+        <div class="spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    }@else {
     <form [formGroup]="form" (ngSubmit)="onSub()">
         <h3 class="py-sm-1 text-center pet-title">Serviço de Banho/Tosa</h3>
         @if(alertMsg){
-            <h5 class="text-center text-danger">{{ alertMsg }}</h5>
+        <h5 class="text-center text-danger">{{ alertMsg }}</h5>
         }
         <div class="row">
             <div class=" col-md-12">
@@ -17,15 +24,18 @@
                     <label class="form-text">Meios de contato</label>
                     <div class="form-label">
                         <label class="pe-2" for="phone">
-                            <input type="radio" name="contactMethod" id="phone" formControlName="contactMethod" [value]="1">
+                            <input type="radio" name="contactMethod" id="phone" formControlName="contactMethod"
+                                [value]="1">
                             Telefone
                         </label>
                         <label class="pe-2" for="email">
-                            <input type="radio" name="contactMethod" id="email" formControlName="contactMethod" [value]="2">
+                            <input type="radio" name="contactMethod" id="email" formControlName="contactMethod"
+                                [value]="2">
                             Email
                         </label>
                         <label class="pe-2" for="all">
-                            <input type="radio" name="contactMethod" id="all" formControlName="contactMethod" [value]="3">
+                            <input type="radio" name="contactMethod" id="all" formControlName="contactMethod"
+                                [value]="3">
                             Ambos
                         </label>
                     </div>
@@ -37,7 +47,8 @@
             </div>
             <div class="col-md-12">
                 <div class="">
-                    <input formControlName="isWhatApp" id="isWhatApp" type="checkbox"><label class="px-2" for="isWpp">Receber
+                    <input formControlName="isWhatsApp" id="isWhatsApp" type="checkbox"><label class="px-2"
+                        for="isWpp">Receber
                         por Whatsapp</label>
                 </div>
             </div>
@@ -88,19 +99,25 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="form-group" (click)="getAvailableTimes()">
+                <div class="form-group">
                     <label for="scheduledDate" class="form-text">Horário</label>
                     <select class="form-select" formControlName="scheduledDate" id="scheduledDate">
                         @for (time of schedulerTimes; track $index) {
-                            <option [ngValue]="time">{{ time }}</option>
+                        <option [ngValue]="time">{{ time }}</option>
                         }
                     </select>
                     <app-erro-msg [control]="form.get('scheduledDate')" label="Horário"></app-erro-msg>
                 </div>
             </div>
             <div class="d-grid py-sm-4 col-md-12">
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <button type="submit" class="btn btn-primary">
+                    @if(sending){
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    }
+                    Cadastrar
+                </button>
             </div>
         </div>
     </form>
+    }
 </div>

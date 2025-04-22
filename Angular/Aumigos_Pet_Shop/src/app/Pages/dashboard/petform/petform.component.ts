@@ -9,6 +9,8 @@ import { catchError, of, Subscription, tap } from 'rxjs';
 import { PetserviceModel } from '../../../Model/Petservice.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Helper } from '../../../Shared/helper';
+import { IBaseModal } from '../../../Shared/base-form/base-modal-Interface';
+import { ServiceServices } from '../service-Services';
 
 @Component({
   selector: 'app-petform',
@@ -18,10 +20,12 @@ import { Helper } from '../../../Shared/helper';
   styleUrl: './petform.component.css'
 })
 
-export class PetformComponent extends BaseFormComponent implements OnDestroy, OnInit {
+export class PetformComponent extends BaseFormComponent implements OnDestroy, OnInit, IBaseModal {
   id: number;
   date: string;
   alertMsg: string;
+  loading: boolean = false;
+  sending: boolean = false;
 
   subList: Subscription[] = []
   disableEmail: boolean = true;//a tela abre com o telefone selecionado.
@@ -32,7 +36,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   petsize = PetSizeEnum;
   schedulerTimes: string[];
 
-  constructor(public bsModalRef: BsModalRef, private http: HttpClient, private formbuilder: FormBuilder) {
+  constructor(public bsModalRef: BsModalRef, private services: ServiceServices, private formbuilder: FormBuilder) {
     super();
 
     this.form = formbuilder.group({
@@ -41,7 +45,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       contactMethod: [1],
       email: [null, Validators.email],
       phoneNumber: [null],
-      isWhatApp: [false],
+      isWhatsApp: [false],
       petName: [null, Validators.required],
       petAge: [null, Validators.required],
       petType: [null, Validators.required],
@@ -52,40 +56,39 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   }
 
   ngOnInit(): void {
-    this.getAvailableTimes();
+    this.subList.push(this.services.getAvailableTimes(`api/v1/availableTimes/pet?date=${this.date}`).subscribe(data => {
+      this.schedulerTimes = data ?? []
+    }));
+
     if (this.id !== 0) {
-      this.getServiceData();
+      this.loading = true;
+      this.subList.push(this.services.getServiceData<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
+        let sched = new Date(res.scheduledDate);
+        this.schedulerTimes.push(`${sched.getHours()}:${sched.getMinutes().toString().padStart(2, '0')}`);
+        this.populateFormFields(res);
+        this.loading = false;
+      })
+      );
     }
   }
 
-  override submit() {
-    if(this.form.get('isWhatApp')?.value == undefined){
-      this.form.patchValue({isWhatApp: false});
-    }
+  override async submit() {
+    this.sending = true;
 
+    if (this.form.get('isWhatApp')?.value == undefined) {
+      this.form.patchValue({ isWhatApp: false });
+    }
     let modelbody: PetserviceModel = this.form.value;
-    modelbody.scheduledDate = `${this.date.replaceAll("/","-")}T${this.form.get("scheduledDate")?.value}`;
+    modelbody.scheduledDate = `${this.date.replaceAll("/", "-")}T${this.form.get("scheduledDate")?.value}`;
     modelbody.phoneNumber = modelbody.phoneNumber?.replace("(", "").replace(")", "").replaceAll(" ", "").replace("-", "");
 
-    if(this.form.get('id')?.value as number === 0){
-      this.subList.push(this.http.post("api/v1/petservice", modelbody, { responseType: 'text'})
-      .pipe(
-        tap(res => this.alertMsg = "Agendamento criado com sucesso"),
-        catchError(err => {
-          this.alertMsg = err.error;
-          return of();
-        })
-      ).subscribe())
-    }else{
-      this.subList.push(this.http.patch("api/v1/petservice", modelbody)
-      .pipe(
-        tap(res => this.alertMsg = "Agendamento allterado com sucesso"),
-        catchError(err => {
-          this.alertMsg = err.error;
-          return of();
-        })
-      ).subscribe()
-    )
+    try{
+      await this.services.createOrUpdateService("api/v1/petservice", modelbody);
+      this.sending = false;
+      this.alertMsg = "Agendamento salvo com sucesso";
+    }catch (error){
+      this.sending = false;
+      this.alertMsg = "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador"
     }
   }
 
@@ -100,35 +103,6 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     if (this.form.get('contactMethod')?.value === 2) {
       this.disablePhone = true;
     }
-
-  }
-
-  getAvailableTimes() {
-    this.subList.push(this.http.get<string[]>(`api/v1/availableTimes/pet?date=${this.date}`)
-      .pipe(
-        tap(res => this.schedulerTimes = res),
-        catchError(err => {
-          console.error(err);
-          return of();
-        })
-      ).subscribe()
-    );
-  }
-
-  getServiceData() {
-    this.subList.push(this.http.get<PetserviceModel>(`api/v1/petservice?id=${this.id}`)
-      .pipe(
-        tap(res => {
-          let sched = new Date(res.scheduledDate)
-          this.schedulerTimes.push(`${sched.getHours()}:${sched.getMinutes()}`);
-          this.populateFormFields(res)
-        }),
-        catchError(err => {
-          console.error(err);
-          return of();
-        })
-      ).subscribe()
-    );
   }
 
   populateFormFields(service: PetserviceModel) {
@@ -140,13 +114,13 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       name: service.name,
       email: service.email,
       phoneNumber: Helper.formatPhoneHelper(service.phoneNumber as string),
-      isWhatApp: service.isWhatApp,
+      isWhatsApp: service.isWhatsApp,
       petName: service.petName,
       petAge: service.petAge,
       petType: service.petType,
       petGender: service.petGender,
       petSize: service.petSize,
-      scheduledDate: `${serviceDate.getHours()}:${serviceDate.getMinutes()}`
+      scheduledDate: `${serviceDate.getHours()}:${serviceDate.getMinutes().toString().padStart(2, '0')}`
     })
   }
 
@@ -156,7 +130,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       name: null,
       email: null,
       phoneNumber: null,
-      isWpp: false,
+      isWhatsApp: false,
       petName: null,
       petAge: null,
       type: null,
