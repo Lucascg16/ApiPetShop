@@ -1,16 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BaseFormComponent } from '../../../Shared/base-form/base-form';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
 import { PetGenderEnum, PetSizeEnum, PetTypeEnum } from '../../../Model/enum/shopEnum.enum';
 import { ErroMsgComponent } from '../../../Shared/erro-msg/erro-msg.component';
-import { catchError, of, Subscription, tap } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { PetserviceModel } from '../../../Model/Petservice.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Helper } from '../../../Shared/helper';
 import { IBaseModal } from '../../../Shared/base-form/base-modal-Interface';
-import { ServiceServices } from '../service-Services';
+import { FormServices } from '../form.service';
 
 @Component({
   selector: 'app-petform',
@@ -23,7 +22,7 @@ import { ServiceServices } from '../service-Services';
 export class PetformComponent extends BaseFormComponent implements OnDestroy, OnInit, IBaseModal {
   id: number;
   date: string;
-  alertMsg: string;
+  alertMsg: any;
   loading: boolean = false;
   sending: boolean = false;
 
@@ -36,7 +35,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   petsize = PetSizeEnum;
   schedulerTimes: string[];
 
-  constructor(public bsModalRef: BsModalRef, private services: ServiceServices, private formbuilder: FormBuilder) {
+  constructor(public bsModalRef: BsModalRef, private services: FormServices, private formbuilder: FormBuilder) {
     super();
 
     this.form = formbuilder.group({
@@ -85,10 +84,10 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     try{
       await this.services.createOrUpdateService("api/v1/petservice", modelbody);
       this.sending = false;
-      this.alertMsg = "Agendamento salvo com sucesso";
+      this.alertMsg = {message: "Agendamento salvo com sucesso", isSuccesse: true};
     }catch (error){
       this.sending = false;
-      this.alertMsg = "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador"
+      this.alertMsg = {message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
     }
   }
 

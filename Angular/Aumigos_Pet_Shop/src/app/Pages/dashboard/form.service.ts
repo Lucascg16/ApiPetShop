@@ -1,13 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { error } from "node:console";
-import { promises } from "node:dns";
 import { firstValueFrom, Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
 })
-export class ServiceServices {
+export class FormServices {
     constructor(private http: HttpClient) { }
 
     getAvailableTimes(url: string) {
