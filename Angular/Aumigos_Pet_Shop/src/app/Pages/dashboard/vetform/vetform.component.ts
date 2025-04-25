@@ -11,6 +11,7 @@ import { ErroMsgComponent } from '../../../Shared/erro-msg/erro-msg.component';
 import { vacineModel } from '../../../Model/vacine.model';
 import { VetServiceModel } from '../../../Model/vetService.model';
 import { Helper } from '../../../Shared/helper';
+import { VetVacineModel } from '../../../Model/vetvacine.mode';
 
 @Component({
   selector: 'app-vetform',
@@ -21,7 +22,7 @@ import { Helper } from '../../../Shared/helper';
 export class VetformComponent extends BaseFormComponent implements OnInit, OnDestroy, IBaseModal {
   id: number;
   date: string;
-  alertmsg: string;
+  alertmsg: any;
   loading: boolean = false;
   sending: boolean = false;
 
@@ -59,34 +60,74 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
     });
   }
 
-  override submit() { }
+  override async submit() {
+    this.sending = true;
+    let modelbody: VetServiceModel = this.form.value;
+    let vetVacinelist: VetVacineModel[] = [];
+
+    if (this.form.get('isWhatApp')?.value == undefined) {
+      this.form.patchValue({ isWhatApp: false });
+    }
+    modelbody.scheduledDate = `${this.date.replaceAll("/", "-")}T${this.form.get("scheduledDate")?.value}:00`;
+    modelbody.phoneNumber = modelbody.phoneNumber?.replace("(", "").replace(")", "").replaceAll(" ", "").replace("-", "");
+
+    try {
+      if (modelbody.id === 0) {
+        let nserviceId = await this.services.post("api/v1/vetservices", modelbody);
+
+        this.selected.forEach(item => {
+          vetVacinelist.push({ vetServiceId: nserviceId as number, vacineId: item.id })
+        });
+        await this.services.post("api/v1/vetservices/relation", vetVacinelist);
+      }
+      else {
+        await this.services.patch("api/v1/vetservices", modelbody);
+
+        this.selected.forEach(item => {
+          vetVacinelist.push({ vetServiceId: modelbody.id, vacineId: item.id })
+        });
+        await this.services.post("api/v1/vetservices/relation", vetVacinelist);
+      }
+
+      this.sending = false;
+      this.alertmsg = { message: "Agendamento salvo com sucesso", isSuccess: true };
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000);
+    } catch (error) {
+      this.sending = false;
+      console.error(error);
+      this.alertmsg = { message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccess: false };
+    }
+  }
 
   ngOnInit(): void {
-    this.subList.push(this.services.getAvailableTimes(`api/v1/availableTimes/vet?date=${this.date}`).subscribe(data => {
+    this.subList.push(this.services.get<string[]>(`api/v1/availableTimes/vet?date=${this.date}`).subscribe(data => {
       this.schedulerTimes = data
     }));
 
-    this.subList.push(this.services.getAnyData<vacineModel[]>('api/v1/vacines').subscribe(data => {
+    this.subList.push(this.services.get<vacineModel[]>('api/v1/vacines').subscribe(data => {
       this.available = data ?? [];
     }))
 
-    if(this.id !== 0){
+    if (this.id !== 0) {
       this.loading = true;
-      
+
       this.subList.push(
-        this.services.getAnyData<VetServiceModel>(`api/v1/vetservices?id=${this.id}`)
-        .subscribe(res => {
-          let sched = new Date(res.scheduledDate);
-          this.schedulerTimes.push(`${sched.getHours()}:${sched.getMinutes().toString().padStart(2, '0')}`);
-          this.populateFormFields(res);
-          this.selectServiceVacines(res.vacines);
-          this.loading = false;
-        })
+        this.services.get<VetServiceModel>(`api/v1/vetservices?id=${this.id}`)
+          .subscribe(res => {
+            let sched = new Date(res.scheduledDate);
+            this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
+            this.populateFormFields(res);
+            this.selectServiceVacines(res.vacines);
+            this.loading = false;
+          })
       );
     }
   }
 
-  selectServiceVacines(vacines: vacineModel[]){
+  selectServiceVacines(vacines: vacineModel[]) {
     vacines.forEach(vacine => this.selected.push(vacine));
     this.available = this.available.filter(item => !vacines.includes(item));
   }
@@ -106,23 +147,21 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
   populateFormFields(service: VetServiceModel) {
     this.resetFormData();
     let serviceDate = new Date(service.scheduledDate);
-    console.log(serviceDate);
 
     this.form.patchValue({
       id: service.id,
       name: service.name,
       email: service.email,
-      phoneNumber: Helper.formatPhoneHelper(service.phoneNumber as string) ??  null,
+      phoneNumber: Helper.formatPhoneHelper(service.phoneNumber as string) ?? null,
       isWhatsApp: service.isWhatsApp,
       petName: service.petName,
       petAge: service.petAge,
       petType: service.petType,
       petGender: service.petGender,
       petSize: service.petSize,
-      scheduledDate: `${serviceDate.getHours()}:${serviceDate.getMinutes().toString().padStart(2, '0')}`,
+      scheduledDate: `${serviceDate.getHours().toString().padStart(2, '0')}:${serviceDate.getMinutes().toString().padStart(2, '0')}`,
       petWeight: service.petWeight,
       isCastrared: service.isCastrated,
-      //vacines: null, verificar a forma que será passado para as tabelas
     });
   }
 
@@ -149,13 +188,13 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
   moverParaSelecionados() {
     this.selected.push(...this.form.get('vacines')?.value);
     this.available = this.available.filter(item => !this.form.get('vacines')?.value.includes(item));
-    this.form.patchValue({vacines: null});
+    this.form.patchValue({ vacines: null });
   }
 
   moverParaDisponiveis() {
     this.available.push(...this.form.get('vacines')?.value);
     this.selected = this.selected.filter(item => !this.form.get('vacines')?.value.includes(item));
-    this.form.patchValue({vacines: null});
+    this.form.patchValue({ vacines: null });
   }
 
   closeModal(): void {

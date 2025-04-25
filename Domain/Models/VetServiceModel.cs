@@ -31,7 +31,7 @@ namespace ApiPetShop.Domain
             IsWhatsApp = nService.IsWhatsApp;
             PetName = nService.PetName;
             PetAge = nService.PetAge;
-            PetType = nService.Type;
+            PetType = nService.PetType;
             PetGender = nService.PetGender;
             PetSize = nService.PetSize;
             ScheduledDate = nService.ScheduledDate;
@@ -64,7 +64,7 @@ namespace ApiPetShop.Domain
             IsWhatsApp = nService.IsWhatsApp;
             PetName = nService.PetName;
             PetAge = nService.PetAge;
-            PetType = nService.Type;
+            PetType = nService.PetType;
             PetGender = nService.PetGender;
             PetSize = nService.PetSize;
             ScheduledDate = nService.ScheduledDate;

@@ -58,8 +58,7 @@ namespace ApiPetShop.Controllers
         {
             try
             {
-                await services.CreateService(service);
-                return Ok();
+                return Ok(await services.CreateService(service));
             }
             catch (Exception ex)
             {

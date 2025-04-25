@@ -12,7 +12,7 @@
     <form [formGroup]="form" (ngSubmit)="onSub()">
         <h3 class="py-sm-1 text-center pet-title">Serviço de Banho/Tosa</h3>
         @if(alertMsg){
-        <h5 class="text-center" [class.text-success]="alertMsg.isSuccesse" [class.text-danger]="!alertMsg.isSuccesse">{{ alertMsg.message }}</h5>
+        <h5 class="text-center" [class.text-success]="alertMsg.isSuccess" [class.text-danger]="!alertMsg.isSuccess">{{ alertMsg.message }}</h5>
         }
         <div class="row">
             <div class=" col-md-12">

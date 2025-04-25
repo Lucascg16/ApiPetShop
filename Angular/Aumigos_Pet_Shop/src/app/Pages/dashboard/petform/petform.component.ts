@@ -55,15 +55,15 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   }
 
   ngOnInit(): void {
-    this.subList.push(this.services.getAvailableTimes(`api/v1/availableTimes/pet?date=${this.date}`).subscribe(data => {
+    this.subList.push(this.services.get<string[]>(`api/v1/availableTimes/pet?date=${this.date}`).subscribe(data => {
       this.schedulerTimes = data ?? []
     }));
 
     if (this.id !== 0) {
       this.loading = true;
-      this.subList.push(this.services.getAnyData<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
+      this.subList.push(this.services.get<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
         let sched = new Date(res.scheduledDate);
-        this.schedulerTimes.push(`${sched.getHours()}:${sched.getMinutes().toString().padStart(2, '0')}`);
+        this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
         this.populateFormFields(res);
         this.loading = false;
       })
@@ -77,20 +77,28 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     if (this.form.get('isWhatApp')?.value == undefined) {
       this.form.patchValue({ isWhatApp: false });
     }
+
     let modelbody: PetserviceModel = this.form.value;
-    modelbody.scheduledDate = `${this.date.replaceAll("/", "-")}T${this.form.get("scheduledDate")?.value}`;
+    modelbody.scheduledDate = `${this.date.replaceAll("/", "-")}T${this.form.get("scheduledDate")?.value}:00`;
     modelbody.phoneNumber = modelbody.phoneNumber?.replace("(", "").replace(")", "").replaceAll(" ", "").replace("-", "");
 
+    console.log(modelbody.scheduledDate);
+    
     try{
-      await this.services.createOrUpdateService("api/v1/petservice", modelbody);
+      if(modelbody.id === 0){
+        await this.services.post("api/v1/petservice", modelbody);
+      }else{
+        await this.services.patch("api/v1/petservice", modelbody);
+      }
       this.sending = false;
-      this.alertMsg = {message: "Agendamento salvo com sucesso", isSuccesse: true};
+      this.alertMsg = {message: "Agendamento salvo com sucesso", isSuccess: true};
 
       setTimeout(() => {
         window.location.reload()
-      }, 100);
+      }, 1000);
     }catch (error){
       this.sending = false;
+      console.error(error);
       this.alertMsg = {message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
     }
   }
@@ -122,7 +130,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       petType: service.petType,
       petGender: service.petGender,
       petSize: service.petSize,
-      scheduledDate: `${serviceDate.getHours()}:${serviceDate.getMinutes().toString().padStart(2, '0')}`
+      scheduledDate: `${serviceDate.getHours().toString().padStart(2, '0')}:${serviceDate.getMinutes().toString().padStart(2, '0')}`
     })
   }
 

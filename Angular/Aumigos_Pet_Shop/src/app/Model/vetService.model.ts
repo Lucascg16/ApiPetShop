@@ -12,7 +12,7 @@ export interface VetServiceModel{
     petType: PetTypeEnum;
     petGender: PetGenderEnum;
     petSize: PetSizeEnum;
-    scheduledDate: Date;
+    scheduledDate: string;
     petWeight: number;
     isCastrated: boolean;
     vacines: vacineModel[];

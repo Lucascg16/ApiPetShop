@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   subLIst: Subscription[] = [];
   petDayList: ServiceModel[];
   vetDayList: ServiceModel[];
-  hourList = ["8:00", "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
+  hourList = ["08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30"];
   tableDate: string = new Date().toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).toString();
   bsModalRef?: BsModalRef;
   date: NgbDateStruct = {year: new Date().getUTCFullYear(), month: new Date().getUTCMonth() + 1, day: new Date().getUTCDate()};
@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   loadDayDataTable(date: NgbDateStruct){
-    this.tableDate = `${date.year}/${date.month}/${date.day}`;
+    this.tableDate = `${date.year}/${date.month.toString().padStart(2, '0')}/${date.day.toString().padStart(2, '0')}`;
     this.getServices(this.tableDate);
   }
 
@@ -73,8 +73,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   getServiceAtHour(hour: string, service: ServiceModel[]): any | null {
     if (service) {
       return service.find(service => {
-        const h = service.scheduledDate.getHours().toString();
-        const m = service.scheduledDate.getMinutes().toString().padStart(2, "0");
+        const h = service.scheduledDate.getHours().toString().padStart(2, '0');
+        const m = service.scheduledDate.getMinutes().toString().padStart(2, '0');
         return `${h}:${m}` === hour;
       }) || null;
     }

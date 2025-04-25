@@ -17,7 +17,7 @@ namespace ApiPetShop.Domain
         [Required]
         public int PetAge { get; set; }
         [Required]
-        public PetTypeEnum Type { get; set; } = PetTypeEnum.none;
+        public PetTypeEnum PetType { get; set; } = PetTypeEnum.none;
         [Required]
         public PetGenderEnum PetGender { get; set; }
         [Required]

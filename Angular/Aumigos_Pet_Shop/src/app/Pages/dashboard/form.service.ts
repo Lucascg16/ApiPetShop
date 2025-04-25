@@ -8,19 +8,15 @@ import { firstValueFrom, Observable } from "rxjs";
 export class FormServices {
     constructor(private http: HttpClient) { }
 
-    getAvailableTimes(url: string) {
-        return this.http.get<string[]>(url);
-    }
-
-    getAnyData<T>(url: string): Observable<T> {
+    get<T>(url: string): Observable<T> {
         return this.http.get<T>(url);
     }
 
-    async createOrUpdateService(url: string, modelBody: any){
-        if (modelBody.id === 0) {
-            return await firstValueFrom(this.http.post(url, modelBody));
-        } else {
-            return await firstValueFrom( this.http.patch(url, modelBody));
-        }
+    async post(url: string, modelBody: any){
+        return await firstValueFrom(this.http.post(url, modelBody));
+    }
+
+    async patch(url: string, modelBody: any){
+        return await firstValueFrom(this.http.patch(url, modelBody));
     }
 }
