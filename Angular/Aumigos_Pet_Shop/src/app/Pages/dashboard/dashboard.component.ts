@@ -8,6 +8,7 @@ import { PetTypeEnum, serviceTypeEnum } from '../../Model/enum/shopEnum.enum';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgbDatepickerModule, NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { VetformComponent } from './vetform/vetform.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -55,7 +56,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         })).subscribe()
     );
 
-    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=${date}`)//${date}
+    this.subLIst.push(this.http.get<ServiceModel[]>(`api/v1/petservice/date?date=${date}`)
       .pipe(
         tap(res => {
           this.petDayList = res;
@@ -122,8 +123,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.bsModalRef = this.bsModalService.show(PetformComponent, { initialState: initialState }); 
   }
 
-  openVetModal(id:number){
-    //vai fazer o mesmo do de cima, precisa desenvolver o outro formulário.
+  openVetModal(serviceId:number){
+    const initialState = {
+      id: serviceId,
+      date: this.tableDate
+    };
+    
+    this.bsModalRef = this.bsModalService.show(VetformComponent, { initialState: initialState });
   }
 
   ngOnDestroy(): void {

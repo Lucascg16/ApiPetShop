@@ -12,7 +12,7 @@ export class FormServices {
         return this.http.get<string[]>(url);
     }
 
-    getServiceData<T>(url: string): Observable<T> {
+    getAnyData<T>(url: string): Observable<T> {
         return this.http.get<T>(url);
     }
 

@@ -1,1 +1,151 @@
-<p>vetform works!</p>
+<div class="modal-body">
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-close" aria-label="close" (click)="closeModal()"></button>
+    </div>
+    @if(loading){
+    <div class="d-flex justify-content-center m-5">
+        <div class="spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    }@else{
+    <form [formGroup]="form" (ngSubmit)="onSub()">
+        <h3 class="py-sm-1 text-center vet-title">Serviço de vacina</h3>
+        @if(alertmsg){
+        <h5 class="text-center">{{ alertmsg }}</h5>
+        }
+        <div class="row">
+            <div class=" col-md-12">
+                <app-input-field formControlName="name" id="name" type="text" label="Nome do Tutor"
+                    [control]="form.get('name')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <div class="radio-group" (change)="verifyContact()">
+                    <label class="form-text">Meios de contato</label>
+                    <div class="form-label">
+                        <label class="pe-2" for="phone">
+                            <input type="radio" name="contactMethod" id="phone" formControlName="contactMethod"
+                                [value]="1">
+                            Telefone
+                        </label>
+                        <label class="pe-2" for="email">
+                            <input type="radio" name="contactMethod" id="email" formControlName="contactMethod"
+                                [value]="2">
+                            Email
+                        </label>
+                        <label class="pe-2" for="all">
+                            <input type="radio" name="contactMethod" id="all" formControlName="contactMethod"
+                                [value]="3">
+                            Ambos
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <app-input-field formControlName="phoneNumber" [disabled]="disablePhone" type="text" id="phoneNumber"
+                    label="Telefone" [control]="form.get('phoneNumber')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <div class="">
+                    <input formControlName="isWhatsApp" id="isWhatsApp" type="checkbox"><label class="px-2"
+                        for="isWpp">Receber
+                        por Whatsapp</label>
+                </div>
+            </div>
+            <div class="col-md-12 pb-3">
+                <app-input-field formControlName="email" [disabled]="disableEmail" type="email" id="email" label="Email"
+                    [control]="form.get('email')"></app-input-field>
+            </div>
+
+            <hr>
+            <h3 class="text-center vet-title text-black">Informações do Pet</h3>
+            <div class=" col-md-6">
+                <app-input-field formControlName="petName" id="petName" type="text" label="Nome do Pet"
+                    [control]="form.get('petName')"></app-input-field>
+            </div>
+            <div class="col-md-6">
+                <app-input-field formControlName="petAge" id="petAge" type="text" label="Idade do Pet"
+                    [control]="form.get('petAge')"></app-input-field>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="petType" class="form-text">Tipo</label>
+                    <select class="form-select" formControlName="petType" id="petType">
+                        <option [ngValue]="type.Dog">Cachorro</option>
+                        <option [ngValue]="type.Cat">Gato</option>
+                    </select>
+                    <app-erro-msg [control]="form.get('petType')" label="Tipo"></app-erro-msg>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="petGender" class="form-text">Sexo</label>
+                    <select class="form-select" formControlName="petGender" id="petGender">
+                        <option [ngValue]="petGender.Male">Macho</option>
+                        <option [ngValue]="petGender.Female">Fêmea</option>
+                    </select>
+                    <app-erro-msg [control]="form.get('petGender')" label="Sexo"></app-erro-msg>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="petSize" class="form-text">Tamanho</label>
+                    <select class="form-select" formControlName="petSize" id="petSize">
+                        <option [ngValue]="petSize.Small">Pequeno porte</option>
+                        <option [ngValue]="petSize.Medium">Medio porte</option>
+                        <option [ngValue]="petSize.Large">Grande porte</option>
+                    </select>
+                    <app-erro-msg [control]="form.get('petSize')" label="Tamanho"></app-erro-msg>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="scheduledDate" class="form-text">Horário</label>
+                    <select class="form-select" formControlName="scheduledDate" id="scheduledDate">
+                        @for (time of schedulerTimes; track $index) {
+                        <option [ngValue]="time">{{ time }}</option>
+                        }
+                    </select>
+                    <app-erro-msg [control]="form.get('scheduledDate')" label="Horário"></app-erro-msg>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <label class="form-text" for="isCastrared">Castrado</label>
+                <select class="form-select" formControlName="isCastrared" id="isCastrared">
+                    <option [ngValue]="true">Sim</option>
+                    <option [ngValue]="false" selected>Não</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <app-input-field formControlName="petWeight" id="petWeight" type="number" label="Peso do Pet"
+                    [control]="form.get('petWeight')"></app-input-field>
+            </div>
+            <div class="row justify-content-center">
+                <label class="form-text">Vacinas</label>
+                <div class="col text-start">
+                    <select class="form-select mult-select" size="7" multiple formControlName="vacines">
+                        @for (item of available; track $index) {
+                            <option class="select-opt" (click)="moverParaSelecionados()" [ngValue]="item">{{item.name}}</option>
+                        }
+                    </select>
+                </div>
+                <div class="col text-start">
+                    <select class="form-select mult-select" size="7" multiple formControlName="vacines">
+                        @for (item of selected; track $index) {
+                            <option class="select-opt" (click)="moverParaDisponiveis()" [ngValue]="item">{{item.name}}</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="d-grid py-sm-4 col-md-12">
+                <button type="submit" class="btn btn-primary">
+                    @if(sending){
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    }
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </form>
+    }
+</div>

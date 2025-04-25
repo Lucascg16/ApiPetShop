@@ -40,11 +40,11 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
 
     this.form = formbuilder.group({
       id: 0,
-      name: [null, [Validators.required]],
-      contactMethod: [1],
+      name: [null, Validators.required],
+      contactMethod: 1,
       email: [null, Validators.email],
       phoneNumber: [null],
-      isWhatsApp: [false],
+      isWhatsApp: false,
       petName: [null, Validators.required],
       petAge: [null, Validators.required],
       petType: [null, Validators.required],
@@ -61,7 +61,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
 
     if (this.id !== 0) {
       this.loading = true;
-      this.subList.push(this.services.getServiceData<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
+      this.subList.push(this.services.getAnyData<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
         let sched = new Date(res.scheduledDate);
         this.schedulerTimes.push(`${sched.getHours()}:${sched.getMinutes().toString().padStart(2, '0')}`);
         this.populateFormFields(res);
@@ -85,6 +85,10 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
       await this.services.createOrUpdateService("api/v1/petservice", modelbody);
       this.sending = false;
       this.alertMsg = {message: "Agendamento salvo com sucesso", isSuccesse: true};
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 100);
     }catch (error){
       this.sending = false;
       this.alertMsg = {message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
@@ -92,7 +96,6 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   }
 
   verifyContact() {
-    console.log(this.form.get('contactMethod')?.value);
     this.disableEmail = false;
     this.disablePhone = false;
 
@@ -125,7 +128,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
 
   resetFormData() {
     this.form.patchValue({
-      id: null,
+      id: 0,
       name: null,
       email: null,
       phoneNumber: null,

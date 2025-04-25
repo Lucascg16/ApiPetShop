@@ -9,6 +9,10 @@ export class Helper {
   }
 
   static formatPhoneHelper(phone: string){
+    if(!phone){
+      return null;
+    }
+
     return phone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
   }
 }

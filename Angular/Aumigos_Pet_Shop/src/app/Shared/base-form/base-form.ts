@@ -31,26 +31,4 @@ export abstract class BaseFormComponent {
   resetFormSubmit(){
     this.form.reset();
   }
-
-  verifyValidTouched(field: string){
-    return !this.form.get(field)?.valid && this.form.get(field)?.touched;
-  }
-
-  verifyEmail(){
-    let email = this.form.get('email');
-    if(email?.errors){
-      return email.errors['email'] && email.touched;
-    }
-  }
-
-  aplyCssError(field: string){
-    return {
-      'has-error': this.verifyValidTouched(field),
-      'has-feedback': this.verifyValidTouched(field)
-    }
-  }
-
-  getField(field: string){
-    return this.form.get(field);
-  }
 }

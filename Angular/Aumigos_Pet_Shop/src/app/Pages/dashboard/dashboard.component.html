@@ -68,7 +68,7 @@
                         <td (click)="openPetModal(service.id)">{{service.petName}}</td>
                         <td (click)="openPetModal(service.id)">{{getTypeString(service.petType)}}</td>
                         <td (click)="openPetModal(service.id)">
-                            {{service.phoneNumber != "" ? formatPhone(service.phoneNumber) : service.email}}
+                            {{service.phoneNumber !== null ? formatPhone(service.phoneNumber) : service.email}}
                         </td>
                         }
                         @else{
@@ -115,8 +115,8 @@
                         <td (click)="openVetModal(service.id)">{{service.name}}</td>
                         <td (click)="openVetModal(service.id)">{{service.petName}}</td>
                         <td (click)="openVetModal(service.id)">{{getTypeString(service.petType)}}</td>
-                        <td (click)="openVetModal(service.id)">{{service.phoneNumber != "" ?
-                            formatPhone(service.phoneNumber) : service.email}}
+                        <td (click)="openVetModal(service.id)">
+                            {{service.phoneNumber !== null ? formatPhone(service.phoneNumber) : service.email}}
                         </td>
                         }
                         @else{
