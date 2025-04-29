@@ -11,7 +11,7 @@ public class CompanyModel : ModelBase
     public string ContactEmail { get; set; } = string.Empty;
     public int AddressId { get; set; }
     [JsonIgnore]
-    public AddressModel Address { get; set; } = new(); 
+    public AddressModel? Address { get; set; } 
     [MaxLength(20)]
     public string PhoneNumber { get; set; } = string.Empty;
     [MaxLength(512)]
