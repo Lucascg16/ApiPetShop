@@ -15,3 +15,13 @@ input:focus {
     color: #333333;
     padding: 0.4rem 0.4rem;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}

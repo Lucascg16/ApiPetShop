@@ -10,6 +10,6 @@ namespace ApiPetShop.Domain
         public string? PhoneNumber { get; set; }
         public string PetName { get; set; } = string.Empty;
         public DateTime ScheduledDate { get; set; }
-        public PetTypeEnum Type { get; set; } = PetTypeEnum.none;
+        public PetTypeEnum PetType { get; set; } = PetTypeEnum.none;
     }
 }

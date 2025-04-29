@@ -39,7 +39,12 @@ body {
 }
 .btn-primary:active {
     background-color: #720c68 !important;
-    border-color: #720c68 !important  ;
+    border-color: #720c68 !important;
+}
+
+button:disabled{
+    background-color: #890a78 !important;
+    border-color: #890a78 !important;
 }
 
 /* .active span{

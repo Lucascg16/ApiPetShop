@@ -29,7 +29,7 @@ namespace ApiPetShop.Controllers
             try
             {
                 var service = await services.GetServiceByIdDto(id);
-                if (service.Id == 0) return NotFound();
+                if (service.Id == 0) return NotFound("Serviço não encontrado");
 
                 return Ok(service);
             }
@@ -40,7 +40,6 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpGet("date")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetByDate(DateTime date)
         {
             try
@@ -55,12 +54,11 @@ namespace ApiPetShop.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateVetServiceModel service)
+        public async Task<IActionResult> Create([FromBody] CreateOrUpdateVetserviceModel service)
         {
             try
             {
-                await services.CreateService(service);
-                return Ok();
+                return Ok(await services.CreateService(service));
             }
             catch (Exception ex)
             {
@@ -83,7 +81,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Update(UpdateVetserviceModel service)
+        public async Task<IActionResult> Update(CreateOrUpdateVetserviceModel service)
         {
             try
             {

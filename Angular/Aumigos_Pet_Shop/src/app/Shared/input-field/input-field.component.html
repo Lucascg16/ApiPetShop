@@ -1,6 +1,6 @@
 <div class="form-group">
     <label [attr.for]="id" class="form-text">{{ label }}</label>
-    <input class="form-control" [placeholder]="placeHolder" [type]="type" [id]="id" [readOnly]="!!isReadOnly" [(ngModel)]="value">
+    <input class="form-control" [placeholder]="placeHolder" [type]="type" [id]="id" [disabled]="disabled" [readOnly]="!!isReadOnly" [(ngModel)]="value">
     @if(control != null || control != undefined){
         <app-erro-msg [control]="control" [label]="label"></app-erro-msg>  
     }

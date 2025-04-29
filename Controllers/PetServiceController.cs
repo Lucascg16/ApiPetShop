@@ -24,7 +24,6 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpGet("date")]
-        [AllowAnonymous]
         public async Task<IActionResult> GetByDate(DateTime date)
         {
             try
@@ -55,7 +54,7 @@ namespace ApiPetShop.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreatePetServiceModel service)
+        public async Task<IActionResult> Create([FromBody] CreateOrUpdatePetService service)
         {
             try
             {
@@ -69,7 +68,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public async Task<IActionResult> Update([FromBody] UpdatePetService service)
+        public async Task<IActionResult> Update([FromBody] CreateOrUpdatePetService service)
         {
             try
             {

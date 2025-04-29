@@ -11,7 +11,7 @@ namespace ApiPetShop.Domain
         public bool IsWhatsApp { get; set; }
         public string PetName { get; set; } = string.Empty;
         public int PetAge { get; set; }
-        public PetTypeEnum Type { get; set; }
+        public PetTypeEnum PetType { get; set; }
         public PetGenderEnum PetGender { get; set; }
         public PetSizeEnum PetSize { get; set; }
         public DateTime ScheduledDate { get; set; }

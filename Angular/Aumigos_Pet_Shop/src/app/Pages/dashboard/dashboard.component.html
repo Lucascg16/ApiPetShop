@@ -1,8 +1,9 @@
 <div class="dashboard">
     <div class="head-bar">
         <div class="px-5 py-3">
-            <span class="sidebar-btn"><i (click)="expandSideBar()" class=" fa-solid fa-bars fa-xl" style="color: #ffffff;"></i></span>
-            <span class="px-3 text-white">Aumigos Gerenciamento</span>    
+            <span class="sidebar-btn"><i (click)="expandSideBar()" class=" fa-solid fa-bars fa-xl"
+                    style="color: #ffffff;"></i></span>
+            <span class="px-3 text-white">Aumigos Gerenciamento</span>
         </div>
     </div>
     <nav class="side-menu">
@@ -13,34 +14,43 @@
             <li class="item-menu activatable active" (click)="selectActive($event)">
                 <div class="btn-selector" (click)="selectActiveTable(pet)">
                     <img src="assets/icones_imagens/bath-icon.svg" alt="" width="25" height="25">
-                    <span class="p-0">Banho/Tosa</span>    
+                    <span class="p-0">Banho/Tosa</span>
                 </div>
             </li>
             <li class="item-menu activatable" (click)="selectActive($event)">
                 <div class="btn-selector" (click)="selectActiveTable(vet)">
                     <img src="assets/icones_imagens/vacine-icon.svg" alt="" width="25" height="25">
-                    <span class="p-0">Vacinação</span>    
+                    <span class="p-0">Vacinação</span>
                 </div>
             </li>
         </ul>
     </nav>
-    
     <div class="pb-5">
         <div class="container">
-            <div  class="justify-content-end d-flex py-4 pe-2">
-                <div class="px-4">
-                    <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
+            @if(loading){
+            <div class="d-flex justify-content-center m-5">
+                <div class="spinner-border m-5" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
-                <div class="px-3">
+            </div>
+            }@else {
+            @if(typeService === pet){
+            <div class="justify-content-end d-flex py-4">
+                <div class="px-4" style="cursor: pointer;">
+                    <button class="bi bi-calendar3 border-0" (click)="d.toggle()" type="changebutton">
+                        <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
+                    </button>
+                    <input (ngModelChange)="loadDayDataTable($event)" class="date-input" name="dp" [(ngModel)]="date"
+                        ngbDatepicker #d="ngbDatepicker" />
+                </div>
+                <div class="px-3" style="cursor: pointer;" (click)="openPetModal(0)">
                     <img src="assets/icones_imagens/plus.svg">
                 </div>
             </div>
-            
             <table>
                 <thead>
                     <tr>
                         <th></th>
-                        <th hidden></th>
                         <th>NOME DO TUTOR</th>
                         <th>NOME DO PET</th>
                         <th>TIPO</th>
@@ -49,42 +59,78 @@
                 </thead>
                 <tbody>
                     @for (item of hourList; track $index) {
-                        <tr>
-                            <td>{{item}}</td>
-                            @if(typeService === pet ){
-                                @let service = getServiceAtHour(item, petDayList);
-                                @if(service){
-                                    <td>{{service.name}}</td>
-                                    <td>{{service.petName}}</td>
-                                    <td>{{getTypeString(service.type)}}</td>
-                                    <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>
-                                }
-                                @else{
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                }
-                            }
-                            @if(typeService === vet){
-                                @let service = getServiceAtHour(item, vetDayList);
-                                @if(service){
-                                    <td>{{service.name}}</td>
-                                    <td>{{service.petName}}</td>
-                                    <td>{{getTypeString(service.type)}}</td>
-                                    <td>{{service.phoneNumber != "" ? fotmatPhone(service.phoneNumber) : service.email}}</td>    
-                                }
-                                @else{
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                    <td>--</td>
-                                }
-                            }
-                        </tr>
+                    @let service = getServiceAtHour(item, petDayList);
+                    <tr>
+                        <td>{{item}}</td>
+
+                        @if(service){
+                        <td (click)="openPetModal(service.id)">{{service.name}}</td>
+                        <td (click)="openPetModal(service.id)">{{service.petName}}</td>
+                        <td (click)="openPetModal(service.id)">{{getTypeString(service.petType)}}</td>
+                        <td (click)="openPetModal(service.id)">
+                            {{service.phoneNumber !== null ? formatPhone(service.phoneNumber) : service.email}}
+                        </td>
+                        }
+                        @else{
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        }
+                    </tr>
                     }
                 </tbody>
             </table>
+
+            }
+            @if(typeService === vet){
+            <div class="justify-content-end d-flex py-4">
+                <div class="px-4" style="cursor: pointer;">
+                    <button class="bi bi-calendar3 border-0" (click)="d.toggle()" type="changebutton">
+                        <img src="assets/icones_imagens/calendar-purple.svg" width="40" height="40">
+                    </button>
+                    <input (ngModelChange)="loadDayDataTable($event)" class="date-input" name="dp" [(ngModel)]="date"
+                        ngbDatepicker #d="ngbDatepicker" />
+                </div>
+                <div class="px-3" style="cursor: pointer;" (click)="openVetModal(0)">
+                    <img src="assets/icones_imagens/plus.svg">
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>NOME DO TUTOR</th>
+                        <th>NOME DO PET</th>
+                        <th>TIPO</th>
+                        <th>CONTATO</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of hourList; track $index) {
+                    <tr>
+                        <td>{{item}}</td>
+                        @let service = getServiceAtHour(item, vetDayList);
+                        @if(service){
+                        <td (click)="openVetModal(service.id)">{{service.name}}</td>
+                        <td (click)="openVetModal(service.id)">{{service.petName}}</td>
+                        <td (click)="openVetModal(service.id)">{{getTypeString(service.petType)}}</td>
+                        <td (click)="openVetModal(service.id)">
+                            {{service.phoneNumber !== null ? formatPhone(service.phoneNumber) : service.email}}
+                        </td>
+                        }
+                        @else{
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        <td>--</td>
+                        }
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            }
+            }
         </div>
     </div>
 </div>

@@ -2,7 +2,7 @@
 {
     public interface IVetRepository
     {
-        Task CreateService(VetServiceModel service);
+        Task<int> CreateService(VetServiceModel service);
         Task ManageRelWithVacine(List<VetVacine> newRelations);
         Task<List<VetServiceDto>> GetAllPetServices();
         Task<List<DateTime>> GetScheduledTime(DateTime date);

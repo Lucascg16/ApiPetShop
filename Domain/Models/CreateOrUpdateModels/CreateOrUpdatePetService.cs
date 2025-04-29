@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ApiPetShop.Domain
 {
-    public record UpdatePetService
+    public record CreateOrUpdatePetService
     {
         [Required]
         public int Id { get; set; }
@@ -15,6 +15,10 @@ namespace ApiPetShop.Domain
         public bool IsWhatsApp { get; set; } = false;
         [Required]
         public string PetName { get; set; } = string.Empty;
+        [Required]
+        public int PetAge { get; set; }
+        [Required]
+        public PetTypeEnum PetType { get; set; } = PetTypeEnum.none;
         [Required]
         public PetGenderEnum PetGender { get; set; } = PetGenderEnum.Male;
         [Required]

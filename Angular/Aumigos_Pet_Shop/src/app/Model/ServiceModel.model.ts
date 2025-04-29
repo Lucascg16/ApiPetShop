@@ -1,4 +1,4 @@
-import { PetTypeEnum } from "./enum/typeEnum.enum";
+import { PetTypeEnum } from "./enum/shopEnum.enum";
 
 export interface ServiceModel{
     id:Number;
@@ -7,5 +7,5 @@ export interface ServiceModel{
     petName:string;
     phoneNumber:string;
     scheduledDate: Date;
-    type: PetTypeEnum;
+    petType: PetTypeEnum;
 }

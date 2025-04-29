@@ -31,10 +31,11 @@ namespace ApiPetShop.Domain
             await db.SaveChangesAsync();
         }
 
-        public async Task CreateService(VetServiceModel service)
+        public async Task<int> CreateService(VetServiceModel service)
         {
             await db.VetServices.AddAsync(service);
             await db.SaveChangesAsync();
+            return service.Id;
         }
 
         public void Update(VetServiceModel service)

@@ -7,9 +7,9 @@ namespace ApiPetShop.Migrations
     /// <inheritdoc />
     public partial class AddVacineData : Migration
     {
-        private readonly string[] Vacines = { "Vacina Felv", "Vacina Giárdia", "Vacina Gripe Canina", "Vacina Gripe Oral", "Vacina Leptospirose",
-                                                "Vacina Múltipla Cães (V10)", "Vacina Múltipla Cães (V7)", "Vacina Múltipla Cães (V3)", "Vacina Múltipla Cães (V4)",
-                                                "Vacina Múltipla Cães (V5)", "Vacina Raiva"};
+        private readonly string[] Vacines = { "Felv", "Giárdia", "Gripe Canina", "Gripe Oral", "Leptospirose",
+                                                "Múltipla Cães (V10)", "Múltipla Cães (V7)", "Múltipla Cães (V3)", "Múltipla Cães (V4)",
+                                                "Múltipla Cães (V5)", "Raiva"};
 
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

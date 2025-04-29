@@ -15,9 +15,9 @@ namespace ApiPetShop.Controllers
             {
                 var userDatabase = await userService.GetUserByEmail(login.Email);
 
-                if (userDatabase.Id == 0) return NotFound("Email ou senha inválidos");
+                if (userDatabase.Id == 0) return NotFound(new{message = "Email ou senha inválidos"});
                 if (login.Password != cryptoService.Decrypt(userDatabase.Password))
-                    return Unauthorized("Email ou senha inválidos");
+                    return Unauthorized(new{message = "Email ou senha inválidos"});
                 
                 tokenService.RevokeToken(userDatabase.Id);
 
@@ -33,7 +33,7 @@ namespace ApiPetShop.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new{message = ex.Message});
             }
         }
 
@@ -63,7 +63,7 @@ namespace ApiPetShop.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new {message = ex.Message});
             }
         }
 
@@ -87,7 +87,7 @@ namespace ApiPetShop.Controllers
             try
             {
                 var userVerify = await userService.GetUserByEmail(nUser.Email);
-                if (userVerify.Id != 0) return Unauthorized(new { error = "Email já cadastrado" });
+                if (userVerify.Id != 0) return Unauthorized("Email já cadastrado");
 
                 await userService.CreateUser(nUser);
                 return Ok();

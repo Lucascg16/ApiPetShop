@@ -30,7 +30,7 @@ namespace ApiPetShop.Infra.Configurations
                 .IsRequired()
                 .HasDefaultValue(0);
 
-            builder.Property(x => x.Type)
+            builder.Property(x => x.PetType)
                 .IsRequired()
                 .HasConversion<int>();
 
@@ -49,7 +49,6 @@ namespace ApiPetShop.Infra.Configurations
             builder.Property(x => x.IsDeleted);
             builder.Property(x => x.CreatedDate).HasColumnType("dateTime");
             builder.Property(x => x.UpdatedDate).HasColumnType("dateTime");
-
         }
     }
 }
