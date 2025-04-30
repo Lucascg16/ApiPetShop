@@ -9,7 +9,7 @@ import { PetserviceModel } from '../../../Model/Petservice.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Helper } from '../../../Shared/helper';
 import { IBaseModal } from '../../../Shared/base-form/base-modal-Interface';
-import { FormServices } from '../form.service';
+import { ApiServices } from '../../../Services/petShopApi.service';
 
 @Component({
   selector: 'app-petform',
@@ -35,7 +35,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   petsize = PetSizeEnum;
   schedulerTimes: string[];
 
-  constructor(public bsModalRef: BsModalRef, private services: FormServices, private formbuilder: FormBuilder) {
+  constructor(public bsModalRef: BsModalRef, private services: ApiServices, private formbuilder: FormBuilder) {
     super();
 
     this.form = formbuilder.group({

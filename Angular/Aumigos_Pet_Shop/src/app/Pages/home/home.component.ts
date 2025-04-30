@@ -1,10 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { Helper } from '../../Shared/helper';
-import { HttpClient } from '@angular/common/http';
-import { catchError, of, Subscription, tap } from 'rxjs';
-import { CompanyModel } from '../../Model/CompanyModel.model';;
-
+import { Subscription } from 'rxjs';
+import { CompanyModel } from '../../Model/CompanyModel.model'; import { ApiServices } from '../../Services/petShopApi.service';
+import { AuthenticationService } from '../../Services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -13,35 +12,39 @@ import { CompanyModel } from '../../Model/CompanyModel.model';;
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit, OnDestroy{
-    companie: CompanyModel;
-    private subs: Subscription[] = [];
-  
-  
-  constructor(private http: HttpClient, private router: Router) { }
+export class HomeComponent implements OnInit, OnDestroy {
+  companie: CompanyModel;
+  loged: boolean = false;
+  private subs: Subscription[] = [];
+
+  constructor(private apiservices: ApiServices, private router: Router, private auth: AuthenticationService) { }
 
   toggleActive(event: MouseEvent) {
     Helper.selectActiveHandler(event);
   }
 
   ngOnInit(): void {
+    this.subs.push(this.auth.loged$.subscribe(v => this.loged = v));
+
+    try {
       this.subs.push(
-        this.http.get<CompanyModel>("api/v1/company")
-        .pipe(
-          tap(res =>  this.companie = res),
-          catchError(err => {
-            console.error(err);
-            return of(null);
-          })
-        ).subscribe()
+        this.apiservices.get<CompanyModel>("api/v1/company").subscribe(res => this.companie = res)
       );
     }
+    catch (err) {
+      console.error(err);
+    }
+  }
 
-    navigateTo(url: string){
-      this.router.navigate([url])
-    }
-  
-    ngOnDestroy(): void {
-      this.subs.forEach(sub => sub.unsubscribe());
-    }
+  navigateTo(url: string) {
+    this.router.navigate([url])
+  }
+
+  logOut() {
+    this.auth.logout();
+  }
+
+  ngOnDestroy(): void {
+    this.subs.forEach(sub => sub.unsubscribe());
+  }
 }

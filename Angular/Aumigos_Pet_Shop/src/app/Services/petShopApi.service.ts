@@ -5,7 +5,7 @@ import { firstValueFrom, Observable } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
-export class FormServices {
+export class ApiServices {
     constructor(private http: HttpClient) { }
 
     get<T>(url: string): Observable<T> {
