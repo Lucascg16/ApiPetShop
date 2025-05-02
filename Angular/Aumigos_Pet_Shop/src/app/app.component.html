@@ -13,7 +13,9 @@
                             {{user.firstName}}
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Alterar Senha</a></li>
+                            @if( user.role === 1){
+                                <li><a class="dropdown-item" href="#">Gerenciar Usuários</a></li>
+                            }
                             <li><a class="dropdown-item" href="#">Configurações</a></li>
                             <li><a class="dropdown-item" (click)="logOut()">Logout</a></li>
                         </ul>

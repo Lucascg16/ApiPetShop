@@ -24,3 +24,7 @@
         height: 150px;
     }
 }
+
+.btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+    border: none;
+}
