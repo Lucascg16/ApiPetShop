@@ -114,16 +114,23 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
     if (this.id !== 0) {
       this.loading = true;
 
-      this.subList.push(
-        this.services.get<VetServiceModel>(`api/v1/vetservices?id=${this.id}`)
-          .subscribe(res => {
-            let sched = new Date(res.scheduledDate);
-            this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
-            this.populateFormFields(res);
-            this.selectServiceVacines(res.vacines);
-            this.loading = false;
-          })
-      );
+      try {
+        this.subList.push(
+          this.services.get<VetServiceModel>(`api/v1/vetservices?id=${this.id}`)
+            .subscribe(res => {
+              let sched = new Date(res.scheduledDate);
+              this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
+              this.populateFormFields(res);
+              this.selectServiceVacines(res.vacines);
+              this.loading = false;
+            }
+            )
+        );
+      }
+      catch (err) {
+        console.error(err);
+        this.loading = false;
+      }
     }
   }
 

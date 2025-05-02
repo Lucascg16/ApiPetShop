@@ -14,7 +14,7 @@
                         </button>
                         <ul class="dropdown-menu">
                             @if( user.role === 1){
-                                <li><a class="dropdown-item" href="#">Gerenciar Usuários</a></li>
+                                <li><a class="dropdown-item" routerLink="/user">Gerenciar Usuários</a></li>
                             }
                             <li><a class="dropdown-item" href="#">Configurações</a></li>
                             <li><a class="dropdown-item" (click)="logOut()">Logout</a></li>

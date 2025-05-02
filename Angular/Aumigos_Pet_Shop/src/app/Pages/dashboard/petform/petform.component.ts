@@ -61,13 +61,20 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
 
     if (this.id !== 0) {
       this.loading = true;
-      this.subList.push(this.services.get<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
-        let sched = new Date(res.scheduledDate);
-        this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
-        this.populateFormFields(res);
+
+      try {
+        this.subList.push(this.services.get<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
+          let sched = new Date(res.scheduledDate);
+          this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
+          this.populateFormFields(res);
+          this.loading = false;
+        })
+        );
+      }
+      catch(err){
+        console.error(err);
         this.loading = false;
-      })
-      );
+      }
     }
   }
 
@@ -83,23 +90,23 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     modelbody.phoneNumber = modelbody.phoneNumber?.replace("(", "").replace(")", "").replaceAll(" ", "").replace("-", "");
 
     console.log(modelbody.scheduledDate);
-    
-    try{
-      if(modelbody.id === 0){
+
+    try {
+      if (modelbody.id === 0) {
         await this.services.post("api/v1/petservice", modelbody);
-      }else{
+      } else {
         await this.services.patch("api/v1/petservice", modelbody);
       }
       this.sending = false;
-      this.alertMsg = {message: "Agendamento salvo com sucesso", isSuccess: true};
+      this.alertMsg = { message: "Agendamento salvo com sucesso", isSuccess: true };
 
       setTimeout(() => {
         window.location.reload()
       }, 1000);
-    }catch (error){
+    } catch (error) {
       this.sending = false;
       console.error(error);
-      this.alertMsg = {message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
+      this.alertMsg = { message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
     }
   }
 

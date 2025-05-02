@@ -1,0 +1,50 @@
+.dashboard{
+    height: 100%;
+    position: relative;
+}
+.head-bar{
+    background-color: #720C68;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px 1px;
+}
+
+th, td {
+    border: none;
+    padding: 10px;
+    text-align: center;
+}
+td{
+    background-color: #EFEFEF;
+    box-shadow: 0px 1px 0px black;
+}
+td:first-child{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+td:last-child{
+    background-color: #EFEFEF;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.input-wrapper{
+    background: #EFEFEF;
+    padding: 8px 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 10px;
+}
+
+.input-wrapper input{
+    background-color: transparent;
+    border: none;
+}
+
+.form-control{
+    box-shadow: none;
+}

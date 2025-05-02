@@ -1,0 +1,36 @@
+.modal-body{
+    padding: 20px 30px;
+}
+
+.user-title {
+    color: #890a78;
+}
+
+
+.form-select {
+    box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    height: 3rem;
+}
+
+option {
+    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.select-opt{
+    box-shadow: none;
+    border-radius: 0;
+}
+
+select:focus {
+    border: 1px solid;
+    border-color: #890a78;
+}
+
+.form-text {
+    font-weight: 580;
+    font-size: 12pt;
+    color: #333333;
+    padding: 0.4rem 0.4rem;
+}

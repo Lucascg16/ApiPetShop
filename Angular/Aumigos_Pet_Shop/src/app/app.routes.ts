@@ -5,6 +5,7 @@ import { ErrorComponent } from './Pages/error/error.component';
 import { authGuard } from './guards/auth.guard';
 import { ForgotPasswordComponent } from './Pages/passwordPages/forgot-password/forgot-password.component';
 import { ResetpasswordComponent } from './Pages/passwordPages/resetpassword/resetpassword.component';
+import { UserComponent } from './Pages/user/user.component';
 
 export const routes: Routes = [
     {
@@ -12,7 +13,9 @@ export const routes: Routes = [
         loadChildren: () => import('./Pages/home/home.routes').then(r => r.homeRoutes)
     },
     { path: 'login', component: LoginComponent },
+    { path: 'Login', component: LoginComponent },
     { path: 'dashboard', component: DashboardComponent, canActivate: [authGuard] },
+    { path: 'user', component: UserComponent, canActivate: [authGuard]},
     { path: 'forgot', component: ForgotPasswordComponent },
     { path: 'reset', component: ResetpasswordComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' },
