@@ -41,7 +41,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateUserModel nUser)
+        public async Task<IActionResult> Create([FromBody] CreateOrUpdateUserModel nUser)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Update([FromBody] UpdateUserModel user)
+        public IActionResult Update([FromBody] CreateOrUpdateUserModel user)
         {
             try
             {

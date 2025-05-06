@@ -20,16 +20,21 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private apiservices: ApiServices, private router: Router, private auth: AuthenticationService) { }
 
   toggleActive(event: MouseEvent) {
-    Helper.selectActiveHandler(event);
+    Helper.selectActiveHandler(event.currentTarget as HTMLEmbedElement);
   }
 
   ngOnInit(): void {
+    this.router.navigate(['/home']);
     this.subs.push(this.auth.loged$.subscribe(v => this.loged = v));
 
     try {
       this.subs.push(
         this.apiservices.get<CompanyModel>("api/v1/company").subscribe(res => this.companie = res)
       );
+
+      if(!this.companie.instagramAddress){
+        this.companie.instagramAddress = "#";
+      }
     }
     catch (err) {
       console.error(err);

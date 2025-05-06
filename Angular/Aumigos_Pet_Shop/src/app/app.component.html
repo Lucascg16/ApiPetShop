@@ -14,17 +14,19 @@
                         </button>
                         <ul class="dropdown-menu">
                             @if( user.role === 1){
-                                <li><a class="dropdown-item" routerLink="/user">Gerenciar Usuários</a></li>
+                            <li><a class="dropdown-item" routerLink="/user">Gerenciar Usuários</a></li>
                             }
                             <li><a class="dropdown-item" href="#">Configurações</a></li>
                             <li><a class="dropdown-item" (click)="logOut()">Logout</a></li>
                         </ul>
                     </div>
-                    }
+                    }@else{
+                    <a class="contatc-btn" href="#contact-area">Entre em contato</a>
                     <!-- <a class="login-link d-flex align-items-center" routerLink="/login">
                         <img class="" src="assets/icones_imagens/person_avatar_account_user_icon_191606.svg" width="40" height="40">
                         <span class="px-2">Entrar</span>
                     </a>                 -->
+                    }
                 </div>
             </div>
         </div>

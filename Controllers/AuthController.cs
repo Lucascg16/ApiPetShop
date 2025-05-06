@@ -82,7 +82,7 @@ namespace ApiPetShop.Controllers
         }
         
         [HttpPost("createUser")]
-        public async Task<IActionResult> CreateUser([FromBody] CreateUserModel nUser)
+        public async Task<IActionResult> CreateUser([FromBody] CreateOrUpdateUserModel nUser)
         {
             try
             {

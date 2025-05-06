@@ -4,8 +4,8 @@ namespace ApiPetShop.Infra
 {
     public interface IUserServices
     {
-        Task CreateUser(CreateUserModel nUser);
-        Task UpdateUser(UpdateUserModel user);
+        Task CreateUser(CreateOrUpdateUserModel nUser);
+        Task UpdateUser(CreateOrUpdateUserModel user);
         Task<List<UserDto>> GetAllUsers();
         Task<UserDto> GetUserByIdDto(int id);
         Task<UserModel> GetUserById(int id);

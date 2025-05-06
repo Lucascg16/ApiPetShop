@@ -108,7 +108,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   selectActive(element: MouseEvent) {
-    Helper.selectActiveHandler(element);
+    Helper.selectActiveHandler(element.currentTarget as HTMLEmbedElement);
   }
 
   openPetModal(serviceId: number) {

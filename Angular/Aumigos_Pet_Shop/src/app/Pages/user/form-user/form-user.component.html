@@ -11,7 +11,7 @@
     }
     @else {
     <form [formGroup]="form" (ngSubmit)="onSub()">
-        <h3 class="py-sm-1 text-center user-title">Alterar Usuário</h3>
+        <h3 class="py-sm-1 text-center user-title">Usuário</h3>
         @if(alertmsg){
         <h5 class="text-center" [class.text-success]="alertmsg.isSuccess" [class.text-danger]="!alertmsg.isSuccess">{{
             alertmsg.message }}</h5>
