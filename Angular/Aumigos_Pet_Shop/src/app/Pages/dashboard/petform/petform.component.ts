@@ -89,8 +89,6 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     modelbody.scheduledDate = `${this.date.replaceAll("/", "-")}T${this.form.get("scheduledDate")?.value}:00`;
     modelbody.phoneNumber = modelbody.phoneNumber?.replace("(", "").replace(")", "").replaceAll(" ", "").replace("-", "");
 
-    console.log(modelbody.scheduledDate);
-
     try {
       if (modelbody.id === 0) {
         await this.services.post("api/v1/petservice", modelbody);
@@ -98,7 +96,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
         await this.services.patch("api/v1/petservice", modelbody);
       }
       this.sending = false;
-      this.alertMsg = { message: "Agendamento salvo com sucesso", isSuccess: true };
+      this.alertMsg = { message: "Agendamento salvo com sucesso a página será recarregada", isSuccess: true };
 
       setTimeout(() => {
         window.location.reload()

@@ -1,14 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { debounce, debounceTime, distinctUntilChanged, Subscription, switchMap } from 'rxjs';
 import { ApiServices } from '../../Services/petShopApi.service';
 import { UserModel } from '../../Model/user.model';
 import { UserEnum } from '../../Model/enum/shopEnum.enum';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormUserComponent } from './form-user/form-user.component';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user',
-  imports: [],
+  imports: [ReactiveFormsModule],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -17,11 +18,23 @@ export class UserComponent implements OnInit, OnDestroy {
   users: UserModel[] = [];
   bsModalRef?: BsModalRef;
   loading: boolean = false;
+  searchControl = new FormControl('');
 
   constructor(private apiservice: ApiServices, private bsModalService: BsModalService) { }
 
   ngOnInit(): void {
     this.getUsers();
+
+    this.onsearchUsers();
+  }
+
+  onsearchUsers(){
+    this.searchControl.valueChanges
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap(value => this.apiservice.get<UserModel[]>(`api/v1/users/all?name=${value}`)
+    )).subscribe(res => this.users = res)
   }
 
   getUsers() {

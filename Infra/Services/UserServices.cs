@@ -4,7 +4,7 @@ namespace ApiPetShop.Infra
 {
     public class UserServices(IUserRepository repository, ICryptoService cryptoService, IEmailService emailService) : IUserServices
     {
-        public async Task<List<UserDto>> GetAllUsers() => await repository.GetAllUsers();
+        public async Task<List<UserDto>> GetAllUsers(string? name) => await repository.GetAllUsers(name);
         public async Task<UserDto> GetUserByIdDto(int id) => await repository.GetUserByIdDto(id);
         public async Task<UserModel> GetUserById(int id) => await repository.GetUserById(id);
         public async Task<UserModel> GetUserByEmail(string email) => await repository.GetUserByEmail(email);

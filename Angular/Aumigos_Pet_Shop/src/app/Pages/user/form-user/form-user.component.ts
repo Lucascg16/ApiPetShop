@@ -36,8 +36,32 @@ export class FormUserComponent extends BaseFormComponent implements OnInit, OnDe
     });
   }
 
-  override submit() {
+  override async submit() {
+    this.sending = true;
 
+    let modelbody: UserModel = this.form.value;
+
+    try {
+      if (modelbody.id === 0) {
+        await this.apiservices.post("api/v1/users", modelbody);
+      }
+      else {
+        await this.apiservices.patch("api/v1/users", modelbody)
+      }
+
+      this.sending = false;
+      this.alertmsg = { message: "Usuário salvo com sucesso a página será recarregada", isSuccess: true };
+
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000);
+    }
+    catch (err) {
+      this.sending = false;
+      console.error(err);
+      this.alertmsg = { message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
+
+    }
   }
 
   ngOnInit(): void {

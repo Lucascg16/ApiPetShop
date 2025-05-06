@@ -6,7 +6,7 @@ namespace ApiPetShop.Infra
     {
         Task CreateUser(CreateOrUpdateUserModel nUser);
         Task UpdateUser(CreateOrUpdateUserModel user);
-        Task<List<UserDto>> GetAllUsers();
+        Task<List<UserDto>> GetAllUsers(string? name);
         Task<UserDto> GetUserByIdDto(int id);
         Task<UserModel> GetUserById(int id);
         Task<UserModel> GetUserByEmail(string email);

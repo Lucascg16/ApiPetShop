@@ -90,7 +90,7 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
       }
 
       this.sending = false;
-      this.alertmsg = { message: "Agendamento salvo com sucesso", isSuccess: true };
+      this.alertmsg = { message: "Agendamento salvo com sucesso, a página será recarregada", isSuccess: true };
 
       setTimeout(() => {
         window.location.reload()

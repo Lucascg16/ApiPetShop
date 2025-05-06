@@ -11,13 +11,13 @@ namespace ApiPetShop.Controllers
     public class UserController(IUserServices userServices) : ControllerBase
     {
         [HttpGet("all")]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll(string? name)
         {
             try
             {
-                return Ok(await userServices.GetAllUsers());
+                return Ok(await userServices.GetAllUsers(name));
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -29,12 +29,11 @@ namespace ApiPetShop.Controllers
             try
             {
                 var user = await userServices.GetUserByIdDto(id);
-                if(user.Id == 0)
-                    return NotFound();
+                if (user.Id == 0) return NotFound();
 
                 return Ok(user);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -47,7 +46,7 @@ namespace ApiPetShop.Controllers
             {
                 var userVerify = await userServices.GetUserByEmail(nUser.Email);
 
-                if (userVerify.Id != 0) return Unauthorized(new { error = "Email já cadastrado"});
+                if (userVerify.Id != 0) return Unauthorized(new { error = "Email já cadastrado" });
 
                 await userServices.CreateUser(nUser);
                 return Ok();
@@ -59,14 +58,14 @@ namespace ApiPetShop.Controllers
         }
 
         [HttpPatch]
-        public IActionResult Update([FromBody] CreateOrUpdateUserModel user)
+        public async Task<IActionResult> Update([FromBody] CreateOrUpdateUserModel user)
         {
             try
             {
-                userServices.UpdateUser(user);
+                await userServices.UpdateUser(user);
                 return Ok();
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -86,7 +85,7 @@ namespace ApiPetShop.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        
+
         [AllowAnonymous]
         [HttpPatch("reset")]
         public async Task<IActionResult> ResetPassword([FromBody] ResetPasswordModel model)
