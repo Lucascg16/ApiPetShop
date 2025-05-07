@@ -25,6 +25,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th></th>
                             <th>NOME</th>
                             <th>EMAIL</th>
                             <th>FUNÇÃO</th>
@@ -33,6 +34,7 @@
                     <tbody>
                         @for (user of users; track $index) {
                             <tr>
+                                <td (click)="openDeleteModal(user.id)"><i class="fa-regular fa-trash-can delete-user" style="color: #A2128F;"></i></td>
                                 <td (click)="openFormModal(user.id)">{{user.firstName}} {{user.lastName}}</td>
                                 <td (click)="openFormModal(user.id)">{{user.email}}</td>
                                 <td (click)="openFormModal(user.id)">{{getUserenum(user.role)}}</td>

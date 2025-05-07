@@ -11,7 +11,7 @@ namespace ApiPetShop.Domain
         public async Task<UserModel> GetUserByEmail(string email) => await db.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email == email) ?? new();
 
         public async Task<List<UserDto>> GetAllUsers(string? name){
-            var users = await db.Users.AsNoTracking().ToListAsync();
+            var users = await db.Users.AsNoTracking().Where(u => !u.IsDeleted).ToListAsync();
 
             if(!string.IsNullOrEmpty(name)){
                 users = users.Where(x => x.FirstName.Contains(name, StringComparison.CurrentCultureIgnoreCase)).ToList();

@@ -4,10 +4,11 @@ import { IBaseModal } from '../../../Shared/base-form/base-modal-Interface';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { ApiServices } from '../../../Services/petShopApi.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
 import { UserEnum } from '../../../Model/enum/shopEnum.enum';
 import { UserModel } from '../../../Model/user.model';
+import { sessionModel } from '../../../Model/sessionModel.model';
 
 @Component({
   selector: 'app-form-user',
@@ -23,6 +24,7 @@ export class FormUserComponent extends BaseFormComponent implements OnInit, OnDe
   sending: boolean = false;
 
   userenum = UserEnum;
+  currentuser: sessionModel;
 
   constructor(public bsModalRef: BsModalRef, private apiservices: ApiServices, private formbuilder: FormBuilder) {
     super();
@@ -32,8 +34,34 @@ export class FormUserComponent extends BaseFormComponent implements OnInit, OnDe
       firstName: [null, Validators.required],
       lastName: [null, Validators.required],
       email: [null, [Validators.required, Validators.email]],
-      role: [0, Validators.required]
+      role: new FormControl({ value: 0, disabled: false }, [Validators.required])
     });
+  }
+
+  ngOnInit(): void {
+    this.currentuser = JSON.parse(sessionStorage.getItem('currentUser') as string)
+
+    if (this.id !== 0) {
+      this.loading = true;
+      try {
+        this.sublist.push(
+          this.apiservices.get<UserModel>(`api/v1/users?id=${this.id}`).subscribe(
+            res => {
+              this.pupulateFormFields(res);      
+              this.loading = false;
+            }
+          )
+        )
+      }
+      catch (err) {
+        console.error(err);
+        this.loading = false;
+      }
+    }
+
+    if(this.currentuser.id === this.id){
+      this.form.get('role')?.disable();
+    }    
   }
 
   override async submit() {
@@ -60,27 +88,6 @@ export class FormUserComponent extends BaseFormComponent implements OnInit, OnDe
       this.sending = false;
       console.error(err);
       this.alertmsg = { message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
-
-    }
-  }
-
-  ngOnInit(): void {
-    if (this.id !== 0) {
-      this.loading = true;
-      try {
-        this.sublist.push(
-          this.apiservices.get<UserModel>(`api/v1/users?id=${this.id}`).subscribe(
-            res => {
-              this.pupulateFormFields(res);
-              this.loading = false;
-            }
-          )
-        )
-      }
-      catch (err) {
-        console.error(err);
-        this.loading = false;
-      }
     }
   }
 

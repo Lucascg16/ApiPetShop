@@ -19,4 +19,8 @@ export class ApiServices {
     async patch(url: string, modelBody: any){
         return await firstValueFrom(this.http.patch(url, modelBody));
     }
+
+    async delete(url: string){
+        return await firstValueFrom(this.http.delete(url));
+    }
 }

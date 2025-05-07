@@ -1,11 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { debounce, debounceTime, distinctUntilChanged, Subscription, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, Subscription, switchMap } from 'rxjs';
 import { ApiServices } from '../../Services/petShopApi.service';
 import { UserModel } from '../../Model/user.model';
 import { UserEnum } from '../../Model/enum/shopEnum.enum';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormUserComponent } from './form-user/form-user.component';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { DeleteuserComponent } from './deleteuser/deleteuser.component';
 
 @Component({
   selector: 'app-user',
@@ -18,7 +19,7 @@ export class UserComponent implements OnInit, OnDestroy {
   users: UserModel[] = [];
   bsModalRef?: BsModalRef;
   loading: boolean = false;
-  searchControl = new FormControl('');
+  searchControl = new FormControl();
 
   constructor(private apiservice: ApiServices, private bsModalService: BsModalService) { }
 
@@ -27,15 +28,15 @@ export class UserComponent implements OnInit, OnDestroy {
     this.onsearchUsers();
   }
 
-  onsearchUsers(){
-    let sub = this.searchControl.valueChanges
-    .pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      switchMap(value => this.apiservice.get<UserModel[]>(`api/v1/users/all?name=${value}`)
-    )).subscribe(res => this.users = res)
-
-    sub.unsubscribe();
+  onsearchUsers() {
+    this.sublist.push(this.searchControl.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        switchMap(value => this.apiservice.get<UserModel[]>(`api/v1/users/all?name=${value}`)
+        )
+      ).subscribe(res => this.users = res)
+    )
   }
 
   getUsers() {
@@ -69,12 +70,20 @@ export class UserComponent implements OnInit, OnDestroy {
     }
   }
 
-  openFormModal(userId: number){
+  openFormModal(userId: number) {
     const initialState = {
       id: userId
     }
 
     this.bsModalRef = this.bsModalService.show(FormUserComponent, { initialState: initialState })
+  }
+
+  openDeleteModal(userId: number){
+    const initialState = {
+      id: userId
+    }
+
+    this.bsModalRef = this.bsModalService.show(DeleteuserComponent, { initialState: initialState })
   }
 
   ngOnDestroy(): void {

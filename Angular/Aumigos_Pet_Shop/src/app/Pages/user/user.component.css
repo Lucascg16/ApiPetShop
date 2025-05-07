@@ -22,6 +22,7 @@ td{
     box-shadow: 0px 1px 0px black;
 }
 td:first-child{
+    text-align: center;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
 }
@@ -30,7 +31,6 @@ td:last-child{
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
 }
-
 .input-wrapper{
     background: #EFEFEF;
     padding: 8px 12px;

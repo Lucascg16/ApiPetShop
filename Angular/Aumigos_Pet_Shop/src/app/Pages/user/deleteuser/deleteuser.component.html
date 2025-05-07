@@ -1,0 +1,24 @@
+<div class="modal-body">
+    <div class="d-flex vf justify-content-end">
+        <button type="button" class="btn btn-close" aria-label="close" (click)="closeModal()"></button>
+    </div>
+    <div class="d-grid pt-4 col-md-12">
+        <h3 class="py-sm-1 text-center title">Remover usuário</h3>
+
+        @if(alertmsg){
+        <h5 class="text-center" [class.text-success]="alertmsg.isSuccess" [class.text-danger]="!alertmsg.isSuccess">{{
+            alertmsg.message }}</h5>
+        }
+        @else {
+        <div class="informative-text">
+            <span>Tem certeza que deseja remover este usuário e remover o acesso dele ao sistema?</span>
+        </div>
+        }
+        <button (click)="deleteUser()" class="btn btn-primary">
+            @if(sending){
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            }
+            Remover
+        </button>
+    </div>
+</div>

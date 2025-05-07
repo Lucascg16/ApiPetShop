@@ -1,0 +1,13 @@
+.modal-body{
+    padding: 20px 30px;
+}
+
+.title{
+    color: #890a78;
+}
+
+.informative-text{
+    text-align: center;
+    font-weight: 500;
+    padding: 10px 0;
+}
