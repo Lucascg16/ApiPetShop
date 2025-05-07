@@ -24,17 +24,18 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getUsers();
-
     this.onsearchUsers();
   }
 
   onsearchUsers(){
-    this.searchControl.valueChanges
+    let sub = this.searchControl.valueChanges
     .pipe(
       debounceTime(500),
       distinctUntilChanged(),
       switchMap(value => this.apiservice.get<UserModel[]>(`api/v1/users/all?name=${value}`)
     )).subscribe(res => this.users = res)
+
+    sub.unsubscribe();
   }
 
   getUsers() {
