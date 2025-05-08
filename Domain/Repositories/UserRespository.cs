@@ -6,9 +6,9 @@ namespace ApiPetShop.Domain
 {
     public class UserRespository(DbConnectionContext db, IMapper mapper) : IUserRepository
     {
-        public async Task<UserModel> GetUserById(int id) => await db.Users.FirstOrDefaultAsync(x => x.Id == id) ?? new();
-        public async Task<UserDto> GetUserByIdDto(int id) => mapper.Map<UserDto>(await db.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id)) ?? new();
-        public async Task<UserModel> GetUserByEmail(string email) => await db.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email == email) ?? new();
+        public async Task<UserModel> GetUserById(int id) => await db.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted) ?? new();
+        public async Task<UserDto> GetUserByIdDto(int id) => mapper.Map<UserDto>(await db.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id && !x.IsDeleted)) ?? new();
+        public async Task<UserModel> GetUserByEmail(string email) => await db.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email == email && !x.IsDeleted) ?? new();
 
         public async Task<List<UserDto>> GetAllUsers(string? name){
             var users = await db.Users.AsNoTracking().Where(u => !u.IsDeleted).ToListAsync();

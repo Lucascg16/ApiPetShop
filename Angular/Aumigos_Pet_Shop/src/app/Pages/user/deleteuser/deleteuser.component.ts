@@ -23,7 +23,7 @@ export class DeleteuserComponent implements OnInit, IBaseModal {
     this.currentuser = JSON.parse(sessionStorage.getItem('currentUser') as string)
   }
 
-  deleteUser() {
+  async deleteUser() {
     this.sending = true;
     if(this.currentuser.id === this.id){
       this.alertmsg = { message: "Não é possivel remover você mesmo", isSuccesse: false };
@@ -32,7 +32,7 @@ export class DeleteuserComponent implements OnInit, IBaseModal {
     }
     
     try {
-      this.apiservice.delete("api/v1/users")
+      await this.apiservice.delete("api/v1/users")
 
       this.alertmsg = { message: "Usuário removido com sucesso", isSuccesse: true };
       this.sending = false

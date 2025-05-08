@@ -20,7 +20,7 @@ export class FormUserComponent extends BaseFormComponent implements OnInit, OnDe
   id: number;
   sublist: Subscription[] = [];
   alertmsg: any;
-  loading: boolean = false;
+  loading: boolean = true;
   sending: boolean = false;
 
   userenum = UserEnum;
