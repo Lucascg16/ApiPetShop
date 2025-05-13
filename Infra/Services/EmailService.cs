@@ -35,6 +35,13 @@ public class EmailService(IOptions<EmailModel> emailModel, ICompanyService compa
         await EmailConfig().SendMailAsync(PrepareEmailToSend(userEmail, subject, body));
     }
 
+    public async Task SendCustomEmail(string userEmail, string subject, string msg){
+        if(string.IsNullOrEmpty(userEmail)) throw new("O email não pode estar vazio");
+        if(string.IsNullOrEmpty(subject)) subject = "Comunicação!!!";
+
+        await EmailConfig().SendMailAsync(PrepareEmailToSend(userEmail, subject, msg));
+    }
+
     private SmtpClient EmailConfig()
     {
         return new SmtpClient()
@@ -63,8 +70,17 @@ public class EmailService(IOptions<EmailModel> emailModel, ICompanyService compa
 }
 public class EmailTemplates
 {
-    public static string RedefinirSenha = "Conforme solicitado segue o link para redefinição de senha: <a href='{callBackUrl}'>Clique aqui</a>. <br> Caso não tenha solicitado a troca de senha por favor desconsidere o e-mail";
-    public static string Remember = @"
+    public const string CriarConta = @"
+    Confome solicitado pelo PetShop, sua conta foi criada com acesso ao dashboard 
+    <br>
+    Senha temporária gerada para acessar sua conta: {password}
+    <br>
+    ATENÇÃO: Essa é uma senha temporária, é recomendável que troque assim que possível
+    <br>
+    Não compartilhe sua senha com ninguem 
+    ";
+    public const string RedefinirSenha = "Conforme solicitado segue o link para redefinição de senha: <a href='{callBackUrl}'>Clique aqui</a>. <br> Caso não tenha solicitado a troca de senha por favor desconsidere o e-mail";
+    public const string Remember = @"
     <h1>Olá {custumer}!</h1>
     <h3>Só passando para lembrar que {type} do seu pet está agendada para:</h3>
     <p>📅 Data: {date}</p>
@@ -73,5 +89,5 @@ public class EmailTemplates
     <p>📞 Contato: {contact}</p>
     <span>Até lá! 🐶🐱✨</span>
     ";
-    public static string RememberTitle = "✨️Lembrete de agendamento✨";
+    public const string RememberTitle = "✨️Lembrete de agendamento✨";
 }

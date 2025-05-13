@@ -1,12 +1,12 @@
-.form-control{
-    box-shadow: inset  0px 2px 3px rgba(0, 0, 0, 0.2);
+.form-control {
+    box-shadow: inset 0px 2px 3px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
     height: 3rem;
 }
 
 input:focus {
     border: 2px solid;
-    border-color: #890A78;
+    border-color: #890a78;
 }
 
 .form-text {
@@ -18,10 +18,10 @@ input:focus {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
 }
 
-input[type=number] {
-  -moz-appearance: textfield;
+input[type="number"] {
+    -moz-appearance: textfield;
 }

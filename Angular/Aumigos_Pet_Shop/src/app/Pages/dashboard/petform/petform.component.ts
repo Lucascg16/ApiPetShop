@@ -9,7 +9,7 @@ import { PetserviceModel } from '../../../Model/Petservice.model';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Helper } from '../../../Shared/helper';
 import { IBaseModal } from '../../../Shared/base-form/base-modal-Interface';
-import { FormServices } from '../form.service';
+import { ApiServices } from '../../../Services/petShopApi.service';
 
 @Component({
   selector: 'app-petform',
@@ -35,7 +35,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
   petsize = PetSizeEnum;
   schedulerTimes: string[];
 
-  constructor(public bsModalRef: BsModalRef, private services: FormServices, private formbuilder: FormBuilder) {
+  constructor(public bsModalRef: BsModalRef, private services: ApiServices, private formbuilder: FormBuilder) {
     super();
 
     this.form = formbuilder.group({
@@ -61,13 +61,20 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
 
     if (this.id !== 0) {
       this.loading = true;
-      this.subList.push(this.services.get<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
-        let sched = new Date(res.scheduledDate);
-        this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
-        this.populateFormFields(res);
+
+      try {
+        this.subList.push(this.services.get<PetserviceModel>(`api/v1/petservice?id=${this.id}`).subscribe(res => {
+          let sched = new Date(res.scheduledDate);
+          this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
+          this.populateFormFields(res);
+          this.loading = false;
+        })
+        );
+      }
+      catch(err){
+        console.error(err);
         this.loading = false;
-      })
-      );
+      }
     }
   }
 
@@ -82,24 +89,22 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     modelbody.scheduledDate = `${this.date.replaceAll("/", "-")}T${this.form.get("scheduledDate")?.value}:00`;
     modelbody.phoneNumber = modelbody.phoneNumber?.replace("(", "").replace(")", "").replaceAll(" ", "").replace("-", "");
 
-    console.log(modelbody.scheduledDate);
-    
-    try{
-      if(modelbody.id === 0){
+    try {
+      if (modelbody.id === 0) {
         await this.services.post("api/v1/petservice", modelbody);
-      }else{
+      } else {
         await this.services.patch("api/v1/petservice", modelbody);
       }
       this.sending = false;
-      this.alertMsg = {message: "Agendamento salvo com sucesso", isSuccess: true};
+      this.alertMsg = { message: "Agendamento salvo com sucesso a página será recarregada", isSuccess: true };
 
       setTimeout(() => {
         window.location.reload()
       }, 1000);
-    }catch (error){
+    } catch (error) {
       this.sending = false;
       console.error(error);
-      this.alertMsg = {message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
+      this.alertMsg = { message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
     }
   }
 

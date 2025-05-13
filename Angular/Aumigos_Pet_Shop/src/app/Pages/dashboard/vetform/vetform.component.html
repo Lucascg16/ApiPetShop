@@ -12,10 +12,11 @@
     <form [formGroup]="form" (ngSubmit)="onSub()">
         <h3 class="py-sm-1 text-center vet-title">Serviço de Vacina</h3>
         @if(alertmsg){
-            <h5 class="text-center" [class.text-success]="alertmsg.isSuccess" [class.text-danger]="!alertmsg.isSuccess">{{ alertmsg.message }}</h5>
-            }
+        <h5 class="text-center" [class.text-success]="alertmsg.isSuccess" [class.text-danger]="!alertmsg.isSuccess">{{
+            alertmsg.message }}</h5>
+        }
         <div class="row">
-            <div class=" col-md-12">
+            <div class="col-md-12">
                 <app-input-field formControlName="name" id="name" type="text" label="Nome do Tutor"
                     [control]="form.get('name')"></app-input-field>
             </div>
@@ -125,14 +126,16 @@
                 <div class="col text-start">
                     <select class="form-select mult-select" size="7" multiple formControlName="vacines">
                         @for (item of available; track $index) {
-                            <option class="select-opt" (click)="moverParaSelecionados()" [ngValue]="item">{{item.name}}</option>
+                        <option class="select-opt" (click)="moverParaSelecionados()" [ngValue]="item">{{item.name}}
+                        </option>
                         }
                     </select>
                 </div>
                 <div class="col text-start">
                     <select class="form-select mult-select" size="7" multiple formControlName="vacines">
                         @for (item of selected; track $index) {
-                            <option class="select-opt" (click)="moverParaDisponiveis()" [ngValue]="item">{{item.name}}</option>
+                        <option class="select-opt" (click)="moverParaDisponiveis()" [ngValue]="item">{{item.name}}
+                        </option>
                         }
                     </select>
                 </div>

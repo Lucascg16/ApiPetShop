@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { tap } from 'rxjs';
+import { catchError, of, Subscription, tap } from 'rxjs';
 import { sessionModel } from '../Model/sessionModel.model';
 import { ITokenService } from './interface/ITokenService';
 import { tokenReponseModel } from '../Model/tokenResponseModel.model';
@@ -9,11 +9,12 @@ import { tokenReponseModel } from '../Model/tokenResponseModel.model';
 @Injectable({
   providedIn: 'root'
 })
-export class TokenService implements ITokenService {
+export class TokenService implements ITokenService, OnDestroy {
   private JwpHelper = new JwtHelperService();
   private currentUser: sessionModel;
+  private sub: Subscription;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   private VerifyToken(): boolean {
     this.currentUser = JSON.parse(sessionStorage.getItem('currentUser') ?? "");
@@ -23,17 +24,29 @@ export class TokenService implements ITokenService {
   refreshToken(): void {
     let jsonValid = this.VerifyToken();
     
-    let body = {
-      userId: this.currentUser.id,
-      refreshToken: this.currentUser.refreshToken,
-      refreshKey: this.currentUser.refreshKey
-    }
-
     if (jsonValid) {
-      this.httpClient.post<tokenReponseModel>("api/v1/refresh", body).pipe(
+      this.sub = this.httpClient.post<tokenReponseModel>("api/v1/auth/refresh", {
+        userId: this.currentUser.id,
+        refreshToken: this.currentUser.refreshToken,
+        refreshKey: this.currentUser.refreshKey
+      }).pipe(
         tap(
-          response => sessionStorage.setItem('currentUser', JSON.stringify(new sessionModel(this.currentUser.id, this.currentUser.role, response.token, response.refreshToken, response.refreshKey)))
-        ));
+          response => {
+            sessionStorage.setItem('currentUser', JSON.stringify(new sessionModel(this.currentUser.id, this.currentUser.role, response.token, response.refreshToken, response.refreshKey)))
+          }
+        ),
+      catchError(
+        err =>{
+          console.log(err)
+          return of();
+        }  
+      )).subscribe();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if(this.sub){
+      this.sub.unsubscribe();
     }
   }
 }

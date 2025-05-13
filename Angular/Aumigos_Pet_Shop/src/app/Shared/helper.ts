@@ -1,7 +1,7 @@
 export class Helper {
-  static selectActiveHandler(element: MouseEvent) {
+  static selectActiveHandler(element: HTMLEmbedElement) {
     const itens = document.querySelectorAll(".activatable");
-    const target = element.currentTarget as HTMLEmbedElement;
+    const target = element;
     itens.forEach(item => {
       item.classList.remove("active");
     })

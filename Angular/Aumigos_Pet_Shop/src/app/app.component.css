@@ -24,3 +24,16 @@
         height: 150px;
     }
 }
+
+.btn-check:checked + .btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check) + .btn:active {
+    border: none;
+}
+
+.contatc-btn{
+    background-color: #A02E95;
+    border-radius: 20px;
+    padding: 10px 18px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+}

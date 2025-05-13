@@ -1,21 +1,28 @@
-export enum serviceTypeEnum{
+export enum serviceTypeEnum {
     pet,
     vet
 }
 
-export enum PetTypeEnum{
+export enum PetTypeEnum {
     none,
     Dog,
     Cat
 }
 
-export enum PetGenderEnum{
+export enum PetGenderEnum {
     Male,
     Female
 }
 
-export enum PetSizeEnum{
+export enum PetSizeEnum {
     Small,
     Medium,
     Large
+}
+
+export enum UserEnum {
+    None,
+    Admin,
+    Employee,
+    User
 }

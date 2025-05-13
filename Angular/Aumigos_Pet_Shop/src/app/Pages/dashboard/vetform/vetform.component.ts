@@ -5,7 +5,7 @@ import { PetGenderEnum, PetSizeEnum, PetTypeEnum } from '../../../Model/enum/sho
 import { IBaseModal } from '../../../Shared/base-form/base-modal-Interface';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FormServices } from '../form.service';
+import { ApiServices } from '../../../Services/petShopApi.service';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
 import { ErroMsgComponent } from '../../../Shared/erro-msg/erro-msg.component';
 import { vacineModel } from '../../../Model/vacine.model';
@@ -38,7 +38,7 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
   available: vacineModel[] = [];
   selected: vacineModel[] = [];
 
-  constructor(public bsModalRef: BsModalRef, private services: FormServices, private formbuilder: FormBuilder) {
+  constructor(public bsModalRef: BsModalRef, private services: ApiServices, private formbuilder: FormBuilder) {
     super();
 
     this.form = formbuilder.group({
@@ -90,7 +90,7 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
       }
 
       this.sending = false;
-      this.alertmsg = { message: "Agendamento salvo com sucesso", isSuccess: true };
+      this.alertmsg = { message: "Agendamento salvo com sucesso, a página será recarregada", isSuccess: true };
 
       setTimeout(() => {
         window.location.reload()
@@ -114,16 +114,23 @@ export class VetformComponent extends BaseFormComponent implements OnInit, OnDes
     if (this.id !== 0) {
       this.loading = true;
 
-      this.subList.push(
-        this.services.get<VetServiceModel>(`api/v1/vetservices?id=${this.id}`)
-          .subscribe(res => {
-            let sched = new Date(res.scheduledDate);
-            this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
-            this.populateFormFields(res);
-            this.selectServiceVacines(res.vacines);
-            this.loading = false;
-          })
-      );
+      try {
+        this.subList.push(
+          this.services.get<VetServiceModel>(`api/v1/vetservices?id=${this.id}`)
+            .subscribe(res => {
+              let sched = new Date(res.scheduledDate);
+              this.schedulerTimes.push(`${sched.getHours().toString().padStart(2, '0')}:${sched.getMinutes().toString().padStart(2, '0')}`);
+              this.populateFormFields(res);
+              this.selectServiceVacines(res.vacines);
+              this.loading = false;
+            }
+            )
+        );
+      }
+      catch (err) {
+        console.error(err);
+        this.loading = false;
+      }
     }
   }
 

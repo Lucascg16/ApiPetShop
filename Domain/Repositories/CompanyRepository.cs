@@ -25,6 +25,6 @@ public class CompanyRepository(DbConnectionContext db, IMapper mapper) : ICompan
 
     public async Task<CompanyModel> GetCompanyModel()
     {
-        return await db.Companie.AsNoTracking().Include(x => x.Address).FirstOrDefaultAsync() ?? new();
+        return await db.Companie.Include(x => x.Address).FirstOrDefaultAsync() ?? new();
     }
 }

@@ -1,4 +1,5 @@
-﻿using ApiPetShop.Domain.Enum;
+﻿using System.Text;
+using ApiPetShop.Domain.Enum;
 
 namespace ApiPetShop.Domain
 {
@@ -6,31 +7,36 @@ namespace ApiPetShop.Domain
     {
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string Email {  get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public UserRoleEnum Role { get; set; } = UserRoleEnum.None;
 
-        public UserModel(string firstName, string lastName, string email, string password, UserRoleEnum role)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            Password = password;
-            Role = role;
-        }
-
-        public UserModel(CreateUserModel user)
+        public UserModel(CreateOrUpdateUserModel user)
         {
             FirstName = user.FirstName;
             LastName = user.LastName;
             Email = user.Email;
-            Password = user.Password;
             Role = user.Role;
         }
 
-        public UserModel(){ }
+        public UserModel() { }
 
-        public void UpdateUser(UpdateUserModel user)
+        public string GenerateTempPassword()
+        {
+            string validar = "abcdefghijklmnozABCDEFGHIJKLMNOZ1234567890";
+            int passlength = 8;
+            StringBuilder strbld = new(100);
+            Random random = new();
+            
+            while (0 < passlength--)
+            {
+                strbld.Append(validar[random.Next(validar.Length)]);
+            }
+
+            return strbld.ToString();
+        }
+
+        public void UpdateUser(CreateOrUpdateUserModel user)
         {
             FirstName = user.FirstName;
             LastName = user.LastName;

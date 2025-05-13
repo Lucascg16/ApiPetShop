@@ -5,7 +5,7 @@ import { firstValueFrom, Observable } from "rxjs";
 @Injectable({
     providedIn: 'root'
 })
-export class FormServices {
+export class ApiServices {
     constructor(private http: HttpClient) { }
 
     get<T>(url: string): Observable<T> {
@@ -18,5 +18,9 @@ export class FormServices {
 
     async patch(url: string, modelBody: any){
         return await firstValueFrom(this.http.patch(url, modelBody));
+    }
+
+    async delete(url: string){
+        return await firstValueFrom(this.http.delete(url));
     }
 }

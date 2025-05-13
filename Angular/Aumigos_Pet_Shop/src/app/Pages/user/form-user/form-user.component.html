@@ -1,0 +1,52 @@
+<div class="modal-body">
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-close" aria-label="close" (click)="closeModal()"></button>
+    </div>
+    @if(loading){
+    <div class="d-flex justify-content-center m-5">
+        <div class="spinner-border m-5" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    }
+    @else {
+    <form [formGroup]="form" (ngSubmit)="onSub()">
+        <h3 class="py-sm-1 text-center user-title">Usuário</h3>
+        @if(alertmsg){
+        <h5 class="text-center" [class.text-success]="alertmsg.isSuccess" [class.text-danger]="!alertmsg.isSuccess">{{
+            alertmsg.message }}</h5>
+        }
+        <div class="row">
+            <div class="col-md-6">
+                <app-input-field formControlName="firstName" id="firstName" label="Nome"
+                    [control]="form.get('firstName')"></app-input-field>
+            </div>
+            <div class="col-md-6">
+                <app-input-field formControlName="lastName" id="lastName" label="Sobrenome"
+                    [control]="form.get('lastName')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <app-input-field formControlName="email" id="email" label="Email"
+                    [control]="form.get('email')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-text" for="">Função</label>
+                    <select class="form-select" formControlName="role" id="role">
+                        <option [ngValue]="userenum.Admin">Administrador</option>
+                        <option [ngValue]="userenum.Employee">Funcionário</option>
+                    </select>
+                </div>
+            </div>
+            <div class="d-grid pt-4 col-md-12">
+                <button type="submit" class="btn btn-primary">
+                    @if(sending){
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    }
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </form>
+    }
+</div>

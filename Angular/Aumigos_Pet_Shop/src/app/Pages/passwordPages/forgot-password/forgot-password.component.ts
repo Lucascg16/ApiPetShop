@@ -1,9 +1,9 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Subscription, catchError, of, tap  } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
 import { BaseFormComponent } from '../../../Shared/base-form/base-form';
+import { ApiServices } from '../../../Services/petShopApi.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -12,12 +12,12 @@ import { BaseFormComponent } from '../../../Shared/base-form/base-form';
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.css'
 })
-export class ForgotPasswordComponent extends BaseFormComponent implements OnDestroy{
+export class ForgotPasswordComponent extends BaseFormComponent implements OnDestroy {
   httpsub: Subscription;
-  successmsg: string
-  erromsg: string;
+  alertmsg: any;
+  sending: boolean = false;
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient){
+  constructor(private formBuilder: FormBuilder, private apiservice: ApiServices) {
     super();
 
     this.form = this.formBuilder.group({
@@ -26,22 +26,21 @@ export class ForgotPasswordComponent extends BaseFormComponent implements OnDest
   }
 
   override submit() {
-    this.erromsg = "";
-    this.successmsg = "";
-    
-    this.httpsub =  this.http.post(`api/v1/email?userEmail=${this.form.get("email")?.value}`, {})
-    .pipe(
-      tap(res => this.successmsg = "Email enviado com sucesso, verifique a sua caixa de Spam"),
-      catchError(er => {
-        this.erromsg = er.error.error;
-        return of();
-      })
-    )
-    .subscribe();    
+    this.sending = true;
+    try {
+      this.apiservice.post(`api/v1/email?userEmail=${this.form.get("email")?.value}`, {});
+      this.alertmsg = { message: "Email enviado com sucesso, verifique a sua caixa de Spam", isSuccess: true };
+      this.sending = false;
+    }
+    catch (err) {
+      this.alertmsg = { message: "Ocorreu um erro, tente novamente mais tarde", isSuccess: false };
+      console.error(err);
+      this.sending = false;
+    }
   }
 
   ngOnDestroy(): void {
-    if(this.httpsub){
+    if (this.httpsub) {
       this.httpsub.unsubscribe();
     }
   }

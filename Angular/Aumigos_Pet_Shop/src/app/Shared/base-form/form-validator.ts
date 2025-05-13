@@ -5,7 +5,7 @@ export class FormValidator {
     const password = control.value;
 
     if (password && password !== '') {
-      const passwordRule = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[\W_]).{8,}$/;
+      const passwordRule = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{8,}$/;
       return passwordRule.test(password) ? null : { invalidPassword: true };
     }
     return null;
