@@ -3,22 +3,25 @@
 }
 
 .config-card {
+    position: relative;
     width: 400px;
     height: 200px;
     background-color: #f8f9fa;
     border-radius: 10px;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.3);
     padding: 38px 30px;
     text-align: center;
     border-left: solid #720c68;
 }
-.card-tag{    
-    position: relative;
+.config-card::before{
+    position: absolute;
+    content: "";
     width: 15px;
     height: 45px;
-    background-color: #720C68;
-    top: 10px;
-    left: -50px;
+    background: linear-gradient(#720c68, #a2128f);
+    top: 20px;
+    left: -15px;
+    border-radius: 5px;
 }
 .icon {
     font-size: 30px;
