@@ -9,7 +9,7 @@
     background-color: #f8f9fa;
     border-radius: 10px;
     box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.3);
-    padding: 38px 30px;
+    padding: 30px 30px;
     text-align: center;
     border-left: solid #720c68;
 }
@@ -25,6 +25,7 @@
 }
 .icon {
     font-size: 30px;
+    justify-content: center;
 }
 .title {
     align-content: center;

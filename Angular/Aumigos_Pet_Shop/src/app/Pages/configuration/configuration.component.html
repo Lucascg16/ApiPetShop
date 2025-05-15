@@ -8,25 +8,31 @@
 </div>
 <div class="container">
     <div class="row justify-content-between">
-        <div class="row config-card mt-5">
+        <div class="col-md-4 config-card mt-5">
             <div class="d-grid">
-                <i class="fa-solid fa-lock fa-2xl icon" style="color: #760D6C;"></i>
+                <div class="icon">
+                    <img class="icon" src="assets/icones_imagens/password-lock.svg" alt="Cadiado de indicaçao de senha">
+                </div>
                 <span class="title">Alterar Senha</span>
-                <button class="btn btn-primary">Alterar</button>
+                <button (click)="openPassModal()" class="btn btn-primary">Alterar</button>
             </div>
         </div>
-        <div class="row config-card mt-5">
+        <div class="col-md-4 config-card mt-5">
             <div class="d-grid">
-                <i class="fa-solid fa-lock fa-2xl icon" style="color: #760D6C;"></i>
-                <span class="title">Alterar Senha</span>
-                <button class="btn btn-primary">Alterar</button>
+                <div class="icon">
+                    <img src="assets/icones_imagens/enterprise.svg" alt="Prédio de indicaçao de empresa">
+                </div>
+                <span class="title">Dados da empresa</span>
+                <button (click)="openEnterpriseModal()" class="btn btn-primary">Ver/Alterar</button>
             </div>
         </div>
-        <div class="row config-card mt-5">
+        <div class="col-md-4 config-card mt-5">
             <div class="d-grid">
-                <i class="fa-solid fa-lock fa-2xl icon" style="color: #760D6C;"></i>
-                <span class="title">Alterar Senha</span>
-                <button class="btn btn-primary">Alterar</button>
+                <div class="icon">
+                    <img src="assets/icones_imagens/letter-opened.svg" alt="Carta aberta indicando mensagem">
+                </div>
+                <span class="title">Mensagem e Lembretes</span>
+                <button class="btn btn-primary">Configurar</button>
             </div>
         </div>
     </div>

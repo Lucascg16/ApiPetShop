@@ -1,0 +1,61 @@
+<div class="modal-body">
+    <div class="d-flex justify-content-end">
+        <button type="button" class="btn btn-close" aria-label="close" (click)="closeModal()"></button>
+    </div>
+    @if(loading){
+    <div class="d-flex justify-content-center m-5">
+        <div class="spinner-border m-5" role="status">
+            <span class="sr-only">Loaging...</span>
+        </div>
+    </div>
+    }@else{
+    <form [formGroup]="form" (ngSubmit)="onSub()">
+        <h3 class="py-ms-1 text-center title">Dados da empresa</h3>
+        @if(alertmsg){
+        <h5 class="text-center" [class.text-success]="alertmsg.isSuccess" [class.text-danger]="!alertmsg.isSuccess">{{
+            alertmsg.message }}</h5>
+        }
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <app-input-field formControlName="name" placeHolder="Nome da empresa" id="name" label="Nome"
+                    [control]="form.get('name')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <app-input-field formControlName="email" placeHolder="Email de contato" id="email" label="Email"
+                    [control]="form.get('email')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <app-input-field formControlName="phoneNumber" placeHolder="Telefone de contato" id="phoneNumber"
+                    label="Numero de telefone" [control]="form.get('phoneNumber')"></app-input-field>
+            </div>
+            <div class="col-md-12">
+                <app-input-field formControlName="instagramAddress" placeHolder="Link do Instagram"
+                    id="instagramAddress" label="Instagram" [control]="form.get('instagramAddress')"></app-input-field>
+            </div>
+            <div formGroupName="address" class="row addr">
+                <h6 class="text-center">Endereço do Petshop</h6>
+                <div class="col-md-12">
+                    <app-input-field formControlName="street" placeHolder="Rua" id="street" label="Rua"
+                        [control]="form.get('address.street')"></app-input-field>
+                </div>
+                <div class="col-md-6">
+                    <app-input-field formControlName="city" placeHolder="Cidade" id="city" label="Cidade"
+                        [control]="form.get('address.city')"></app-input-field>
+                </div>
+                <div class="col-md-6">
+                    <app-input-field formControlName="state" placeHolder="Estado" id="state" label="Estado"
+                        [control]="form.get('address.state')"></app-input-field>
+                </div>
+                <div class="col-md-6">
+                    <app-input-field formControlName="neighborhood" placeHolder="Bairro" id="neighborhood"
+                        label="Bairro" [control]="form.get('address.neighborhood')"></app-input-field>
+                </div>
+                <div class="col-md-6">
+                    <app-input-field formControlName="zipCode" placeHolder="CEP" id="zipCode" label="CEP"
+                        [control]="form.get('address.zipCode')"></app-input-field>
+                </div>
+            </div>
+        </div>
+    </form>
+    }
+</div>
