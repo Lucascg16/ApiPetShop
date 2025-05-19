@@ -55,6 +55,14 @@
                         [control]="form.get('address.zipCode')"></app-input-field>
                 </div>
             </div>
+            <div class="d-grid py-sm-4 col-md-12">
+                <button type="submit" class="btn btn-primary">
+                    @if(sending){
+                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                    }
+                    Salvar
+                </button>
+            </div>
         </div>
     </form>
     }

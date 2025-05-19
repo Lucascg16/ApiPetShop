@@ -104,7 +104,7 @@ export class PetformComponent extends BaseFormComponent implements OnDestroy, On
     } catch (error) {
       this.sending = false;
       console.error(error);
-      this.alertMsg = { message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccesse: false };
+      this.alertMsg = { message: "Ocorreu algum erro, tente novamente mais tarde ou contate um administrador", isSuccess: false };
     }
   }
 

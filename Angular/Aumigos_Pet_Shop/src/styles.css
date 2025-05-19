@@ -41,6 +41,10 @@ body {
     background-color: #720c68 !important;
     border-color: #720c68 !important;
 }
+.btn-primary:focus-visible{
+    background-color: #720c68 !important;
+    border-color: #720c68 !important;
+}
 
 button:disabled{
     background-color: #890a78 !important;

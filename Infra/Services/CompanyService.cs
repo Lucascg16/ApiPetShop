@@ -13,7 +13,7 @@ public class CompanyService(ICompanyRepository repository, IAddressRepository ad
         var company = new CompanyModel(nCompany.Name, nCompany.ContactEmail, addrId, nCompany.PhoneNumber, nCompany.InstagramAddress);
         await repository.CreateCompany(company);   
     }
-
+      
     public async Task Update(CreateOrUpdateCompanyModel nCompany)
     {
         if(nCompany.Id == 0) throw new("A empresa não existe, criar será necessário");
