@@ -7,7 +7,7 @@ public class NotificationJob(IServiceProvider serviceProvider) : BackgroundServi
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while(!stoppingToken.IsCancellationRequested)
+        while (!stoppingToken.IsCancellationRequested)
         {
             var now = DateTime.UtcNow;
             if (now is { Hour: 8, Minute: 0 })
@@ -23,7 +23,7 @@ public class NotificationJob(IServiceProvider serviceProvider) : BackgroundServi
         using var scope = serviceProvider.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<DbConnectionContext>();
         var emailService = scope.ServiceProvider.GetRequiredService<IEmailService>();
-        
+
         await SendToVetCustumers(db, emailService);
         await SendToPetCustumers(db, emailService);
     }
@@ -38,16 +38,16 @@ public class NotificationJob(IServiceProvider serviceProvider) : BackgroundServi
             if (!string.IsNullOrEmpty(customer.Email))
                 await emailService.SendRememberEmail(customer.Email, customer.Name, customer.ScheduledDate, TypeServiceEnum.Vet);
 
-            if (string.IsNullOrEmpty(customer.PhoneNumber)) 
-                continue;
-            
-            //Todo: Desenvolver o envio de sms
-
-            if (customer.IsWhatsApp)
+            if (!string.IsNullOrEmpty(customer.PhoneNumber))
             {
-                //Todo: Desenvolver o envio de wpp
+                //Todo: Desenvolver o envio de sms
+
+                if (customer.IsWhatsApp)
+                {
+                    //Todo: Desenvolver o envio de wpp
+                }
             }
-        }   
+        }
     }
 
     private static async Task SendToPetCustumers(DbConnectionContext db, IEmailService emailService)
@@ -60,14 +60,15 @@ public class NotificationJob(IServiceProvider serviceProvider) : BackgroundServi
             if (!string.IsNullOrEmpty(customer.Email))
                 await emailService.SendRememberEmail(customer.Email, customer.Name, customer.ScheduledDate, TypeServiceEnum.Pet);
 
-            if (string.IsNullOrEmpty(customer.PhoneNumber)) 
-                continue;
-            
-            //Todo: Desenvolver o envio de sms
-
-            if (customer.IsWhatsApp)
+            if (string.IsNullOrEmpty(customer.PhoneNumber))
             {
-                //Todo: Desenvolver o envio de wpp
+                //Todo: Desenvolver o envio de sms
+
+                if (customer.IsWhatsApp)
+                {
+                    //Todo: Desenvolver o envio de wpp
+                }
+
             }
         }
     }

@@ -15,6 +15,7 @@ namespace ApiPetShop.Infra
         public DbSet<TokenModel> Tokens { get; set; } = null!;
         public DbSet<CompanyModel> Companie { get; set; } = null!;
         public DbSet<AddressModel> Addresses { get; set; } = null!;
+        public DbSet<CustumerModel> Custumers { get; set; } = null!;
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
