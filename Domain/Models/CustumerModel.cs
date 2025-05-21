@@ -8,6 +8,8 @@ namespace ApiPetShop.Domain
         {
             Email = email;
         }
+        
+        public CustumerModel() { }
 
         public void RemoveCustumerFromList()
         {
