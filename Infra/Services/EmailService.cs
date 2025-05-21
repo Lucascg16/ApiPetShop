@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace ApiPetShop.Infra;
 
-public class EmailService(IOptions<EmailModel> emailModel, ICompanyService company, ICustumerService custumerService, UrlService urlService) : IEmailService
+public class EmailService(IOptions<EmailModel> emailModel, ICompanyService company, ICustumerService custumerService) : IEmailService
 {
     private readonly EmailModel _emailModel = emailModel.Value;
 
@@ -41,10 +41,16 @@ public class EmailService(IOptions<EmailModel> emailModel, ICompanyService compa
         var custumers = await custumerService.GetAll();
 
         foreach (var custumer in custumers)
-        { 
+        {
             await EmailConfig().SendMailAsync(PrepareEmailToSend(custumer.Email, subject, msg + EmailTemplates.UnsubSufix.Replace("urlSite", $"{_emailModel.WebAddress}")));//Todo: adicionar o caminho
             //não deve funcionar assim, a não ser que vc queira cair em uma black list.
         }
+    }
+
+    public async Task SendCreateUserEmail(string email, string subject, string msg)
+    {
+        if (string.IsNullOrEmpty(email)) throw new("O Email deve está preenchido");
+        await EmailConfig().SendMailAsync(PrepareEmailToSend(email, subject, msg));
     }
 
     private SmtpClient EmailConfig()
