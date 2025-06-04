@@ -15,7 +15,7 @@ namespace ApiPetShop.Infra
 
             UserModel user = new(nUser);
             user.Password = user.GenerateTempPassword();
-            await emailService.SendCustomEmail(user.Email, "Criação de conta", EmailTemplates.CriarConta.Replace("{password}", $"{user.Password}"));
+            await emailService.SendCreateUserEmail(user.Email, "Criação de conta", EmailTemplates.CriarConta.Replace("{password}", $"{user.Password}"));
 
             user.Password = cryptoService.Encrypt(user.Password);
             await repository.CreateUser(user);

@@ -1,0 +1,36 @@
+.head-bar {
+    background-color: #720c68;
+}
+
+.config-card {
+    position: relative;
+    width: 400px;
+    height: 200px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 5px 6px 10px rgba(0, 0, 0, 0.3);
+    padding: 30px 30px;
+    text-align: center;
+    border-left: solid #720c68;
+}
+.config-card::before{
+    position: absolute;
+    content: "";
+    width: 15px;
+    height: 45px;
+    background: linear-gradient(#720c68, #a2128f);
+    top: 20px;
+    left: -15px;
+    border-radius: 5px;
+}
+.icon {
+    font-size: 30px;
+    justify-content: center;
+}
+.title {
+    align-content: center;
+    color: #9C118A;
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+}

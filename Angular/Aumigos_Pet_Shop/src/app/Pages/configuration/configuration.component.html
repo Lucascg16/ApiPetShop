@@ -1,1 +1,39 @@
-<p>configuration works!</p>
+<div class="head-bar">
+    <div class="px-5 py-3">
+        <span class="sidebar-btn">
+            <i class="fa-solid fa-gears fa-lg" style="color:  white;"></i>
+        </span>
+        <span class="px-3 text-white">Configurações</span>
+    </div>
+</div>
+<div class="container">
+    <div class="row justify-content-between">
+        <div class="col-md-4 config-card mt-5">
+            <div class="d-grid">
+                <div class="icon">
+                    <img class="icon" src="assets/icones_imagens/password-lock.svg" alt="Cadiado de indicaçao de senha">
+                </div>
+                <span class="title">Alterar Senha</span>
+                <button (click)="openPassModal()" class="btn btn-primary">Alterar</button>
+            </div>
+        </div>
+        <div class="col-md-4 config-card mt-5">
+            <div class="d-grid">
+                <div class="icon">
+                    <img src="assets/icones_imagens/enterprise.svg" alt="Prédio de indicaçao de empresa">
+                </div>
+                <span class="title">Dados da empresa</span>
+                <button (click)="openEnterpriseModal()" class="btn btn-primary">Ver/Alterar</button>
+            </div>
+        </div>
+        <div class="col-md-4 config-card mt-5">
+            <div class="d-grid">
+                <div class="icon">
+                    <img src="assets/icones_imagens/letter-opened.svg" alt="Carta aberta indicando mensagem">
+                </div>
+                <span class="title">Mensagem e Lembretes</span>
+                <button class="btn btn-primary">Configurar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,4 @@
-using ApiPetShop.Domain.Enum;
+using ApiPetShop.Domain.Models;
 using ApiPetShop.Infra;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,12 +27,12 @@ public class EmailController(IEmailService emailService, ITokenService tokenServ
         }
     }
 
-    [HttpPost("remember")]
-    public async Task<IActionResult> SendRememberEmail(string userEmail, TypeServiceEnum type)
+    [HttpPost("custom")]
+    public async Task<IActionResult> SendRememberEmail(CustomEmailModel email)
     {
         try
         {
-            await emailService.SendRememberEmail(userEmail, "Lucas Giacomin", DateTime.UtcNow, type);
+            await emailService.SendCustomEmail(email.Subject, email.Body);
             return Ok();
         }
         catch (Exception ex)

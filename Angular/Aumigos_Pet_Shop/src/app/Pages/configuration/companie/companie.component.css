@@ -1,0 +1,15 @@
+.modal-body{
+    padding: 20px 20px;
+}
+
+.title{
+    color: #890a78;
+}
+
+.addr{
+    background: #f3f3f3;
+    padding: 10px 10px;
+    margin-top: 12px;
+    border-radius: 20px;
+    border: solid 1px rgb(0, 0, 0, 0.1);
+}

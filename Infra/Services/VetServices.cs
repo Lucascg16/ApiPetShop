@@ -2,7 +2,7 @@
 
 namespace ApiPetShop.Infra
 {
-    public class VetServices(IVetRepository repository) : IVetServices
+    public class VetServices(IVetRepository repository, ICustumerService custumerService) : IVetServices
     {
         public async Task<List<VetServiceDto>> GetAllPetServices() => await repository.GetAllPetServices();
         public async Task<VetServiceDto> GetServiceByIdDto(int id) => await repository.GetServiceByIdDto(id);
@@ -11,7 +11,9 @@ namespace ApiPetShop.Infra
 
         public async Task<int> CreateService(CreateOrUpdateVetserviceModel service)
         {
-            if(service.Id != 0) throw new("Erro ao criar o serviço, o Id já existe");
+            if (service.Id != 0) throw new("Erro ao criar o serviço, o Id já existe");
+            if (service.Email != null) await custumerService.Create(service.Email);
+
             return await repository.CreateService(new(service));
         }
 

@@ -1,11 +1,12 @@
-import { Component, model, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseFormComponent } from '../../../Shared/base-form/base-form';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiServices } from '../../../Services/petShopApi.service';
 import { FormValidator } from '../../../Shared/base-form/form-validator';
-import { Subscription } from 'rxjs';
 import { sessionModel } from '../../../Model/sessionModel.model';
 import { InputFieldComponent } from '../../../Shared/input-field/input-field.component';
+import { BsModalRef } from 'ngx-bootstrap/modal';
+import { IBaseModal } from '../../../Shared/base-form/base-modal-Interface';
 
 @Component({
   selector: 'app-updatepassword',
@@ -13,12 +14,12 @@ import { InputFieldComponent } from '../../../Shared/input-field/input-field.com
   templateUrl: './updatepassword.component.html',
   styleUrl: './updatepassword.component.css'
 })
-export class UpdatepasswordComponent extends BaseFormComponent implements OnInit {
+export class UpdatepasswordComponent extends BaseFormComponent implements OnInit, IBaseModal {
   id: number;
   alertmsg: any;
   sending: boolean = false;
 
-  constructor(private formbuilder: FormBuilder, private apiservice: ApiServices) {
+  constructor(private formbuilder: FormBuilder, private apiservice: ApiServices, public bsModalRef: BsModalRef) {
     super()
 
     this.form = formbuilder.group({
@@ -26,6 +27,11 @@ export class UpdatepasswordComponent extends BaseFormComponent implements OnInit
       newPassword: [null, [Validators.required, FormValidator.passwordValidate]],
       confirmNewPassword: [null, [Validators.required, FormValidator.confirmPasswordValidator('newPassword')]]
     });
+  }
+
+  ngOnInit(): void {
+    let currentUser: sessionModel = JSON.parse(sessionStorage.getItem('currentUser') as string)
+    this.id = currentUser.id;
   }
 
   override async submit() {
@@ -49,8 +55,7 @@ export class UpdatepasswordComponent extends BaseFormComponent implements OnInit
     }
   }
 
-  ngOnInit(): void {
-    let currentUser: sessionModel = JSON.parse(sessionStorage.getItem('currentUser') as string)
-    this.id = currentUser.id;
+  closeModal(): void {
+    this.bsModalRef.hide()
   }
 }

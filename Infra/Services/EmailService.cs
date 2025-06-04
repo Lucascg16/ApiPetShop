@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 
 namespace ApiPetShop.Infra;
 
-public class EmailService(IOptions<EmailModel> emailModel, ICompanyService company) : IEmailService
+public class EmailService(IOptions<EmailModel> emailModel, ICompanyService company, ICustumerService custumerService) : IEmailService
 {
     private readonly EmailModel _emailModel = emailModel.Value;
 
@@ -14,14 +14,14 @@ public class EmailService(IOptions<EmailModel> emailModel, ICompanyService compa
     {
         var companie = await company.GetCompany();
         var locale = $"{companie.Address.Street}, {companie.Address.Neighborhood}, {companie.Address.City}, {companie.Address.State},  {companie.Address.ZipCode}";
-        
+
         string body = EmailTemplates.Remember.Replace("{date}", $"{scheduleTime.ToLocalTime()}")
                                             .Replace("{locale}", locale)
                                             .Replace("{custumer}", name)
                                             .Replace("{contact}", companie.PhoneNumber ?? "Não informado")
                                             .Replace("{type}", type == TypeServiceEnum.Vet ? "a vacina" : "o banho/tosa")
                                             .Replace("{petDoc}", type == TypeServiceEnum.Vet ? "<h2>Não esqueça de levar a carteirinha de vacinação! Se precisar reagendar, é só avisar.</h2>" : "");
-        
+
         await EmailConfig().SendMailAsync(PrepareEmailToSend(email, EmailTemplates.RememberTitle, body));//Todo: Analisar fomra de alterar o email conforme o tipo de servico, pensando em criar um servicemodel e fazer a galera herdar dele 
     }
 
@@ -35,11 +35,22 @@ public class EmailService(IOptions<EmailModel> emailModel, ICompanyService compa
         await EmailConfig().SendMailAsync(PrepareEmailToSend(userEmail, subject, body));
     }
 
-    public async Task SendCustomEmail(string userEmail, string subject, string msg){
-        if(string.IsNullOrEmpty(userEmail)) throw new("O email não pode estar vazio");
-        if(string.IsNullOrEmpty(subject)) subject = "Comunicação!!!";
+    public async Task SendCustomEmail(string subject, string msg)
+    {
+        if (string.IsNullOrEmpty(subject)) subject = "Comunicação!!!";
+        var custumers = await custumerService.GetAll();
 
-        await EmailConfig().SendMailAsync(PrepareEmailToSend(userEmail, subject, msg));
+        foreach (var custumer in custumers)
+        {
+            await EmailConfig().SendMailAsync(PrepareEmailToSend(custumer.Email, subject, msg + EmailTemplates.UnsubSufix.Replace("urlSite", $"{_emailModel.WebAddress}")));//Todo: adicionar o caminho
+            //não deve funcionar assim, a não ser que vc queira cair em uma black list.
+        }
+    }
+
+    public async Task SendCreateUserEmail(string email, string subject, string msg)
+    {
+        if (string.IsNullOrEmpty(email)) throw new("O Email deve está preenchido");
+        await EmailConfig().SendMailAsync(PrepareEmailToSend(email, subject, msg));
     }
 
     private SmtpClient EmailConfig()
@@ -56,7 +67,7 @@ public class EmailService(IOptions<EmailModel> emailModel, ICompanyService compa
             )
         };
     }
-    public MailMessage PrepareEmailToSend(string destinationEmail, string subject, string bodyMessage)
+    private MailMessage PrepareEmailToSend(string destinationEmail, string subject, string bodyMessage)
     {
         var email = new MailMessage { };
         email.From = new MailAddress(_emailModel.EmailSender, _emailModel.Sender);
@@ -90,4 +101,8 @@ public class EmailTemplates
     <span>Até lá! 🐶🐱✨</span>
     ";
     public const string RememberTitle = "✨️Lembrete de agendamento✨";
+    public const string UnsubSufix = @"
+    <br><br>
+    Caso não queira receber os nosso proximos emails clique <a ref='{urlSite}'>aqui</a>.
+    ";
 }

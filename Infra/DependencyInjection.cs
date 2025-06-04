@@ -20,7 +20,7 @@ namespace ApiPetShop.Infra
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ICompanyService, CompanyService>();
-            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<ICustumerService, CustumerService>();
             services.Configure<EmailModel>(configuration.GetSection("EmailSettings"));
 
             //Repositories
@@ -30,6 +30,8 @@ namespace ApiPetShop.Infra
             services.AddScoped<IVacineRepository, VacineRepository>();
             services.AddScoped<ITokenRepository, TokenRepository>();
             services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
+            services.AddScoped<ICustumerRepository, CustumerRepository>();
 
             return services;
         }
