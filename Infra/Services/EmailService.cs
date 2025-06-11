@@ -49,7 +49,7 @@ public class EmailService(IOptions<EmailModel> emailModel, ICompanyService compa
 
     public async Task SendCreateUserEmail(string email, string subject, string msg)
     {
-        if (string.IsNullOrEmpty(email)) throw new("O Email deve está preenchido");
+        if (string.IsNullOrEmpty(email)) throw new("O Email deve estar preenchido");
         await EmailConfig().SendMailAsync(PrepareEmailToSend(email, subject, msg));
     }
 
